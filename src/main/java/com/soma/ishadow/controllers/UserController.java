@@ -29,6 +29,13 @@ public class UserController {
         this.userProvider = userProvider;
     }
 
+
+    @GetMapping("/check")
+    public String healthCheck(
+    ) {
+        return "server connection success";
+    }
+
     /**
      * 회원 가입
      * @param parameters

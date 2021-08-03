@@ -1340,3 +1340,162 @@ Using generated security password: 76422a2e-cff1-4d8e-8479-3be755cd2a4b
 2021-08-03 20:46:38.902  INFO 9744 --- [RMI TCP Connection(5)-172.30.1.5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-08-03 20:46:38.902  INFO 9744 --- [RMI TCP Connection(5)-172.30.1.5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-08-03 20:46:38.902  INFO 9744 --- [RMI TCP Connection(5)-172.30.1.5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-08-03 21:48:59.749  INFO 19012 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 19012 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-03 21:48:59.755  INFO 19012 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-03 21:49:02.454  INFO 19012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-03 21:49:02.581  INFO 19012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 2 JPA repository interfaces.
+2021-08-03 21:49:03.440  INFO 19012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-03 21:49:03.456  INFO 19012 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-03 21:49:03.457  INFO 19012 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-03 21:49:03.624  INFO 19012 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-03 21:49:03.625  INFO 19012 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3753 ms
+2021-08-03 21:49:03.833  INFO 19012 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-03 21:49:04.266  INFO 19012 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-03 21:49:04.281  INFO 19012 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-03 21:49:04.927  INFO 19012 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-03 21:49:05.112  INFO 19012 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-03 21:49:05.638  INFO 19012 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-03 21:49:05.993  INFO 19012 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-03 21:49:06.968  INFO 19012 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-03 21:49:07.712  INFO 19012 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-03 21:49:07.738  INFO 19012 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-03 21:49:07.903  WARN 19012 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-03 21:49:09.923  INFO 19012 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-03 21:49:10.017  INFO 19012 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 2deb2b37-3f08-47a4-9469-54cd9cd26c4e
+
+2021-08-03 21:49:10.095  INFO 19012 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3c5d183, org.springframework.security.web.context.SecurityContextPersistenceFilter@386ec37d, org.springframework.security.web.header.HeaderWriterFilter@35e0d91e, org.springframework.security.web.authentication.logout.LogoutFilter@329b4b8b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ca0aa55, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@74ea1cd0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@471b7c9c, org.springframework.security.web.session.SessionManagementFilter@4c140b12, org.springframework.security.web.access.ExceptionTranslationFilter@5295a774]
+2021-08-03 21:49:10.534  INFO 19012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-03 21:49:10.792  INFO 19012 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 12.205 seconds (JVM running for 14.204)
+2021-08-03 21:49:11.291  INFO 19012 --- [RMI TCP Connection(1)-172.30.1.5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-03 21:49:11.291  INFO 19012 --- [RMI TCP Connection(1)-172.30.1.5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-03 21:49:11.307  INFO 19012 --- [RMI TCP Connection(1)-172.30.1.5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-08-03 21:51:20.107  INFO 18224 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 18224 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-03 21:51:20.123  INFO 18224 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-03 21:51:22.750  INFO 18224 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-03 21:51:22.984  INFO 18224 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 205 ms. Found 2 JPA repository interfaces.
+2021-08-03 21:51:23.750  INFO 18224 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-03 21:51:23.750  INFO 18224 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-03 21:51:23.750  INFO 18224 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-03 21:51:23.875  INFO 18224 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-03 21:51:23.875  INFO 18224 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3673 ms
+2021-08-03 21:51:23.968  INFO 18224 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-03 21:51:24.092  INFO 18224 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-03 21:51:24.099  INFO 18224 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-03 21:51:24.235  INFO 18224 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-03 21:51:24.266  INFO 18224 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-03 21:51:24.375  INFO 18224 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-03 21:51:24.502  INFO 18224 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-03 21:51:24.846  INFO 18224 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-03 21:51:25.204  INFO 18224 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-03 21:51:25.220  INFO 18224 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-03 21:51:25.298  WARN 18224 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-03 21:51:26.595  INFO 18224 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-03 21:51:26.686  INFO 18224 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a1228738-2349-4ced-ab32-d31fb6454272
+
+2021-08-03 21:51:26.758  INFO 18224 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b079e81, org.springframework.security.web.context.SecurityContextPersistenceFilter@193f5509, org.springframework.security.web.header.HeaderWriterFilter@65d3e2ba, org.springframework.security.web.authentication.logout.LogoutFilter@33da0fad, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@58c48a23, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14f11a56, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fae388c, org.springframework.security.web.session.SessionManagementFilter@61bfd7da, org.springframework.security.web.access.ExceptionTranslationFilter@520e6089]
+2021-08-03 21:51:27.167  INFO 18224 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-03 21:51:27.231  INFO 18224 --- [http-nio-9000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-03 21:51:27.232  INFO 18224 --- [http-nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-03 21:51:27.236  INFO 18224 --- [http-nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-03 21:51:27.492  INFO 18224 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 8.24 seconds (JVM running for 9.529)
+2021-08-03 21:54:21.391  INFO 19104 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 19104 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-03 21:54:21.397  INFO 19104 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-03 21:54:23.274  INFO 19104 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-03 21:54:23.368  INFO 19104 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 82 ms. Found 2 JPA repository interfaces.
+2021-08-03 21:54:24.024  INFO 19104 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-03 21:54:24.040  INFO 19104 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-03 21:54:24.040  INFO 19104 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-03 21:54:24.180  INFO 19104 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-03 21:54:24.180  INFO 19104 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2686 ms
+2021-08-03 21:54:24.290  INFO 19104 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-03 21:54:24.399  INFO 19104 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-03 21:54:24.415  INFO 19104 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-03 21:54:24.587  INFO 19104 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-03 21:54:24.634  INFO 19104 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-03 21:54:24.774  INFO 19104 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-03 21:54:24.899  INFO 19104 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-03 21:54:25.264  INFO 19104 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-03 21:54:25.595  INFO 19104 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-03 21:54:25.610  INFO 19104 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-03 21:54:25.688  WARN 19104 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-03 21:54:27.085  INFO 19104 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-03 21:54:27.194  INFO 19104 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 1450180d-15b5-4465-8128-22fa22286b19
+
+2021-08-03 21:54:27.272  INFO 19104 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2387e60b, org.springframework.security.web.context.SecurityContextPersistenceFilter@58c48a23, org.springframework.security.web.header.HeaderWriterFilter@136a5572, org.springframework.security.web.authentication.logout.LogoutFilter@1cd4082a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@179e8859, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@759862a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41acf2f1, org.springframework.security.web.session.SessionManagementFilter@193f5509, org.springframework.security.web.access.ExceptionTranslationFilter@59c2bf78]
+2021-08-03 21:54:27.725  INFO 19104 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-03 21:54:28.007  INFO 19104 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 7.898 seconds (JVM running for 11.051)
+2021-08-03 21:54:28.288  INFO 19104 --- [RMI TCP Connection(3)-192.168.1.146] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-03 21:54:28.288  INFO 19104 --- [RMI TCP Connection(3)-192.168.1.146] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-03 21:54:28.288  INFO 19104 --- [RMI TCP Connection(3)-192.168.1.146] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-08-03 22:17:36.297  INFO 18844 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 18844 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-03 22:17:36.303  INFO 18844 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-03 22:17:39.036  INFO 18844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-03 22:17:39.177  INFO 18844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 125 ms. Found 2 JPA repository interfaces.
+2021-08-03 22:17:40.120  INFO 18844 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-03 22:17:40.135  INFO 18844 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-03 22:17:40.135  INFO 18844 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-03 22:17:40.323  INFO 18844 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-03 22:17:40.323  INFO 18844 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3945 ms
+2021-08-03 22:17:40.506  INFO 18844 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-03 22:17:40.725  INFO 18844 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-03 22:17:40.738  INFO 18844 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-03 22:17:40.991  INFO 18844 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-03 22:17:41.089  INFO 18844 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-03 22:17:41.322  INFO 18844 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-03 22:17:41.511  INFO 18844 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-03 22:17:42.097  INFO 18844 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-03 22:17:42.601  INFO 18844 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-03 22:17:42.618  INFO 18844 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-03 22:17:42.744  WARN 18844 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-03 22:17:44.629  INFO 18844 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-03 22:17:44.795  INFO 18844 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 9035b3fc-793f-4ea0-b5ad-7f090623feb5
+
+2021-08-03 22:17:44.917  INFO 18844 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@471b7c9c, org.springframework.security.web.context.SecurityContextPersistenceFilter@10007fdc, org.springframework.security.web.header.HeaderWriterFilter@3204146d, org.springframework.security.web.authentication.logout.LogoutFilter@6124a7c0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51a8aed8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@179e8859, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@39cf7f3c, org.springframework.security.web.session.SessionManagementFilter@d140627, org.springframework.security.web.access.ExceptionTranslationFilter@3e09067]
+2021-08-03 22:17:45.548  INFO 18844 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-03 22:17:45.912  INFO 18844 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 10.512 seconds (JVM running for 12.92)
+2021-08-03 22:17:46.485  INFO 18844 --- [RMI TCP Connection(2)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-03 22:17:46.487  INFO 18844 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-03 22:17:46.490  INFO 18844 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-03 22:21:39.032  INFO 16264 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 16264 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-03 22:21:39.038  INFO 16264 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-03 22:21:42.020  INFO 16264 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-03 22:21:42.205  INFO 16264 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 167 ms. Found 2 JPA repository interfaces.
+2021-08-03 22:21:43.266  INFO 16264 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-03 22:21:43.284  INFO 16264 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-03 22:21:43.286  INFO 16264 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-03 22:21:43.536  INFO 16264 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-03 22:21:43.537  INFO 16264 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4381 ms
+2021-08-03 22:21:43.733  INFO 16264 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-03 22:21:43.927  INFO 16264 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-03 22:21:43.938  INFO 16264 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-03 22:21:44.176  INFO 16264 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-03 22:21:44.260  INFO 16264 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-03 22:21:44.534  INFO 16264 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-03 22:21:44.758  INFO 16264 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-03 22:21:45.384  INFO 16264 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-03 22:21:45.954  INFO 16264 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-03 22:21:45.988  INFO 16264 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-03 22:21:46.148  WARN 16264 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-03 22:21:48.161  INFO 16264 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-03 22:21:48.259  INFO 16264 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-03 22:21:48.361  INFO 16264 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 7cab6d53-3d2a-46e8-a853-fdfb6a523f7f
+
+2021-08-03 22:21:48.482  INFO 16264 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@996126b, org.springframework.security.web.context.SecurityContextPersistenceFilter@6dae5562, org.springframework.security.web.header.HeaderWriterFilter@461c0572, org.springframework.security.web.authentication.logout.LogoutFilter@c4fc610, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4ec28534, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1147ab09, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6d2413e, org.springframework.security.web.session.SessionManagementFilter@1d09fb8e, org.springframework.security.web.access.ExceptionTranslationFilter@3f563397]
+2021-08-03 22:21:49.170  INFO 16264 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-03 22:21:49.172  INFO 16264 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-03 22:21:49.190  INFO 16264 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-03 22:21:49.251  INFO 16264 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-03 22:21:49.597  INFO 16264 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 12.216 seconds (JVM running for 14.093)
+2021-08-03 22:21:50.482  INFO 16264 --- [RMI TCP Connection(2)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-03 22:21:50.485  INFO 16264 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-03 22:21:50.490  INFO 16264 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
