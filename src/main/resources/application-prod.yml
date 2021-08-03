@@ -2,10 +2,8 @@ server:
   port: 9001
 
 spring:
-  profiles:
-    include: credentials
   application:
-    name: ishadow
+    name: ishadow_dev
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
