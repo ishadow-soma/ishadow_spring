@@ -103,3 +103,337 @@ Using generated security password: 6471aed2-3830-4f6f-8a07-da0cce1831d5
 2021-08-04 01:33:40.893  INFO 21696 --- [RMI TCP Connection(7)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-08-04 01:33:40.894  INFO 21696 --- [RMI TCP Connection(7)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-08-04 01:33:40.897  INFO 21696 --- [RMI TCP Connection(7)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-04 01:37:29.910  INFO 13044 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 13044 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 01:37:29.926  INFO 13044 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 01:37:33.983  INFO 13044 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 01:37:34.162  INFO 13044 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 152 ms. Found 2 JPA repository interfaces.
+2021-08-04 01:37:35.528  INFO 13044 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 01:37:35.553  INFO 13044 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 01:37:35.554  INFO 13044 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 01:37:35.849  INFO 13044 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 01:37:35.850  INFO 13044 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5735 ms
+2021-08-04 01:37:36.052  INFO 13044 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 01:37:36.274  INFO 13044 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 01:37:36.282  INFO 13044 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 01:37:36.477  INFO 13044 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 01:37:36.536  INFO 13044 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 01:37:36.699  INFO 13044 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 01:37:36.840  INFO 13044 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 01:37:37.367  INFO 13044 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 01:37:37.742  INFO 13044 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 01:37:37.762  INFO 13044 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 01:37:37.857  WARN 13044 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 01:37:39.107  INFO 13044 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 01:37:39.170  INFO 13044 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 01:37:39.246  INFO 13044 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f156b48d-c42f-4343-94df-b62754eb0b18
+
+2021-08-04 01:37:39.315  INFO 13044 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@79408109, org.springframework.security.web.context.SecurityContextPersistenceFilter@42f9b425, org.springframework.security.web.header.HeaderWriterFilter@5b04224a, org.springframework.security.web.authentication.logout.LogoutFilter@921dbcf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@79de00af, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6a16ee0d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@33671907, org.springframework.security.web.session.SessionManagementFilter@7127f04b, org.springframework.security.web.access.ExceptionTranslationFilter@d319d2c]
+2021-08-04 01:37:39.734  INFO 13044 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 01:37:39.735  INFO 13044 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 01:37:39.745  INFO 13044 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 01:37:39.776  INFO 13044 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 01:37:39.936  INFO 13044 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 12.567 seconds (JVM running for 15.781)
+2021-08-04 01:37:40.230  INFO 13044 --- [RMI TCP Connection(1)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 01:37:40.231  INFO 13044 --- [RMI TCP Connection(1)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 01:37:40.234  INFO 13044 --- [RMI TCP Connection(1)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-04 01:42:10.532  INFO 16116 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 16116 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 01:42:10.536  INFO 16116 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 01:42:12.012  INFO 16116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 01:42:12.100  INFO 16116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 2 JPA repository interfaces.
+2021-08-04 01:42:12.912  INFO 16116 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 01:42:12.929  INFO 16116 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 01:42:12.930  INFO 16116 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 01:42:13.062  INFO 16116 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 01:42:13.062  INFO 16116 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2473 ms
+2021-08-04 01:42:13.219  INFO 16116 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 01:42:13.359  INFO 16116 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 01:42:13.359  INFO 16116 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 01:42:13.547  INFO 16116 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 01:42:13.593  INFO 16116 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 01:42:13.737  INFO 16116 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 01:42:13.870  INFO 16116 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 01:42:14.261  INFO 16116 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 01:42:14.617  INFO 16116 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 01:42:14.627  INFO 16116 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 01:42:14.720  WARN 16116 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 01:42:16.087  INFO 16116 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 01:42:16.150  INFO 16116 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 01:42:16.228  INFO 16116 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 42fb074d-4136-40e8-87c7-29ae05018de8
+
+2021-08-04 01:42:16.306  INFO 16116 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4ec28534, org.springframework.security.web.context.SecurityContextPersistenceFilter@14c1cba6, org.springframework.security.web.header.HeaderWriterFilter@50508ed3, org.springframework.security.web.authentication.logout.LogoutFilter@1d09fb8e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2a4bee4e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@12128849, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@921dbcf, org.springframework.security.web.session.SessionManagementFilter@4290fcd7, org.springframework.security.web.access.ExceptionTranslationFilter@6ccd3cf1]
+2021-08-04 01:42:16.745  INFO 16116 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 01:42:16.747  INFO 16116 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 01:42:16.759  INFO 16116 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 01:42:16.796  INFO 16116 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 01:42:16.987  INFO 16116 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 7.531 seconds (JVM running for 11.716)
+2021-08-04 01:42:17.580  INFO 16116 --- [RMI TCP Connection(1)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 01:42:17.580  INFO 16116 --- [RMI TCP Connection(1)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 01:42:17.596  INFO 16116 --- [RMI TCP Connection(1)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+2021-08-04 01:55:53.675  INFO 21112 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 21112 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 01:55:53.683  INFO 21112 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 01:55:56.960  INFO 21112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 01:55:57.098  INFO 21112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 124 ms. Found 2 JPA repository interfaces.
+2021-08-04 01:55:57.928  INFO 21112 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 01:55:57.943  INFO 21112 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 01:55:57.943  INFO 21112 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 01:55:58.084  INFO 21112 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 01:55:58.084  INFO 21112 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4262 ms
+2021-08-04 01:55:58.193  INFO 21112 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 01:55:58.318  INFO 21112 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 01:55:58.334  INFO 21112 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 01:55:58.490  INFO 21112 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 01:55:58.537  INFO 21112 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 01:55:58.678  INFO 21112 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 01:55:58.822  INFO 21112 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 01:55:59.300  INFO 21112 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 01:55:59.643  INFO 21112 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 01:55:59.659  INFO 21112 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 01:56:01.228  INFO 21112 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 01:56:01.310  INFO 21112 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 01:56:01.508  INFO 21112 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 0a7c66f2-9a6c-45b8-a2b5-f8415ebc3849
+
+2021-08-04 01:56:01.589  INFO 21112 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@53d94a6b, org.springframework.security.web.context.SecurityContextPersistenceFilter@49620576, org.springframework.security.web.header.HeaderWriterFilter@346e76ad, org.springframework.security.web.authentication.logout.LogoutFilter@5c70eda4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@22b581a5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7bbab46e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4707d60a, org.springframework.security.web.session.SessionManagementFilter@301434fb, org.springframework.security.web.access.ExceptionTranslationFilter@7ee0dbd1]
+2021-08-04 01:56:01.676  WARN 21112 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 01:56:01.952  INFO 21112 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 01:56:01.954  INFO 21112 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 01:56:01.967  INFO 21112 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 01:56:02.010  INFO 21112 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 01:56:02.227  INFO 21112 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 10.103 seconds (JVM running for 12.514)
+2021-08-04 01:56:02.735  INFO 21112 --- [RMI TCP Connection(5)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 01:56:02.737  INFO 21112 --- [RMI TCP Connection(5)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 01:56:02.738  INFO 21112 --- [RMI TCP Connection(5)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-08-04 01:56:22.235  WARN 21112 --- [http-nio-9000-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /swagger-ui.html
+2021-08-04 01:56:29.201  WARN 21112 --- [http-nio-9000-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /test/swagger-ui.html
+2021-08-04 01:56:41.153  WARN 21112 --- [http-nio-9000-exec-3] o.s.web.servlet.PageNotFound             : No mapping for GET /swagger-ui.html
+2021-08-04 01:57:08.427  INFO 21112 --- [http-nio-9000-exec-5] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x03,0xbe0xd90xc50x8a0xaeh0x050xb60X0xbc0x8a0x030xb10x1a]0x000xb5$0xad0x110xe6y0xd0*XT0xacM0x8b9 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:269) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-08-04 01:57:08.427  INFO 21112 --- [http-nio-9000-exec-4] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x030xfa$0x1am0xd60x07Zs0x860xe10x89V0xd3ldu_0xa80xe00x8fb0xeb0x120xa70xce0xa00xf7J0xb3KY0x9b ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:269) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-08-04 01:57:48.159  INFO 20840 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 20840 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 01:57:48.159  INFO 20840 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 01:57:52.176  INFO 20840 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 01:57:52.466  INFO 20840 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 268 ms. Found 2 JPA repository interfaces.
+2021-08-04 01:57:56.084  INFO 20840 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 01:57:56.114  INFO 20840 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 01:57:56.115  INFO 20840 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 01:57:56.636  INFO 20840 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 01:57:56.638  INFO 20840 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 8366 ms
+2021-08-04 01:57:56.942  INFO 20840 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 01:57:57.322  INFO 20840 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 01:57:57.340  INFO 20840 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 01:57:58.223  INFO 20840 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 01:57:58.459  INFO 20840 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 01:57:58.974  INFO 20840 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 01:57:59.329  INFO 20840 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 01:58:00.365  INFO 20840 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 01:58:00.928  INFO 20840 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 01:58:00.941  INFO 20840 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 01:58:02.253  INFO 20840 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 01:58:02.326  INFO 20840 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 01:58:02.500  INFO 20840 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 0d74e0f4-f736-4c73-89da-f3163926e7d6
+
+2021-08-04 01:58:02.587  INFO 20840 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@225d93aa, org.springframework.security.web.context.SecurityContextPersistenceFilter@3fe33c59, org.springframework.security.web.header.HeaderWriterFilter@63019596, org.springframework.security.web.authentication.logout.LogoutFilter@34fde3a3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@34e700f4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4eb43d2f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35ef158f, org.springframework.security.web.session.SessionManagementFilter@2f0a29f7, org.springframework.security.web.access.ExceptionTranslationFilter@49620576]
+2021-08-04 01:58:02.672  WARN 20840 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 01:58:02.945  INFO 20840 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 01:58:02.947  INFO 20840 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 01:58:02.958  INFO 20840 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 01:58:02.994  INFO 20840 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 01:58:03.184  INFO 20840 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 16.61 seconds (JVM running for 19.836)
+2021-08-04 01:58:03.430  INFO 20840 --- [RMI TCP Connection(9)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 01:58:03.431  INFO 20840 --- [RMI TCP Connection(9)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 01:58:03.434  INFO 20840 --- [RMI TCP Connection(9)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-08-04 01:58:06.063  INFO 20840 --- [http-nio-9000-exec-2] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x03Yr0xd70x110x8b0xcd0xe0<0xf50xc70xf3c0xf70xc0`0x990xe90x7fm0x050xf90x180xdc0xaf"0x90Z0xee0xb3hf{ ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:269) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-08-04 01:58:06.063  INFO 20840 --- [http-nio-9000-exec-1] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x030xc20x91;0x830x0d0xc2"M0xf10x950xa6 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:269) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-08-04 01:58:49.932  INFO 11240 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 11240 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 01:58:49.948  INFO 11240 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 01:58:53.412  INFO 11240 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 01:58:53.528  INFO 11240 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98 ms. Found 2 JPA repository interfaces.
+2021-08-04 01:58:54.275  INFO 11240 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 01:58:54.285  INFO 11240 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 01:58:54.286  INFO 11240 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 01:58:54.423  INFO 11240 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 01:58:54.424  INFO 11240 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4247 ms
+2021-08-04 01:58:54.542  INFO 11240 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 01:58:54.672  INFO 11240 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 01:58:54.679  INFO 11240 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 01:58:54.856  INFO 11240 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 01:58:54.909  INFO 11240 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 01:58:55.067  INFO 11240 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 01:58:55.189  INFO 11240 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 01:58:55.543  INFO 11240 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 01:58:55.857  INFO 11240 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 01:58:55.873  INFO 11240 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 01:58:55.951  WARN 11240 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 01:58:57.160  INFO 11240 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 01:58:57.227  INFO 11240 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 01:58:57.302  INFO 11240 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 9bfff065-f188-4d17-8edd-a7126e834955
+
+2021-08-04 01:58:57.376  INFO 11240 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@92fa950, org.springframework.security.web.context.SecurityContextPersistenceFilter@78626209, org.springframework.security.web.header.HeaderWriterFilter@6f744b4e, org.springframework.security.web.authentication.logout.LogoutFilter@77d03738, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@996126b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3803bc1a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@31fc1b6e, org.springframework.security.web.session.SessionManagementFilter@c4fc610, org.springframework.security.web.access.ExceptionTranslationFilter@3f16a823]
+2021-08-04 01:58:57.794  INFO 11240 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 01:58:57.795  INFO 11240 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 01:58:57.805  INFO 11240 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 01:58:57.840  INFO 11240 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 01:58:58.026  INFO 11240 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 9.655 seconds (JVM running for 12.222)
+2021-08-04 01:58:58.268  INFO 11240 --- [RMI TCP Connection(2)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 01:58:58.268  INFO 11240 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 01:58:58.268  INFO 11240 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-08-04 01:59:07.277  INFO 11240 --- [http-nio-9000-exec-1] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x030xe2U0xfb0x920x060x1f<I(0xfe0x1a0xd30x000xdd0x070x83N0xe49]0x9d0x1c0xc90xa70xe5|0R3D0xfa0x16 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:269) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-08-04 01:59:07.277  INFO 11240 --- [http-nio-9000-exec-2] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x030xf4R0xfe0x010x180x0a0x9c0x9f0x880xc46Ud0xa1f0x0b0x91"0xcc0x1760xc2?0xc40x1a@0xb90xcd0x050x0a0x94: ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:269) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.50.jar:9.0.50]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-08-04 02:01:38.335  INFO 21412 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 21412 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 02:01:38.341  INFO 21412 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 02:01:40.174  INFO 21412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 02:01:40.278  INFO 21412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 2 JPA repository interfaces.
+2021-08-04 02:01:41.043  INFO 21412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 02:01:41.054  INFO 21412 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 02:01:41.055  INFO 21412 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 02:01:41.211  INFO 21412 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 02:01:41.212  INFO 21412 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2767 ms
+2021-08-04 02:01:41.346  INFO 21412 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 02:01:41.497  INFO 21412 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 02:01:41.506  INFO 21412 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 02:01:41.706  INFO 21412 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 02:01:41.769  INFO 21412 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 02:01:41.938  INFO 21412 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 02:01:42.085  INFO 21412 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 02:01:42.522  INFO 21412 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 02:01:42.888  INFO 21412 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 02:01:42.899  INFO 21412 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 02:01:42.992  WARN 21412 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 02:01:44.240  INFO 21412 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 02:01:44.302  INFO 21412 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 02:01:44.380  INFO 21412 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 00147291-1f37-4982-a96b-449b7a8cc9e0
+
+2021-08-04 02:01:44.458  INFO 21412 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@77954f77, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f563397, org.springframework.security.web.header.HeaderWriterFilter@7127f04b, org.springframework.security.web.authentication.logout.LogoutFilter@272de8ab, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7bb50747, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@753248f8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6529b078, org.springframework.security.web.session.SessionManagementFilter@6a16ee0d, org.springframework.security.web.access.ExceptionTranslationFilter@5a503cf0]
+2021-08-04 02:01:44.900  INFO 21412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 02:01:44.902  INFO 21412 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 02:01:44.915  INFO 21412 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 02:01:44.949  INFO 21412 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 02:01:45.123  INFO 21412 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 8.078 seconds (JVM running for 10.347)
+2021-08-04 02:01:45.391  INFO 21412 --- [RMI TCP Connection(2)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 02:01:45.392  INFO 21412 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 02:01:45.395  INFO 21412 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-04 02:11:35.194  INFO 16892 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 16892 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 02:11:35.201  INFO 16892 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 02:11:38.817  INFO 16892 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 02:11:38.968  INFO 16892 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 135 ms. Found 2 JPA repository interfaces.
+2021-08-04 02:11:39.912  INFO 16892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 02:11:39.924  INFO 16892 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 02:11:39.925  INFO 16892 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 02:11:40.076  INFO 16892 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 02:11:40.077  INFO 16892 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4773 ms
+2021-08-04 02:11:40.210  INFO 16892 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 02:11:40.345  INFO 16892 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 02:11:40.345  INFO 16892 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 02:11:40.644  INFO 16892 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 02:11:40.762  INFO 16892 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 02:11:40.934  INFO 16892 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 02:11:41.081  INFO 16892 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 02:11:41.649  INFO 16892 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 02:11:42.063  INFO 16892 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 02:11:42.077  INFO 16892 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 02:11:42.181  WARN 16892 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 02:11:43.736  INFO 16892 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 02:11:43.925  INFO 16892 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 7bbf1805-584c-4aff-b00a-8cdf2c55c8a8
+
+2021-08-04 02:11:44.011  INFO 16892 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@210e4678, org.springframework.security.web.context.SecurityContextPersistenceFilter@7053b64b, org.springframework.security.web.header.HeaderWriterFilter@56d4481f, org.springframework.security.web.authentication.logout.LogoutFilter@57e9cd2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6eac71db, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e10809f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4548bfc7, org.springframework.security.web.session.SessionManagementFilter@44aaa987, org.springframework.security.web.access.ExceptionTranslationFilter@460a4935]
+2021-08-04 02:11:44.609  INFO 16892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 02:11:45.015  INFO 16892 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 11.221 seconds (JVM running for 14.134)
+2021-08-04 02:11:45.902  INFO 16892 --- [RMI TCP Connection(3)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 02:11:45.903  INFO 16892 --- [RMI TCP Connection(3)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 02:11:45.918  INFO 16892 --- [RMI TCP Connection(3)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms

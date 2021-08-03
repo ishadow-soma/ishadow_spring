@@ -9,13 +9,11 @@ import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
@@ -29,6 +27,7 @@ public class SwaggerConfig {
                 .build();
         List<Parameter> parameterList=new ArrayList<>();
         parameterList.add(ParameterBuilder.build());
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .globalOperationParameters(parameterList)
                 .select()
