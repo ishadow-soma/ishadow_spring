@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ishadow
+  profiles:
+    include: credential
+    active: local
+
