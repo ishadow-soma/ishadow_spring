@@ -468,3 +468,38 @@ Using generated security password: fdba4d54-9a3e-469c-bcc2-43df994afcb8
 2021-08-04 02:26:03.159  INFO 21376 --- [RMI TCP Connection(3)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-08-04 02:26:03.160  INFO 21376 --- [RMI TCP Connection(3)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-08-04 02:26:03.165  INFO 21376 --- [RMI TCP Connection(3)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2021-08-04 02:31:23.272  INFO 5708 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 5708 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-04 02:31:23.288  INFO 5708 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-04 02:31:26.856  INFO 5708 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-04 02:31:27.058  INFO 5708 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 174 ms. Found 2 JPA repository interfaces.
+2021-08-04 02:31:28.246  INFO 5708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-04 02:31:28.264  INFO 5708 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-04 02:31:28.266  INFO 5708 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-04 02:31:28.517  INFO 5708 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-04 02:31:28.518  INFO 5708 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5105 ms
+2021-08-04 02:31:28.669  INFO 5708 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-04 02:31:28.826  INFO 5708 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-04 02:31:28.841  INFO 5708 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-04 02:31:29.044  INFO 5708 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-04 02:31:29.107  INFO 5708 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-04 02:31:29.357  INFO 5708 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-04 02:31:29.591  INFO 5708 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-04 02:31:30.076  INFO 5708 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-04 02:31:30.529  INFO 5708 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-04 02:31:30.560  INFO 5708 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-04 02:31:30.669  WARN 5708 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-04 02:31:32.276  INFO 5708 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-04 02:31:32.369  INFO 5708 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-04 02:31:32.473  INFO 5708 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4531fcbe-795f-44cf-b8e5-4f3cad6a3015
+
+2021-08-04 02:31:32.634  INFO 5708 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d9295e2, org.springframework.security.web.context.SecurityContextPersistenceFilter@2e94655a, org.springframework.security.web.header.HeaderWriterFilter@1444e35f, org.springframework.security.web.authentication.logout.LogoutFilter@5eb4b746, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1ccdbae4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@79408109, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b708c16, org.springframework.security.web.session.SessionManagementFilter@71a509c, org.springframework.security.web.access.ExceptionTranslationFilter@3049dcac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@21139739]
+2021-08-04 02:31:33.171  INFO 5708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-04 02:31:33.172  INFO 5708 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-04 02:31:33.183  INFO 5708 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-04 02:31:33.227  INFO 5708 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-04 02:31:33.478  INFO 5708 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 11.648 seconds (JVM running for 14.338)
+2021-08-04 02:31:33.862  INFO 5708 --- [RMI TCP Connection(5)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-04 02:31:33.863  INFO 5708 --- [RMI TCP Connection(5)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-04 02:31:33.866  INFO 5708 --- [RMI TCP Connection(5)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
