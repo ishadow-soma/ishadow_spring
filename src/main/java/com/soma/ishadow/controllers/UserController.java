@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class UserController {
-
 
     private final UserService userService;
     private final UserProvider userProvider;

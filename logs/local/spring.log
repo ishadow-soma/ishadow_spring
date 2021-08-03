@@ -1499,3 +1499,38 @@ Using generated security password: 7cab6d53-3d2a-46e8-a853-fdfb6a523f7f
 2021-08-03 22:21:50.482  INFO 16264 --- [RMI TCP Connection(2)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-08-03 22:21:50.485  INFO 16264 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-08-03 22:21:50.490  INFO 16264 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2021-08-03 22:33:32.670  INFO 20424 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 20424 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-03 22:33:32.678  INFO 20424 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-03 22:33:34.785  INFO 20424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-03 22:33:34.876  INFO 20424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 2 JPA repository interfaces.
+2021-08-03 22:33:35.571  INFO 20424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-03 22:33:35.582  INFO 20424 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-03 22:33:35.583  INFO 20424 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-03 22:33:35.714  INFO 20424 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-03 22:33:35.714  INFO 20424 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2917 ms
+2021-08-03 22:33:35.839  INFO 20424 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-03 22:33:35.964  INFO 20424 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-03 22:33:35.964  INFO 20424 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-03 22:33:36.136  INFO 20424 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-03 22:33:36.183  INFO 20424 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-03 22:33:36.339  INFO 20424 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-03 22:33:36.467  INFO 20424 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-03 22:33:36.850  INFO 20424 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.soma.ishadow.domains.user.UserConvertor (class must be instantiated by Interceptor)
+2021-08-03 22:33:37.194  INFO 20424 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-03 22:33:37.209  INFO 20424 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-03 22:33:37.303  WARN 20424 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-03 22:33:38.799  INFO 20424 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-03 22:33:38.872  INFO 20424 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-03 22:33:38.974  INFO 20424 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 44134df6-1dd6-4fe3-bb14-fa1663fb6d85
+
+2021-08-03 22:33:39.060  INFO 20424 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@77d03738, org.springframework.security.web.context.SecurityContextPersistenceFilter@7314f4cb, org.springframework.security.web.header.HeaderWriterFilter@3f16a823, org.springframework.security.web.authentication.logout.LogoutFilter@2150dc64, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c4fc610, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5713e35f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@566dc0c3, org.springframework.security.web.session.SessionManagementFilter@4ed94e6a, org.springframework.security.web.access.ExceptionTranslationFilter@136480b]
+2021-08-03 22:33:39.611  INFO 20424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-03 22:33:39.612  INFO 20424 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-03 22:33:39.626  INFO 20424 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-03 22:33:39.676  INFO 20424 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-03 22:33:39.765  INFO 20424 --- [http-nio-9000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-03 22:33:39.766  INFO 20424 --- [http-nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-03 22:33:39.769  INFO 20424 --- [http-nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-03 22:33:39.957  INFO 20424 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 8.719 seconds (JVM running for 11.78)
