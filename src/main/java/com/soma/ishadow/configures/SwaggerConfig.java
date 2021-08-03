@@ -32,8 +32,8 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .globalOperationParameters(parameterList)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.soma.ishadow"))
-                .paths(PathSelectors.ant("/api/**"))
+                .apis(RequestHandlerSelectors.basePackage("com.soma.ishadow.controllers"))
+                .paths(PathSelectors.any())
                 .build();
                 //.apiInfo(apiInfo());
     }
