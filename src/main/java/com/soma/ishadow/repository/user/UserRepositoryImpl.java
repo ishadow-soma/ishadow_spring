@@ -6,6 +6,7 @@ import com.soma.ishadow.configures.BaseResponseStatus;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user.QUser;
 import com.soma.ishadow.domains.user.User;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepositoryImpl implements UserRepositoryQuerydsl{
+public class UserRepositoryImpl extends QuerydslRepositorySupport implements UserRepositoryQuerydsl {
 
     private final JPAQueryFactory queryFactory;
 
@@ -21,6 +22,7 @@ public class UserRepositoryImpl implements UserRepositoryQuerydsl{
     private final EntityManager em;
 
     public UserRepositoryImpl(JPAQueryFactory queryFactory, EntityManager em) {
+        super(User.class);
         this.queryFactory = queryFactory;
         this.em = em;
     }

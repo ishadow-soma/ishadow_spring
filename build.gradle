@@ -1,3 +1,9 @@
+buildscript {
+    ext {
+        queryDslVersion = "4.4.0"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -35,16 +41,15 @@ dependencies {
     //jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    // https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
-    implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '4.4.0'
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa'
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-apt'
 
-    // https://mvnrepository.com/artifact/com.querydsl/querydsl-apt
-    implementation group: 'com.querydsl', name: 'querydsl-apt', version: '4.4.0'
+    annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: "${dependencyManagement.importedProperties['querydsl.version']}", classifier: 'jpa'
+    annotationProcessor group: 'jakarta.persistence', name: 'jakarta.persistence-api'
+    annotationProcessor group: 'jakarta.annotation', name: 'jakarta.annotation-api'
 
-    annotationProcessor (
-            "javax.persistence:javax.persistence-api",
-            "javax.annotation:javax.annotation-api",
-            "com.querydsl:querydsl-apt:4.4.0:jpa")
 
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -84,15 +89,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
-
-bootJar {
-    enabled = false
-}
-jar {
-    enabled = true
-}
-
-
 test {
     useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
 }
