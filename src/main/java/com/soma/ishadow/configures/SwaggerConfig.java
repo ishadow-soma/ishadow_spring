@@ -32,7 +32,7 @@ public class SwaggerConfig {
                 .globalOperationParameters(parameterList)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.soma.ishadow.controllers"))
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.ant("/api/**"))
                 .build();
                 //.apiInfo(apiInfo());
     }
