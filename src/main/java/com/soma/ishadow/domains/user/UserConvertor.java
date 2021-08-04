@@ -23,6 +23,7 @@ public class UserConvertor {
     @Column(name = "updateAt")
     private Timestamp updateAt;
 
+    public UserConvertor() {}
 
     public UserConvertor(Long userId, User user, int convertorCount) {
         this.userId = userId;
