@@ -346,19 +346,6 @@ public class UserService {
                 .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
     }
 
-
-    public boolean conversionCheck(Long userId) throws BaseException {
-
-        UserConvertor userConvertor = userConvertorRepository.findById(userId)
-            .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
-        int count = userConvertor.getConvertorCount();
-        if(count < 0 || count > 3) {
-            return false;
-        }
-        userConvertor.updateConversion(count + 1);
-        return true;
-    }
-
     public boolean duplicateCheck(String email) {
         return  userRepository.findByEmail(email).isPresent();
     }

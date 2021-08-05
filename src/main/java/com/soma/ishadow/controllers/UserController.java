@@ -186,4 +186,15 @@ public class UserController {
         }
     }
 
+    @GetMapping("users/media-convertor-limit")
+    public BaseResponse<IsSuccessRes> ConversionCountCheck() {
+
+        try {
+            return BaseResponse.succeed(userProvider.getConversionCount());
+        } catch (BaseException baseException) {
+            return BaseResponse.failed(baseException.getStatus());
+        }
+
+    }
+
 }
