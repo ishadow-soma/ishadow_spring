@@ -27,3 +27,8 @@ logging:
   level: [info]
   file:
     path: logs/local/
+  com:
+    amazonaws:
+      util:
+        EC2MetadataUtils: error
+

@@ -4,4 +4,9 @@ spring:
   profiles:
     include: credential
     active: local
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
 

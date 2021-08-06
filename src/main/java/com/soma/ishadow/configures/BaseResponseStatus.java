@@ -9,7 +9,8 @@ public enum BaseResponseStatus {
     EMPTY_JWT( false, 1003,"JWT가 비었습니다."),
     EMPTY_EMAIL( false, 1004,"Email이 비었습니다."),
     NOT_EQUAL_PASSWORD_AND_CONFIRM_PASSWORD( false, 1005,"비밀번호와 인증 비밀번호가 일치하지 않습니다."),
-
+    EXCEED_CONVERSION_COUNT( false, 1006,"하루 가능한 영상 변환 횟수를 초과 했습니다."),
+    EMPTY_VIDEO( false, 1007,"영상이 비었습니다."),
 
 
 
@@ -21,24 +22,24 @@ public enum BaseResponseStatus {
     FAILED_TO_GET_USER_BY_SNS(false, 2004, "사용자 정보 조회에 실패 했습니다."),
     FAILED_TO_PASING_USER_BY_NAVER(false, 2005, "사용자 정보 조회에 실패 했습니다.");
 
-    private final Boolean isSuccess;
+    private final Boolean success;
     private final int code;
     private final String message;
 
-    BaseResponseStatus(Boolean isSuccess, int code, String message) {
-        this.isSuccess = isSuccess;
+    BaseResponseStatus(Boolean success, int code, String message) {
+        this.success = success;
         this.code = code;
         this.message = message;
     }
 
-    BaseResponseStatus(Boolean isSuccess, int code, String User, String message) {
-        this.isSuccess = isSuccess;
+    BaseResponseStatus(Boolean success, int code, String User, String message) {
+        this.success = success;
         this.code = code;
         this.message = message;
     }
 
     public Boolean getSuccess() {
-        return isSuccess;
+        return success;
     }
 
     public String getMessage() {
