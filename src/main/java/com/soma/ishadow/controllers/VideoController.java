@@ -34,20 +34,21 @@ public class VideoController {
         this.jwtService = jwtService;
     }
 
-
     //영상 업로드 -> 유저 카운트 조회 ->
     @ApiOperation(value = "영상 업로드")
     @PostMapping(path = "/media")
     public BaseResponse<PostVideoRes> uploadVideo(
-            @RequestPart("file") MultipartFile video
+            @RequestPart(value = "file",required = false) MultipartFile video,
+            @RequestParam(value = "youtubeURL",required = false) String youtubeURL,
+            @RequestParam(value = "type") String type,
+            @RequestParam(value = "category") String category
     ) throws BaseException, IOException {
 
         Long userId = jwtService.getUserInfo();
         if(!userProvider.conversionCheck(userId)) {
             throw new BaseException(EXCEED_CONVERSION_COUNT);
         }
-        //@RequestBody PostVideoReq postVideoReq
-        PostVideoReq postVideoReq = new PostVideoReq();
+        PostVideoReq postVideoReq = new PostVideoReq(type,category,youtubeURL);
         try {
             return BaseResponse.succeed(videoService.upload(postVideoReq, video, userId));
 

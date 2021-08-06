@@ -11,6 +11,8 @@ public enum BaseResponseStatus {
     NOT_EQUAL_PASSWORD_AND_CONFIRM_PASSWORD( false, 1005,"비밀번호와 인증 비밀번호가 일치하지 않습니다."),
     EXCEED_CONVERSION_COUNT( false, 1006,"하루 가능한 영상 변환 횟수를 초과 했습니다."),
     EMPTY_VIDEO( false, 1007,"영상이 비었습니다."),
+    FAILED_TO_TRANSLATE_FILE( false, 1008,"파일 변환에 실패 했습니다."),
+    UNSUPPORTED_FORMAT( false, 1009,"지원하지 않는 파일 형식입니다."),
 
 
 

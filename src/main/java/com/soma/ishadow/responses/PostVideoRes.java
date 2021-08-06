@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
-public class PostVideoRes {
+import java.io.Serializable;
 
+public class PostVideoRes implements Serializable {
+
+    @JsonProperty
     private final Long videoId;
 
     @Builder
-    @JsonCreator
-    public PostVideoRes(
-            @JsonProperty("videoId") Long videoId) {
+    public PostVideoRes(Long videoId) {
         this.videoId = videoId;
     }
+
 }
