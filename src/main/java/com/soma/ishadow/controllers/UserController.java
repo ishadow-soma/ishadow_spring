@@ -30,9 +30,9 @@ public class UserController {
 
 
     @GetMapping("/check")
-    public String healthCheck(
+    public BaseResponse<String> healthCheck(
     ) {
-        return "server connection success";
+        return BaseResponse.succeed("server connection success");
     }
 
     /**

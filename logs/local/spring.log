@@ -1,6 +1,6 @@
-2021-08-07 03:13:39.202  INFO 17880 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 17880 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
-2021-08-07 03:13:39.218  INFO 17880 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
-2021-08-07 03:13:40.238  WARN 17880 --- [main] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). EC2 Instance Metadata Service is disabled
+2021-08-08 16:26:31.125  INFO 18268 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 18268 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-08 16:26:31.147  INFO 18268 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-08 16:26:33.233  WARN 18268 --- [main] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). EC2 Instance Metadata Service is disabled
 
 com.amazonaws.AmazonClientException: EC2 Instance Metadata Service is disabled
 	at com.amazonaws.internal.InstanceMetadataServiceResourceFetcher.readResource(InstanceMetadataServiceResourceFetcher.java:65) ~[aws-java-sdk-core-1.11.967.jar:na]
@@ -32,38 +32,233 @@ com.amazonaws.AmazonClientException: EC2 Instance Metadata Service is disabled
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
 	at com.soma.ishadow.IshadowDevApplication.main(IshadowDevApplication.java:10) ~[main/:na]
 
-2021-08-07 03:13:40.580  INFO 17880 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-08-07 03:13:40.671  INFO 17880 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 2 JPA repository interfaces.
-2021-08-07 03:13:41.173  INFO 17880 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
-2021-08-07 03:13:41.188  INFO 17880 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-08-07 03:13:41.188  INFO 17880 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
-2021-08-07 03:13:41.282  INFO 17880 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-08-07 03:13:41.282  INFO 17880 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1949 ms
-2021-08-07 03:13:41.361  INFO 17880 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
-2021-08-07 03:13:41.466  INFO 17880 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
-2021-08-07 03:13:41.466  INFO 17880 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
-2021-08-07 03:13:41.623  INFO 17880 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-08-07 03:13:41.654  INFO 17880 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
-2021-08-07 03:13:41.779  INFO 17880 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-08-07 03:13:41.858  INFO 17880 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-2021-08-07 03:13:42.381  INFO 17880 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-08-07 03:13:42.398  INFO 17880 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-08-07 03:13:42.461  WARN 17880 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-08-07 03:13:43.320  INFO 17880 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2021-08-07 03:13:43.367  INFO 17880 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
-2021-08-07 03:13:43.414  INFO 17880 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+2021-08-08 16:26:33.983  INFO 18268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-08 16:26:34.182  INFO 18268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 181 ms. Found 2 JPA repository interfaces.
+2021-08-08 16:26:35.319  INFO 18268 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-08 16:26:35.337  INFO 18268 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-08 16:26:35.338  INFO 18268 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-08 16:26:35.565  INFO 18268 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-08 16:26:35.566  INFO 18268 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4265 ms
+2021-08-08 16:26:35.805  INFO 18268 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-08 16:26:36.038  INFO 18268 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-08 16:26:36.047  INFO 18268 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-08 16:26:36.326  INFO 18268 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-08 16:26:36.420  INFO 18268 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-08 16:26:36.646  INFO 18268 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-08 16:26:36.859  INFO 18268 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-08 16:26:38.554  INFO 18268 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-08 16:26:38.575  INFO 18268 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-08 16:26:38.764  WARN 18268 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-08 16:26:41.342  INFO 18268 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-08 16:26:41.507  INFO 18268 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-08 16:26:41.653  INFO 18268 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: f07138c6-2df1-45e9-ad38-bd7259c32f1b
+Using generated security password: d7dfccdc-83fc-4a14-8eef-c14210337381
 
-2021-08-07 03:13:43.476  INFO 17880 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@48971262, org.springframework.security.web.context.SecurityContextPersistenceFilter@200cbb63, org.springframework.security.web.header.HeaderWriterFilter@21d30ba5, org.springframework.security.web.authentication.logout.LogoutFilter@6c4f48e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a7698f4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24df4805, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19d043a8, org.springframework.security.web.session.SessionManagementFilter@5295779, org.springframework.security.web.access.ExceptionTranslationFilter@1007954a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5ce9c9e8]
-2021-08-07 03:13:43.907  INFO 17880 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
-2021-08-07 03:13:43.907  INFO 17880 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2021-08-07 03:13:43.923  INFO 17880 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2021-08-07 03:13:43.939  INFO 17880 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2021-08-07 03:13:44.126  INFO 17880 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 5.621 seconds (JVM running for 6.603)
-2021-08-07 03:13:44.713  INFO 17880 --- [RMI TCP Connection(2)-192.168.0.13] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-08-07 03:13:44.713  INFO 17880 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-08-07 03:13:44.713  INFO 17880 --- [RMI TCP Connection(2)-192.168.0.13] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2021-08-07 03:14:38.402  INFO 17880 --- [http-nio-9000-exec-9] com.soma.ishadow.services.UserService    : 새로운 user 등록 성공
-2021-08-07 03:14:57.232  INFO 17880 --- [http-nio-9000-exec-4] com.soma.ishadow.utils.S3Util            : 1: 소음, 대화&음악, 대화&겹치는 음성.mp4
-2021-08-07 03:16:34.144  INFO 17880 --- [http-nio-9000-exec-4] com.soma.ishadow.utils.S3Util            : 파일이 삭제되었습니다.
+2021-08-08 16:26:41.816  INFO 18268 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@618d2191, org.springframework.security.web.context.SecurityContextPersistenceFilter@4ec78008, org.springframework.security.web.header.HeaderWriterFilter@79c9a128, org.springframework.security.web.authentication.logout.LogoutFilter@d1b9dd7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64e6cdad, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58f259bd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b1ef6a, org.springframework.security.web.session.SessionManagementFilter@388ad8aa, org.springframework.security.web.access.ExceptionTranslationFilter@29a51ff1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1766b009]
+2021-08-08 16:26:43.354  INFO 18268 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-08 16:26:43.357  INFO 18268 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-08 16:26:43.382  INFO 18268 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-08 16:26:43.452  INFO 18268 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-08 16:26:43.880  INFO 18268 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 14.147 seconds (JVM running for 19.538)
+2021-08-08 16:26:44.516  INFO 18268 --- [RMI TCP Connection(1)-172.16.100.116] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-08 16:26:44.517  INFO 18268 --- [RMI TCP Connection(1)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-08 16:26:44.519  INFO 18268 --- [RMI TCP Connection(1)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-08-08 16:31:18.419  INFO 24988 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 24988 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-08 16:31:18.425  INFO 24988 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-08 16:31:19.607  WARN 24988 --- [main] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). EC2 Instance Metadata Service is disabled
+
+com.amazonaws.AmazonClientException: EC2 Instance Metadata Service is disabled
+	at com.amazonaws.internal.InstanceMetadataServiceResourceFetcher.readResource(InstanceMetadataServiceResourceFetcher.java:65) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.internal.EC2ResourceFetcher.readResource(EC2ResourceFetcher.java:66) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.util.EC2MetadataUtils.getItems(EC2MetadataUtils.java:403) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.util.EC2MetadataUtils.getData(EC2MetadataUtils.java:372) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at org.springframework.cloud.aws.context.support.env.AwsCloudEnvironmentCheckUtils.isRunningOnCloudEnvironment(AwsCloudEnvironmentCheckUtils.java:38) ~[spring-cloud-aws-context-2.2.1.RELEASE.jar:2.2.1.RELEASE]
+	at org.springframework.cloud.aws.context.annotation.OnAwsCloudEnvironmentCondition.matches(OnAwsCloudEnvironmentCondition.java:37) ~[spring-cloud-aws-context-2.2.1.RELEASE.jar:2.2.1.RELEASE]
+	at org.springframework.context.annotation.ConditionEvaluator.shouldSkip(ConditionEvaluator.java:108) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:226) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.processImports(ConfigurationClassParser.java:600) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.access$800(ConfigurationClassParser.java:111) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.lambda$processGroupImports$1(ConfigurationClassParser.java:812) ~[spring-context-5.3.9.jar:5.3.9]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.processGroupImports(ConfigurationClassParser.java:809) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorHandler.process(ConfigurationClassParser.java:780) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:193) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:331) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:247) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:311) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:112) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:746) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:564) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.soma.ishadow.IshadowDevApplication.main(IshadowDevApplication.java:10) ~[main/:na]
+
+2021-08-08 16:31:20.095  INFO 24988 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-08 16:31:20.201  INFO 24988 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 92 ms. Found 2 JPA repository interfaces.
+2021-08-08 16:31:21.313  INFO 24988 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-08 16:31:21.332  INFO 24988 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-08 16:31:21.333  INFO 24988 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-08 16:31:21.555  INFO 24988 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-08 16:31:21.556  INFO 24988 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3065 ms
+2021-08-08 16:31:21.704  INFO 24988 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-08 16:31:21.869  INFO 24988 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-08 16:31:21.877  INFO 24988 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-08 16:31:22.157  INFO 24988 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-08 16:31:22.241  INFO 24988 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-08 16:31:22.510  INFO 24988 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-08 16:31:22.671  INFO 24988 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-08 16:31:23.623  INFO 24988 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-08 16:31:23.634  INFO 24988 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-08 16:31:23.781  WARN 24988 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-08 16:31:25.608  INFO 24988 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-08 16:31:25.709  INFO 24988 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-08 16:31:25.802  INFO 24988 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4e3d8d8e-ce16-4f73-9229-3ad676af8c2c
+
+2021-08-08 16:31:25.953  INFO 24988 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@521032a6, org.springframework.security.web.context.SecurityContextPersistenceFilter@46d2be66, org.springframework.security.web.header.HeaderWriterFilter@57386162, org.springframework.security.web.authentication.logout.LogoutFilter@5275d709, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@529cd3ba, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1ed763aa, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18a9e8db, org.springframework.security.web.session.SessionManagementFilter@2c2dfde3, org.springframework.security.web.access.ExceptionTranslationFilter@7d364bce, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@64a74723]
+2021-08-08 16:31:26.757  INFO 24988 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-08 16:31:26.759  INFO 24988 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-08 16:31:26.772  INFO 24988 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-08 16:31:26.822  INFO 24988 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-08 16:31:27.148  INFO 24988 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 9.736 seconds (JVM running for 11.534)
+2021-08-08 16:31:27.869  INFO 24988 --- [RMI TCP Connection(5)-172.16.100.116] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-08 16:31:27.871  INFO 24988 --- [RMI TCP Connection(5)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-08 16:31:27.875  INFO 24988 --- [RMI TCP Connection(5)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-08-08 16:42:55.170  INFO 24456 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 24456 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-08 16:42:55.174  INFO 24456 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-08 16:42:56.737  WARN 24456 --- [main] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). EC2 Instance Metadata Service is disabled
+
+com.amazonaws.AmazonClientException: EC2 Instance Metadata Service is disabled
+	at com.amazonaws.internal.InstanceMetadataServiceResourceFetcher.readResource(InstanceMetadataServiceResourceFetcher.java:65) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.internal.EC2ResourceFetcher.readResource(EC2ResourceFetcher.java:66) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.util.EC2MetadataUtils.getItems(EC2MetadataUtils.java:403) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.util.EC2MetadataUtils.getData(EC2MetadataUtils.java:372) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at org.springframework.cloud.aws.context.support.env.AwsCloudEnvironmentCheckUtils.isRunningOnCloudEnvironment(AwsCloudEnvironmentCheckUtils.java:38) ~[spring-cloud-aws-context-2.2.1.RELEASE.jar:2.2.1.RELEASE]
+	at org.springframework.cloud.aws.context.annotation.OnAwsCloudEnvironmentCondition.matches(OnAwsCloudEnvironmentCondition.java:37) ~[spring-cloud-aws-context-2.2.1.RELEASE.jar:2.2.1.RELEASE]
+	at org.springframework.context.annotation.ConditionEvaluator.shouldSkip(ConditionEvaluator.java:108) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:226) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.processImports(ConfigurationClassParser.java:600) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.access$800(ConfigurationClassParser.java:111) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.lambda$processGroupImports$1(ConfigurationClassParser.java:812) ~[spring-context-5.3.9.jar:5.3.9]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.processGroupImports(ConfigurationClassParser.java:809) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorHandler.process(ConfigurationClassParser.java:780) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:193) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:331) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:247) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:311) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:112) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:746) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:564) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.soma.ishadow.IshadowDevApplication.main(IshadowDevApplication.java:10) ~[main/:na]
+
+2021-08-08 16:42:57.610  INFO 24456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-08 16:42:57.824  INFO 24456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 196 ms. Found 2 JPA repository interfaces.
+2021-08-08 16:42:58.758  INFO 24456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-08 16:42:58.770  INFO 24456 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-08 16:42:58.771  INFO 24456 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-08 16:42:58.926  INFO 24456 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-08 16:42:58.926  INFO 24456 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3686 ms
+2021-08-08 16:42:59.076  INFO 24456 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-08 16:42:59.225  INFO 24456 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-08 16:42:59.235  INFO 24456 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-08 16:42:59.614  INFO 24456 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-08 16:42:59.770  INFO 24456 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-08 16:43:00.264  INFO 24456 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-08 16:43:00.572  INFO 24456 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-08 16:43:01.675  INFO 24456 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-08 16:43:01.690  INFO 24456 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-08 16:43:01.841  WARN 24456 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-08 16:43:03.588  INFO 24456 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-08 16:43:03.676  INFO 24456 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-08 16:43:03.758  INFO 24456 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f2793feb-265a-4323-a850-d54b391a7599
+
+2021-08-08 16:43:03.870  INFO 24456 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@14f8fdae, org.springframework.security.web.context.SecurityContextPersistenceFilter@6f999cf4, org.springframework.security.web.header.HeaderWriterFilter@1676e501, org.springframework.security.web.authentication.logout.LogoutFilter@1ff35ee7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@79c9a128, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6461c673, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4414ee28, org.springframework.security.web.session.SessionManagementFilter@29a51ff1, org.springframework.security.web.access.ExceptionTranslationFilter@39240aa3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@35d31e1c]
+2021-08-08 16:43:04.690  INFO 24456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-08 16:43:04.692  INFO 24456 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-08 16:43:04.703  INFO 24456 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-08 16:43:04.743  INFO 24456 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-08 16:43:05.028  INFO 24456 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 11.232 seconds (JVM running for 13.218)
+2021-08-08 16:43:05.529  INFO 24456 --- [RMI TCP Connection(5)-172.16.100.116] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-08 16:43:05.529  INFO 24456 --- [RMI TCP Connection(5)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-08 16:43:05.531  INFO 24456 --- [RMI TCP Connection(5)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-08-08 16:46:47.471  INFO 25288 --- [main] com.soma.ishadow.IshadowDevApplication   : Starting IshadowDevApplication using Java 11 on DESKTOP-KGU36PC with PID 25288 (C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev\build\classes\java\main started by ast31 in C:\Users\ast31\OneDrive\바탕 화면\Spring boot\ishadow_dev)
+2021-08-08 16:46:47.477  INFO 25288 --- [main] com.soma.ishadow.IshadowDevApplication   : The following profiles are active: credential,local
+2021-08-08 16:46:49.411  WARN 25288 --- [main] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). EC2 Instance Metadata Service is disabled
+
+com.amazonaws.AmazonClientException: EC2 Instance Metadata Service is disabled
+	at com.amazonaws.internal.InstanceMetadataServiceResourceFetcher.readResource(InstanceMetadataServiceResourceFetcher.java:65) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.internal.EC2ResourceFetcher.readResource(EC2ResourceFetcher.java:66) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.util.EC2MetadataUtils.getItems(EC2MetadataUtils.java:403) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at com.amazonaws.util.EC2MetadataUtils.getData(EC2MetadataUtils.java:372) ~[aws-java-sdk-core-1.11.967.jar:na]
+	at org.springframework.cloud.aws.context.support.env.AwsCloudEnvironmentCheckUtils.isRunningOnCloudEnvironment(AwsCloudEnvironmentCheckUtils.java:38) ~[spring-cloud-aws-context-2.2.1.RELEASE.jar:2.2.1.RELEASE]
+	at org.springframework.cloud.aws.context.annotation.OnAwsCloudEnvironmentCondition.matches(OnAwsCloudEnvironmentCondition.java:37) ~[spring-cloud-aws-context-2.2.1.RELEASE.jar:2.2.1.RELEASE]
+	at org.springframework.context.annotation.ConditionEvaluator.shouldSkip(ConditionEvaluator.java:108) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:226) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.processImports(ConfigurationClassParser.java:600) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.access$800(ConfigurationClassParser.java:111) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.lambda$processGroupImports$1(ConfigurationClassParser.java:812) ~[spring-context-5.3.9.jar:5.3.9]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.processGroupImports(ConfigurationClassParser.java:809) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorHandler.process(ConfigurationClassParser.java:780) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:193) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:331) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:247) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:311) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:112) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:746) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:564) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.soma.ishadow.IshadowDevApplication.main(IshadowDevApplication.java:10) ~[main/:na]
+
+2021-08-08 16:46:50.187  INFO 25288 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-08 16:46:50.383  INFO 25288 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 164 ms. Found 2 JPA repository interfaces.
+2021-08-08 16:46:51.442  INFO 25288 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-08-08 16:46:51.453  INFO 25288 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-08 16:46:51.454  INFO 25288 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-08 16:46:51.613  INFO 25288 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-08 16:46:51.614  INFO 25288 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4023 ms
+2021-08-08 16:46:51.787  INFO 25288 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Starting...
+2021-08-08 16:46:52.063  INFO 25288 --- [main] com.zaxxer.hikari.HikariDataSource       : H2_DB - Start completed.
+2021-08-08 16:46:52.071  INFO 25288 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/api/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2021-08-08 16:46:52.297  INFO 25288 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-08 16:46:52.413  INFO 25288 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-08 16:46:52.601  INFO 25288 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-08 16:46:52.746  INFO 25288 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-08-08 16:46:53.653  INFO 25288 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-08 16:46:53.670  INFO 25288 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-08 16:46:53.780  WARN 25288 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-08 16:46:55.381  INFO 25288 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-08-08 16:46:55.488  INFO 25288 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-08 16:46:55.579  INFO 25288 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: d613f439-e2b3-4ff6-8dd0-a445e25cc7af
+
+2021-08-08 16:46:55.691  INFO 25288 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@609f136b, org.springframework.security.web.context.SecurityContextPersistenceFilter@13c36d48, org.springframework.security.web.header.HeaderWriterFilter@64abb917, org.springframework.security.web.authentication.logout.LogoutFilter@4ec78008, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f1e8753, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5852605c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2afe263, org.springframework.security.web.session.SessionManagementFilter@55448710, org.springframework.security.web.access.ExceptionTranslationFilter@18f493d7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@521032a6]
+2021-08-08 16:46:56.468  INFO 25288 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-08-08 16:46:56.470  INFO 25288 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-08-08 16:46:56.481  INFO 25288 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-08-08 16:46:56.517  INFO 25288 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-08-08 16:46:56.747  INFO 25288 --- [main] com.soma.ishadow.IshadowDevApplication   : Started IshadowDevApplication in 11.076 seconds (JVM running for 13.212)
+2021-08-08 16:46:57.147  INFO 25288 --- [RMI TCP Connection(1)-172.16.100.116] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-08 16:46:57.148  INFO 25288 --- [RMI TCP Connection(1)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-08-08 16:46:57.152  INFO 25288 --- [RMI TCP Connection(1)-172.16.100.116] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms

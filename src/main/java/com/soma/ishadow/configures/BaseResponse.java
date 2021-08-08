@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class BaseResponse<T> {
 
-    private final Boolean isSuccess;
+    private final Boolean success;
     private final int code;
     private final String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,7 +13,7 @@ public class BaseResponse<T> {
 
     //성공
     public BaseResponse(BaseResponseStatus baseResponseStatus, T data) {
-        this.isSuccess = baseResponseStatus.getSuccess();
+        this.success = baseResponseStatus.getSuccess();
         this.code = baseResponseStatus.getCode();
         this.message = baseResponseStatus.getMessage();
         this.data = data;
@@ -21,7 +21,7 @@ public class BaseResponse<T> {
 
     //실패
     public BaseResponse(BaseResponseStatus baseResponseStatus) {
-        this.isSuccess = baseResponseStatus.getSuccess();
+        this.success = baseResponseStatus.getSuccess();
         this.code = baseResponseStatus.getCode();
         this.message = baseResponseStatus.getMessage();
     }
@@ -52,7 +52,7 @@ public class BaseResponse<T> {
 
     public T getData() { return data; }
 
-    public Boolean getIsSuccess() {return isSuccess;}
+    public Boolean getSuccess() {return success;}
 
     public int getCode() {
         return code;
