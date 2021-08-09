@@ -37,6 +37,7 @@ public class UserProvider {
      */
     @Transactional(readOnly = true)
     public GetUserRes getProfile() throws BaseException {
+
         Long userId = jwtService.getUserInfo();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.FAILED_TO_GET_USER));

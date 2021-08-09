@@ -2,9 +2,11 @@ package com.soma.ishadow.domains.audio;
 
 
 import com.soma.ishadow.domains.enums.Status;
+import com.soma.ishadow.domains.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "audio")
@@ -45,10 +47,11 @@ public class Audio {
     @Column(name = "updateAt")
     private Timestamp updateAt;
 
-
     @Column(name = "status")
     private Status status;
 
+//    @OneToMany(mappedBy = "audio",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<User> users;
 
     public Audio() {
 
@@ -83,7 +86,9 @@ public class Audio {
         private Timestamp createdAt;
         private Timestamp updateAt;
         private Status status;
+
         public Builder() {}
+
         public Builder(Audio audio) {
             this.audioId = audio.getAudioId();
             this.audioName = audio.getAudioName();

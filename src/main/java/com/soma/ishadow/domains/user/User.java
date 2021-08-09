@@ -1,11 +1,13 @@
 package com.soma.ishadow.domains.user;
 
+import com.soma.ishadow.domains.audio.Audio;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.requests.PatchUserReq;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import static com.soma.ishadow.utils.PasswordEncoding.passwordEncoding;
 import static io.micrometer.core.instrument.util.StringUtils.isEmpty;
@@ -62,6 +64,9 @@ public class User implements Serializable {
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserConvertor userConvertor;
+
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Audio> audios;
 
     public User(Long userId, String name, String email, String password, int age,String gender, Long myPoint, String sns, String purposeOfUse, Timestamp createdAt, Timestamp lastLoginAt, Timestamp updateAt, Status status, String withdrawalContent) {
 

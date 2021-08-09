@@ -1,7 +1,6 @@
 package com.soma.ishadow.services;
 
 import com.soma.ishadow.configures.BaseException;
-import com.soma.ishadow.repository.VideoRepository;
 import com.soma.ishadow.requests.PostVideoConvertorReq;
 import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.PostVideoRes;
@@ -52,9 +51,10 @@ public class VideoService {
             WebClient webClient = WebClient.builder()
                     .baseUrl("https://ishadow.kr")
                     .build();
-            String info = getInfo(webClient, url);
-            System.out.println(info);
+            String videoInfo = getInfo(webClient, url);
+            logger.info("영상 변환 성공 url: " + url);
 
+            //videoInfoTranslateToAudio(videoInfo);
         }
         System.out.println(url);
         //URL과 type을 다른 서버로 전송

@@ -330,6 +330,7 @@ public class UserService {
         JsonElement element = JsonParser.parseString(parameters);
         String name;
         String email;
+
         try {
             name = element.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
             email = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
@@ -346,6 +347,7 @@ public class UserService {
                 .sns("NAVER")
                 .purposeOfUse("NONE")
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
                 .build();
 
     }
@@ -363,6 +365,7 @@ public class UserService {
                 .sns(parameters.getSns())
                 .purposeOfUse("NONE")
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
                 .build();
     }
 
