@@ -131,13 +131,15 @@ public class UserService {
         //바로 return 하는 경우 log는 어떻게 남기지??
         if(parameters.getSns().equals("NAVER")) {
             loginUser = requestLoginUserByNaver(parameters);
-            if(userRepository.findByEmail(loginUser.getEmail()).isPresent()) {
-                return JwtRes.builder()
-                        .email(loginUser.getEmail())
-                        .jwt(jwtService.createJwt(loginUser.getUserId()))
-                        .build();
-            }
-            throw new BaseException(FAILED_TO_GET_USER);
+            User user = userRepository.findByEmail(loginUser.getEmail())
+                    .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
+            logger.info("NAVER 로그인 성공: " +  user.getEmail() + "/" + loginUser.getUserId());
+            return JwtRes.builder()
+                    .email(user.getEmail())
+                    .jwt(jwtService.createJwt(user.getUserId()))
+                    .build();
+
+
         }
         return userRepository.findByEmail(parameters.getEmail())
                 .filter(user -> passwordEncoding(parameters.getPassword()).equals(user.getPassword()))

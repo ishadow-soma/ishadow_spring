@@ -8,7 +8,10 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 
 public class JwtRes {
 
+    @JsonProperty("email")
     private final String email;
+
+    @JsonProperty("jwt")
     private final String jwt;
 
     public String getJwt() {
@@ -17,10 +20,7 @@ public class JwtRes {
 
     @Builder
     @JsonCreator
-    public JwtRes(
-
-            @JsonProperty("email") String email,
-            @JsonProperty("jwt") String jwt) {
+    public JwtRes(String email, String jwt) {
         this.email = email;
         this.jwt = jwt;
     }
