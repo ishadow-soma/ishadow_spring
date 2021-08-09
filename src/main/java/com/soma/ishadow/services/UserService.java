@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -124,8 +125,20 @@ public class UserService {
      * @throws BaseException
      */
     @Transactional
-    public JwtRes login(PostLoginReq parameters) throws BaseException {
+    public JwtRes login(PostLoginReq parameters) throws BaseException, IOException {
+
+        User loginUser;
         //바로 return 하는 경우 log는 어떻게 남기지??
+        if(parameters.getSns().equals("NAVER")) {
+            loginUser = requestLoginUserByNaver(parameters);
+            if(userRepository.findByEmail(loginUser.getEmail()).isPresent()) {
+                return JwtRes.builder()
+                        .email(loginUser.getEmail())
+                        .jwt(jwtService.createJwt(loginUser.getUserId()))
+                        .build();
+            }
+            throw new BaseException(FAILED_TO_GET_USER);
+        }
         return userRepository.findByEmail(parameters.getEmail())
                 .filter(user -> passwordEncoding(parameters.getPassword()).equals(user.getPassword()))
                 .map(user -> JwtRes.builder().email(user.getEmail()).jwt(jwtService.createJwt(user.getUserId())).build())
@@ -294,6 +307,23 @@ public class UserService {
         return createUserConvertorByNaver(userInformation);
     }
 
+    private User requestLoginUserByNaver(PostLoginReq parameters) throws IOException, BaseException {
+        String token = parameters.getUserToken(); // 네이버 로그인 접근 토큰;
+        if(token == null) {
+            throw new BaseException(EMPTY_TOKEN);
+        }
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        String apiURL = "https://openapi.naver.com/v1/nid/me";
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("Authorization", header);
+        String userInformation = getNaverUserProfile(apiURL,requestHeaders);
+        if(JsonParser.parseString(userInformation).getAsJsonObject().get("resultcode").getAsString().equals("024")) {
+            throw new BaseException(INVALID_NAVER_TOKEN);
+        }
+        logger.info("login try");
+        return createUserConvertorByNaver(userInformation);
+    }
+
     private User createUserConvertorByNaver(String parameters) throws IOException, BaseException {
 
 
@@ -356,6 +386,7 @@ public class UserService {
             throw new BaseException(EMPTY_EMAIL);
         }
     }
+
 
     private UserConvertor userConvertUserConversion(User user) {
         return new UserConvertor(user.getUserId(), user, 0);

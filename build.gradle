@@ -54,6 +54,7 @@ dependencies {
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //h2
@@ -74,6 +75,7 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
 
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.1.RELEASE'
+
 
     // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-ses
     implementation group: 'com.amazonaws', name: 'aws-java-sdk-ses', version: '1.11.967'

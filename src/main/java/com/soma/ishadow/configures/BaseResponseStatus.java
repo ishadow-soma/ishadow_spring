@@ -13,6 +13,8 @@ public enum BaseResponseStatus {
     EMPTY_VIDEO( false, 1007,"영상이 비었습니다."),
     FAILED_TO_TRANSLATE_FILE( false, 1008,"파일 변환에 실패 했습니다."),
     UNSUPPORTED_FORMAT( false, 1009,"지원하지 않는 파일 형식입니다."),
+    EMPTY_TOKEN( false, 1010,"토큰이 비었습니다."),
+    INVALID_NAVER_TOKEN( false, 1011,"잘못된 토큰입니다."),
 
 
 

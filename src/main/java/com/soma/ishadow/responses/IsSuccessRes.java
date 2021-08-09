@@ -7,6 +7,7 @@ import lombok.Builder;
 
 public class IsSuccessRes {
 
+    //TODO boolean으로 변경하기
     private final IsSuccess isSuccess;
     private String sns;
 

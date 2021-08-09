@@ -10,7 +10,6 @@ public class BaseResponse<T> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
-
     //성공
     public BaseResponse(BaseResponseStatus baseResponseStatus, T data) {
         this.success = baseResponseStatus.getSuccess();

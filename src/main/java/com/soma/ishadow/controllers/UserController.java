@@ -35,6 +35,7 @@ public class UserController {
         return BaseResponse.succeed("server connection success");
     }
 
+    //TODO 이메일 인증할 때 이메일도 같이 넘기고 회원가입할 때 email을 받아서 비교한다.
     /**
      * 회원 가입
      * @param parameters
@@ -57,11 +58,14 @@ public class UserController {
 
     /**
      * 로그인
+     * @param parameters
+     * @return
+     * @throws BaseException
      */
     @PostMapping("/login")
     public BaseResponse<JwtRes> login(
             @RequestBody PostLoginReq parameters
-    ) throws BaseException{
+    ) throws BaseException, IOException {
 
         try{
             return BaseResponse.succeed(userService.login(parameters));

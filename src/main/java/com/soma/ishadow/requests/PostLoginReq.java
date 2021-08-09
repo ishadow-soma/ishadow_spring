@@ -8,16 +8,29 @@ public class PostLoginReq {
 
     private final String email;
     private final String password;
+    private final String sns;
+    private final String userToken;
 
     @Builder
     @JsonCreator
     public PostLoginReq(
             @JsonProperty("email") String email,
-            @JsonProperty("password") String password) {
+            @JsonProperty("password") String password,
+            @JsonProperty("sns") String sns,
+            @JsonProperty("userToken") String userToken) {
         this.email = email;
         this.password = password;
+        this.sns = sns;
+        this.userToken = userToken;
     }
 
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public String getSns() {
+        return sns;
+    }
 
     public String getEmail() {
         return email;
