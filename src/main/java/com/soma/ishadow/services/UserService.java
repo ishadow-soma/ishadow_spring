@@ -72,9 +72,9 @@ public class UserService {
     @Transactional
     public JwtRes createUser(PostSingUpReq parameters) throws BaseException, IOException {
 
-        if(userRepository.findByEmail(parameters.getEmail()).isPresent()) {
-            throw new BaseException(DUPLICATED_USER);
-        }
+//        if(userRepository.findByEmail(parameters.getEmail()).isPresent()) {
+//            throw new BaseException(DUPLICATED_USER);
+//        }
 
         User user = null;
 
@@ -89,9 +89,6 @@ public class UserService {
 //        }
 
         if(parameters.getSns().equals("NORMAL")) {
-            if(duplicateCheck(parameters.getEmail())) {
-                throw new BaseException(DUPLICATED_USER);
-            }
             user = createUserConvertor(parameters);
         }
 

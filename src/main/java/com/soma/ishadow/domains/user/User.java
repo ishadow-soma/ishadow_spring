@@ -2,11 +2,15 @@ package com.soma.ishadow.domains.user;
 
 import com.soma.ishadow.domains.audio.Audio;
 import com.soma.ishadow.domains.enums.Status;
+import com.soma.ishadow.domains.user_audio.UserAudio;
 import com.soma.ishadow.requests.PatchUserReq;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 import static com.soma.ishadow.utils.PasswordEncoding.passwordEncoding;
@@ -65,10 +69,10 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserConvertor userConvertor;
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Audio> audios;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserAudio> userAudios = new HashSet<>();
 
-    public User(Long userId, String name, String email, String password, int age,String gender, Long myPoint, String sns, String purposeOfUse, Timestamp createdAt, Timestamp lastLoginAt, Timestamp updateAt, Status status, String withdrawalContent) {
+    public User(Long userId, String name, String email, String password, int age, String gender, Long myPoint, String sns, String purposeOfUse, Timestamp createdAt, Timestamp lastLoginAt, Timestamp updateAt, Status status, String withdrawalContent) {
 
 
         //checkArgument(userId < 0,"invalid userId");
@@ -317,6 +321,7 @@ public class User implements Serializable {
             this.withdrawalContent = withdrawalContent;
             return this;
         }
+
 
         public User build() {
             return new User(userId, name, email, password, age ,gender, myPoint, sns, purposeOfUse, createdAt, lastLoginAt, updateAt, status, withdrawalContent);

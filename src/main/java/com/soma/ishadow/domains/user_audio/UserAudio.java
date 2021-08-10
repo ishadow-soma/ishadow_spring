@@ -6,22 +6,23 @@ import com.soma.ishadow.domains.user.User;
 import lombok.Builder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_audio")
-public class UserAudio {
+public class UserAudio implements Serializable {
 
     @EmbeddedId
     private UserAudioId userAudioId;
 
-    @ManyToOne
     @MapsId(value = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId",nullable = false)
     private User user;
 
-    @ManyToOne
     @MapsId(value = "audioId")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "audioId",nullable = false)
     private Audio audio;
 
@@ -32,13 +33,14 @@ public class UserAudio {
     private Timestamp updateAt;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Builder
     public UserAudio(UserAudioId userAudioId, User user, Audio audio, Timestamp createdAt, Timestamp updateAt, Status status) {
-        this.userAudioId = userAudioId;
+        //this.userAudioId = userAudioId;
         this.user = user;
-        this.audio = audio;
+        //this.audio = audio;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
         this.status = status;

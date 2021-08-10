@@ -17,8 +17,6 @@ import java.util.Optional;
 public class UserRepositoryImpl extends QuerydslRepositorySupport implements UserRepositoryQuerydsl {
 
     private final JPAQueryFactory queryFactory;
-
-
     private final EntityManager em;
 
     public UserRepositoryImpl(JPAQueryFactory queryFactory, EntityManager em) {

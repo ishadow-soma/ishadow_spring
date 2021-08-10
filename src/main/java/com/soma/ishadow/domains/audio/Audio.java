@@ -3,9 +3,11 @@ package com.soma.ishadow.domains.audio;
 
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user.User;
+import com.soma.ishadow.domains.user_audio.UserAudio;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -50,8 +52,8 @@ public class Audio {
     @Column(name = "status")
     private Status status;
 
-//    @OneToMany(mappedBy = "audio",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<User> users;
+    @OneToMany(mappedBy = "audio",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserAudio> userAudios = new HashSet<>();
 
     public Audio() {
 
@@ -111,6 +113,11 @@ public class Audio {
 
         public Builder audioLength(Long audioLength) {
             this.audioLength = audioLength;
+            return this;
+        }
+
+        public Builder audioType(String audioType) {
+            this.audioType = audioType;
             return this;
         }
 
