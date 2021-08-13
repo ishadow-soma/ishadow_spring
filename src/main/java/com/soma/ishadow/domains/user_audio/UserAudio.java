@@ -38,12 +38,44 @@ public class UserAudio implements Serializable {
 
     @Builder
     public UserAudio(UserAudioId userAudioId, User user, Audio audio, Timestamp createdAt, Timestamp updateAt, Status status) {
-        //this.userAudioId = userAudioId;
+        this.userAudioId = userAudioId;
         this.user = user;
-        //this.audio = audio;
+        this.audio = audio;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
         this.status = status;
+    }
+
+    public void addUser() {
+
+    }
+
+    public void addAudio() {
+
+    }
+
+    public UserAudioId getUserAudioId() {
+        return userAudioId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Audio getAudio() {
+        return audio;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public UserAudio() {

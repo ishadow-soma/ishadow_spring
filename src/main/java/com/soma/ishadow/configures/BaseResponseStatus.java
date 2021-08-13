@@ -16,6 +16,7 @@ public enum BaseResponseStatus {
     EMPTY_TOKEN( false, 1010,"토큰이 비었습니다."),
     INVALID_NAVER_TOKEN( false, 1011,"잘못된 토큰입니다."),
     INVALID_AUDIO_TYPE( false, 1012,"잘못된 영상 변환 방식입니다."),
+    FAILED_TO_PARSING_SCRIPT( false, 1013,"스크립트 변환에 실패했습니다."),
 
 
 
@@ -26,7 +27,9 @@ public enum BaseResponseStatus {
     FAILED_TO_DELETE_USER (false, 2003,"사용자 삭제에 실패 했습니다."),
     FAILED_TO_GET_USER_BY_SNS(false, 2004, "사용자 정보 조회에 실패 했습니다."),
     FAILED_TO_PASING_USER_BY_NAVER(false, 2005, "사용자 정보 조회에 실패 했습니다."),
-    FAILED_TO_POST_AUDIO(false, 2006, "영상 저장에 실패 했습니다.");
+    FAILED_TO_POST_AUDIO(false, 2006, "영상 저장에 실패 했습니다."),
+    FAILED_TO_POST_USERAUDIO(false, 2007, "사용자와 영상 조인 테이블에 생성에 실패했습니다."),
+    FAILED_TO_POST_SENTENCE(false, 2008, "문장 저장에 실패했습니다.");
 
     private final Boolean success;
     private final int code;

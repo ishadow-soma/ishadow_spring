@@ -26,5 +26,11 @@ public class UserAudioId implements Serializable {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "UserAudioId{" +
+                "userId=" + userId +
+                ", audioId=" + audioId +
+                '}';
+    }
 }

@@ -61,6 +61,7 @@ public class User implements Serializable {
     private Timestamp updateAt;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name = "withdrawalContent")
@@ -72,8 +73,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserAudio> userAudios = new HashSet<>();
 
-    public User(Long userId, String name, String email, String password, int age, String gender, Long myPoint, String sns, String purposeOfUse, Timestamp createdAt, Timestamp lastLoginAt, Timestamp updateAt, Status status, String withdrawalContent) {
+    public void userAudeoAdd(UserAudio userAudio) {
+        userAudios.add(userAudio);
+    }
 
+    public User(Long userId, String name, String email, String password, int age, String gender, Long myPoint, String sns, String purposeOfUse, Timestamp createdAt, Timestamp lastLoginAt, Timestamp updateAt, Status status, String withdrawalContent) {
 
         //checkArgument(userId < 0,"invalid userId");
         //checkNotNull(name,"name must be provided");

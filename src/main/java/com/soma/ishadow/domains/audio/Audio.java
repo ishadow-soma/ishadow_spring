@@ -2,6 +2,7 @@ package com.soma.ishadow.domains.audio;
 
 
 import com.soma.ishadow.domains.enums.Status;
+import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user_audio.UserAudio;
 
@@ -50,10 +51,15 @@ public class Audio {
     private Timestamp updateAt;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @OneToMany(mappedBy = "audio",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserAudio> userAudios = new HashSet<>();
+
+    @OneToMany(mappedBy = "audio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<SentenceEn> sentenceEns = new HashSet<>();
+
 
     public Audio() {
 
