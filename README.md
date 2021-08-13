@@ -1,9 +1,11 @@
 # Getting Started
 
-Local
-    Local Execution
-    - java - jar ishadow-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
-    Local Swagger    
+Local   
+    Local Execution   
+    - gradlew build   
+    - cd ./build/libs   
+    - java - jar ishadow-0.0.1-SNAPSHOT.jar --spring.profiles.active=local   
+    Local Swagger        
     - http://localhost:9000/swagger-ui.html#/
 
 Prod
