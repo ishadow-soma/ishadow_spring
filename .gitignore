@@ -1,6 +1,8 @@
-README.md
-.gradle
+.gradle/
+
 build/
+logs/
+.idea/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -35,3 +37,4 @@ out/
 
 ### VS Code ###
 .vscode/
+
