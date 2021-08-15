@@ -89,7 +89,7 @@ public class VideoService {
 
             audioTranslateToText(audio, audioInfo);
 
-            return new PostVideoRes(createdAudio.getAudioId());
+            return new PostVideoRes(createdAudio.getAudioId(), url);
         }
 
         throw new BaseException(INVALID_AUDIO_TYPE);
