@@ -6,13 +6,14 @@ import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user_video.UserVideo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "video")
-public class Video {
+public class Video implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,43 +1,39 @@
 package com.soma.ishadow.responses;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import lombok.Builder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetSentenceEn {
+public class GetSentenceEn implements Serializable {
 
-    @JsonProperty
+    @JsonProperty("videoURL")
     private final String videoURL;
 
-    @JsonProperty
-    private final String videoTitle;
-
-    @JsonProperty
-    private final List<GetSentenceEn> sentences = new ArrayList<>();
+    @JsonProperty("sentences")
+    private final List<SentenceEn> sentences = new ArrayList<>();
 
     @JsonCreator
     @Builder
-    public GetSentenceEn(String videoURL, String videoTitle) {
+    public GetSentenceEn(String videoURL) {
         this.videoURL = videoURL;
-        this.videoTitle = videoTitle;
     }
 
     public String getVideoURL() {
         return videoURL;
     }
 
-    public String getVideoTitle() {
-        return videoTitle;
+
+    public List<SentenceEn> getSentences() {
+        return this.sentences;
     }
 
-    public List<GetSentenceEn> getSentences() {
-        return sentences;
-    }
-
-    public void addSentence(GetSentenceEn sentence) {
-        this.sentences.add(sentence);
+    public void addSentence(List<SentenceEn> sentences) {
+        this.sentences.addAll(sentences);
     }
 }

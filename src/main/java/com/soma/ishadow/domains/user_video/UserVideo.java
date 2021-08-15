@@ -17,12 +17,12 @@ public class UserVideo implements Serializable {
     private UserVideoId userVideoId;
 
     @MapsId(value = "userId")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userId",nullable = false)
     private User user;
 
     @MapsId(value = "videoId")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "videoId",nullable = false)
     private Video video;
 

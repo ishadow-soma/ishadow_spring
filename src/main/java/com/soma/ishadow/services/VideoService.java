@@ -73,13 +73,13 @@ public class VideoService {
 
         if(type.equals("YOUTUBE")) {
 
-            Video audio = createAudio(postVideoReq);
+            Video newVideo = createAudio(postVideoReq);
             //audio DB에 저장
-            Video createdVideo = saveAudio(audio);
-            logger.info("영상 저장 성공: " + audio.getVideoId());
+            Video createdVideo = saveVideo(newVideo);
+            logger.info("영상 저장 성공: " + createdVideo.getVideoId());
 
             //audio Id를 이용해서 user_audio에 저장하기
-            UserVideo userVideo = saveUserAudio(userId, createdVideo);
+            UserVideo userVideo = saveUserVideo(userId, createdVideo);
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
             WebClient webClient = createWebClient();
@@ -87,7 +87,7 @@ public class VideoService {
             String audioInfo = getInfo(webClient, url);
             logger.info("영상 변환 성공: " + url);
 
-            audioTranslateToText(audio, audioInfo);
+            audioTranslateToText(newVideo, audioInfo);
 
             return new PostVideoRes(createdVideo.getVideoId(), url);
         }
@@ -101,7 +101,7 @@ public class VideoService {
                 .build();
     }
 
-    private UserVideo saveUserAudio(Long userId, Video video) throws BaseException {
+    private UserVideo saveUserVideo(Long userId, Video video) throws BaseException {
 
         User user = userService.findById(userId);
         UserVideo userVideo = createUserAudio(user, video);
@@ -168,7 +168,7 @@ public class VideoService {
 
     private SentenceEn createSentenceEn(Video video, String transcript, String startTime, String endTime, String speakerTag, String confidence) {
         return new SentenceEn.Builder()
-                .audio(video)
+                .video(video)
                 .content(transcript)
                 .startTime(startTime)
                 .endTime(endTime)
@@ -179,7 +179,7 @@ public class VideoService {
                 .build();
     }
 
-    private Video saveAudio(Video video) throws BaseException {
+    private Video saveVideo(Video video) throws BaseException {
         Video createVideo;
         try {
             createVideo = videoRepository.save(video);

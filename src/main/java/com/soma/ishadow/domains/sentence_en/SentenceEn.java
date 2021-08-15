@@ -4,22 +4,23 @@ import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "sentence_en")
-public class SentenceEn {
+public class SentenceEn implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sentenceId", nullable = false, updatable = false)
     private Long sentenceId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "audioId",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "videoId",nullable = false)
     private Video video;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "startTime")
@@ -65,7 +66,7 @@ public class SentenceEn {
         return sentenceId;
     }
 
-    public Video getAudio() {
+    public Video getVideo() {
         return video;
     }
 
@@ -119,7 +120,7 @@ public class SentenceEn {
             return this;
         }
 
-        public Builder audio(Video video) {
+        public Builder video(Video video) {
             this.video = video;
             return this;
         }

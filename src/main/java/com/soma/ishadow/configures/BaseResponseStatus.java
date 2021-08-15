@@ -29,7 +29,10 @@ public enum BaseResponseStatus {
     FAILED_TO_PASING_USER_BY_NAVER(false, 2005, "사용자 정보 조회에 실패 했습니다."),
     FAILED_TO_POST_AUDIO(false, 2006, "영상 저장에 실패 했습니다."),
     FAILED_TO_POST_USERAUDIO(false, 2007, "사용자와 영상 조인 테이블에 생성에 실패했습니다."),
-    FAILED_TO_POST_SENTENCE(false, 2008, "문장 저장에 실패했습니다.");
+    FAILED_TO_POST_SENTENCE(false, 2008, "문장 저장에 실패했습니다."),
+    FAILED_TO_GET_USERVIDEO(false, 2009, "사용자의 영상 조회에 실패 했습니다."),
+    FAILED_TO_GET_VIDEO(false, 2010, "영상 조회에 실패 했습니다."),
+    FAILED_TO_GET_SENTENCE_EN(false, 2011, "스크립트 조회에 실패했습니다.");
 
     private final Boolean success;
     private final int code;

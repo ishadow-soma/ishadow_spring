@@ -65,11 +65,10 @@ public class VideoController {
     @ApiOperation(value = "쉐도잉 영상 정보 가져오기")
     @GetMapping("/shadowing-player")
     public BaseResponse<GetSentenceEn> getShadowingInformation(
-            @RequestParam(value = "audioId", required = false) Long audioId,
-            @RequestParam(value = "type", required = false) String type //youtube, upload
+            @RequestParam(value = "videoId", required = false) Long videoId
     ) {
         try {
-            return BaseResponse.succeed(videoProvider.getShadowing(audioId, type));
+            return BaseResponse.succeed(videoProvider.getShadowing(videoId));
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());
         }
