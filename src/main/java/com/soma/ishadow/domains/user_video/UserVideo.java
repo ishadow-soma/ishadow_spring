@@ -1,6 +1,6 @@
-package com.soma.ishadow.domains.user_audio;
+package com.soma.ishadow.domains.user_video;
 
-import com.soma.ishadow.domains.audio.Audio;
+import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user.User;
 import lombok.Builder;
@@ -11,20 +11,20 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_audio")
-public class UserAudio implements Serializable {
+public class UserVideo implements Serializable {
 
     @EmbeddedId
-    private UserAudioId userAudioId;
+    private UserVideoId userVideoId;
 
     @MapsId(value = "userId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId",nullable = false)
     private User user;
 
-    @MapsId(value = "audioId")
+    @MapsId(value = "videoId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "audioId",nullable = false)
-    private Audio audio;
+    @JoinColumn(name = "videoId",nullable = false)
+    private Video video;
 
     @Column(name = "createAt")
     private Timestamp createdAt;
@@ -37,10 +37,10 @@ public class UserAudio implements Serializable {
     private Status status;
 
     @Builder
-    public UserAudio(UserAudioId userAudioId, User user, Audio audio, Timestamp createdAt, Timestamp updateAt, Status status) {
-        this.userAudioId = userAudioId;
+    public UserVideo(UserVideoId userVideoId, User user, Video video, Timestamp createdAt, Timestamp updateAt, Status status) {
+        this.userVideoId = userVideoId;
         this.user = user;
-        this.audio = audio;
+        this.video = video;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
         this.status = status;
@@ -54,16 +54,16 @@ public class UserAudio implements Serializable {
 
     }
 
-    public UserAudioId getUserAudioId() {
-        return userAudioId;
+    public UserVideoId getUserVideoId() {
+        return userVideoId;
     }
 
     public User getUser() {
         return user;
     }
 
-    public Audio getAudio() {
-        return audio;
+    public Video getVideo() {
+        return video;
     }
 
     public Timestamp getCreatedAt() {
@@ -78,7 +78,7 @@ public class UserAudio implements Serializable {
         return status;
     }
 
-    public UserAudio() {
+    public UserVideo() {
 
     }
 }

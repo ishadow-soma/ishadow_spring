@@ -1,4 +1,4 @@
-package com.soma.ishadow.domains.user_audio;
+package com.soma.ishadow.domains.user_video;
 
 import lombok.Builder;
 
@@ -7,30 +7,30 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class UserAudioId implements Serializable {
+public class UserVideoId implements Serializable {
 
 
     @Column(name = "userId", nullable = false, updatable = false)
     private Long userId;
 
-    @Column(name = "audioId", nullable = false, updatable = false)
-    private Long audioId;
+    @Column(name = "videoId", nullable = false, updatable = false)
+    private Long videoId;
 
     @Builder
-    public UserAudioId(Long userId, Long audioId) {
+    public UserVideoId(Long userId, Long videoId) {
         this.userId = userId;
-        this.audioId = audioId;
+        this.videoId = videoId;
     }
 
-    public UserAudioId() {
+    public UserVideoId() {
 
     }
 
     @Override
     public String toString() {
-        return "UserAudioId{" +
+        return "UserVideoId{" +
                 "userId=" + userId +
-                ", audioId=" + audioId +
+                ", videoId=" + videoId +
                 '}';
     }
 }

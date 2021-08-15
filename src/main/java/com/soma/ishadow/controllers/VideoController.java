@@ -3,7 +3,9 @@ package com.soma.ishadow.controllers;
 import com.soma.ishadow.configures.BaseException;
 import com.soma.ishadow.configures.BaseResponse;
 import com.soma.ishadow.providers.UserProvider;
+import com.soma.ishadow.providers.VideoProvider;
 import com.soma.ishadow.requests.PostVideoReq;
+import com.soma.ishadow.responses.GetSentenceEn;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.services.JwtService;
 import com.soma.ishadow.services.VideoService;
@@ -24,12 +26,14 @@ public class VideoController {
 
     private final Logger logger = LoggerFactory.getLogger(VideoController.class);
     private final VideoService videoService;
+    private final VideoProvider videoProvider;
     private final UserProvider userProvider;
     private final JwtService jwtService;
 
     @Autowired
-    public VideoController(VideoService videoService, UserProvider userProvider, JwtService jwtService) {
+    public VideoController(VideoService videoService, VideoProvider videoProvider, UserProvider userProvider, JwtService jwtService) {
         this.videoService = videoService;
+        this.videoProvider = videoProvider;
         this.userProvider = userProvider;
         this.jwtService = jwtService;
     }
@@ -56,6 +60,19 @@ public class VideoController {
             return BaseResponse.failed(exception.getStatus());
         }
 
+    }
+
+    @ApiOperation(value = "쉐도잉 영상 정보 가져오기")
+    @GetMapping("/shadowing-player")
+    public BaseResponse<GetSentenceEn> getShadowingInformation(
+            @RequestParam(value = "audioId", required = false) Long audioId,
+            @RequestParam(value = "type", required = false) String type //youtube, upload
+    ) {
+        try {
+            return BaseResponse.succeed(videoProvider.getShadowing(audioId, type));
+        } catch (BaseException exception ) {
+            return BaseResponse.failed(exception.getStatus());
+        }
     }
 
 }

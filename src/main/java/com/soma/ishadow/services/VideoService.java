@@ -5,15 +5,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.soma.ishadow.configures.BaseException;
-import com.soma.ishadow.domains.audio.Audio;
+import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user.User;
-import com.soma.ishadow.domains.user_audio.UserAudio;
-import com.soma.ishadow.domains.user_audio.UserAudioId;
-import com.soma.ishadow.repository.audio.AudioRepository;
+import com.soma.ishadow.domains.user_video.UserVideo;
+import com.soma.ishadow.domains.user_video.UserVideoId;
+import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
-import com.soma.ishadow.repository.user_audio.UserAudioRepository;
+import com.soma.ishadow.repository.user_video.UserVideoRepository;
 import com.soma.ishadow.requests.PostVideoConvertorReq;
 import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.PostVideoRes;
@@ -39,17 +39,17 @@ import static com.soma.ishadow.configures.Constant.baseUrl;
 public class VideoService {
 
     private final S3Util s3Util;
-    private final AudioRepository audioRepository;
-    private final UserAudioRepository userAudioRepository;
+    private final VideoRepository videoRepository;
+    private final UserVideoRepository userVideoRepository;
     private final SentenceEnRepository sentenceEnRepository;
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     @Autowired
-    public VideoService(S3Util s3Util, AudioRepository audioRepository, UserAudioRepository userAudioRepository, SentenceEnRepository sentenceEnRepository, UserService userService) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, SentenceEnRepository sentenceEnRepository, UserService userService) {
         this.s3Util = s3Util;
-        this.audioRepository = audioRepository;
-        this.userAudioRepository = userAudioRepository;
+        this.videoRepository = videoRepository;
+        this.userVideoRepository = userVideoRepository;
         this.sentenceEnRepository = sentenceEnRepository;
         this.userService = userService;
     }
@@ -73,14 +73,14 @@ public class VideoService {
 
         if(type.equals("YOUTUBE")) {
 
-            Audio audio = createAudio(postVideoReq);
+            Video audio = createAudio(postVideoReq);
             //audio DB에 저장
-            Audio createdAudio = saveAudio(audio);
-            logger.info("영상 저장 성공: " + audio.getAudioId());
+            Video createdVideo = saveAudio(audio);
+            logger.info("영상 저장 성공: " + audio.getVideoId());
 
             //audio Id를 이용해서 user_audio에 저장하기
-            UserAudio userAudio = saveUserAudio(userId, createdAudio);
-            logger.info("영상 유저 조인 테이블 저장 성공: " + userAudio.getUserAudioId().toString());
+            UserVideo userVideo = saveUserAudio(userId, createdVideo);
+            logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
             WebClient webClient = createWebClient();
 
@@ -89,7 +89,7 @@ public class VideoService {
 
             audioTranslateToText(audio, audioInfo);
 
-            return new PostVideoRes(createdAudio.getAudioId(), url);
+            return new PostVideoRes(createdVideo.getVideoId(), url);
         }
 
         throw new BaseException(INVALID_AUDIO_TYPE);
@@ -101,32 +101,32 @@ public class VideoService {
                 .build();
     }
 
-    private UserAudio saveUserAudio(Long userId, Audio audio) throws BaseException {
+    private UserVideo saveUserAudio(Long userId, Video video) throws BaseException {
 
         User user = userService.findById(userId);
-        UserAudio userAudio = createUserAudio(user, audio);
-        UserAudio newUserAudio;
+        UserVideo userVideo = createUserAudio(user, video);
+        UserVideo newUserVideo;
         try {
-            newUserAudio = userAudioRepository.save(userAudio);
+            newUserVideo = userVideoRepository.save(userVideo);
         } catch (Exception exception) {
             throw new BaseException(FAILED_TO_POST_USERAUDIO);
         }
-        return newUserAudio;
+        return newUserVideo;
     }
 
-    private UserAudio createUserAudio(User user, Audio audio) {
+    private UserVideo createUserAudio(User user, Video video) {
 
-        return UserAudio.builder()
-                .userAudioId(new UserAudioId(user.getUserId(), audio.getAudioId()))
+        return UserVideo.builder()
+                .userVideoId(new UserVideoId(user.getUserId(), video.getVideoId()))
                 .user(user)
-                .audio(audio)
+                .video(video)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
                 .build();
     }
 
 
-    private void audioTranslateToText(Audio audio, String audioInfo) throws BaseException {
+    private void audioTranslateToText(Video video, String audioInfo) throws BaseException {
 
         JsonElement element = JsonParser.parseString(audioInfo);
         try {
@@ -148,7 +148,7 @@ public class VideoService {
                     endTime += ".000000";
                 }
 
-                SentenceEn sentenceEn = createSentenceEn(audio, transcript, startTime, endTime, speakerTag, confidence);
+                SentenceEn sentenceEn = createSentenceEn(video, transcript, startTime, endTime, speakerTag, confidence);
                 try {
                     sentenceEnRepository.save(sentenceEn);
                 } catch (Exception exception) {
@@ -166,9 +166,9 @@ public class VideoService {
 
     }
 
-    private SentenceEn createSentenceEn(Audio audio, String transcript, String startTime, String endTime, String speakerTag, String confidence) {
+    private SentenceEn createSentenceEn(Video video, String transcript, String startTime, String endTime, String speakerTag, String confidence) {
         return new SentenceEn.Builder()
-                .audio(audio)
+                .audio(video)
                 .content(transcript)
                 .startTime(startTime)
                 .endTime(endTime)
@@ -179,14 +179,14 @@ public class VideoService {
                 .build();
     }
 
-    private Audio saveAudio(Audio audio) throws BaseException {
-        Audio createAudio;
+    private Video saveAudio(Video video) throws BaseException {
+        Video createVideo;
         try {
-            createAudio = audioRepository.save(audio);
+            createVideo = videoRepository.save(video);
         } catch (Exception exception) {
             throw new BaseException(FAILED_TO_POST_AUDIO);
         }
-        return createAudio;
+        return createVideo;
     }
 
     public String getInfo(WebClient webClient,String url) {
@@ -201,12 +201,12 @@ public class VideoService {
                 .block();                   // await
     }
 
-    private Audio createAudio(PostVideoReq postVideoReq) {
+    private Video createAudio(PostVideoReq postVideoReq) {
         String url = postVideoReq.getYoutubeURL();
         String type = postVideoReq.getType().toLowerCase();
-        return new Audio.Builder()
-                .audioType(type)
-                .audioURL(url)
+        return new Video.Builder()
+                .videoType(type)
+                .videoURL(url)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
                 .build();

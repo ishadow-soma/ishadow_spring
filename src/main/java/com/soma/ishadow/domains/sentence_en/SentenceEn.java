@@ -1,8 +1,7 @@
 package com.soma.ishadow.domains.sentence_en;
 
-import com.soma.ishadow.domains.audio.Audio;
+import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
-import com.soma.ishadow.domains.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -18,7 +17,7 @@ public class SentenceEn {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "audioId",nullable = false)
-    private Audio audio;
+    private Video video;
 
     @Column(name = "content")
     private String content;
@@ -45,9 +44,9 @@ public class SentenceEn {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public SentenceEn(Long sentenceId, Audio audio, String content, String startTime, String endTime, String speaker, String confidence, Timestamp createdAt, Timestamp updateAt, Status status) {
+    public SentenceEn(Long sentenceId, Video video, String content, String startTime, String endTime, String speaker, String confidence, Timestamp createdAt, Timestamp updateAt, Status status) {
         this.sentenceId = sentenceId;
-        this.audio = audio;
+        this.video = video;
         this.content = content;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -66,8 +65,8 @@ public class SentenceEn {
         return sentenceId;
     }
 
-    public Audio getAudio() {
-        return audio;
+    public Video getAudio() {
+        return video;
     }
 
     public String getContent() {
@@ -104,7 +103,7 @@ public class SentenceEn {
 
     static public class Builder {
         private Long sentenceId;
-        private Audio audio;
+        private Video video;
         private String content;
         private String startTime;
         private String endTime;
@@ -120,8 +119,8 @@ public class SentenceEn {
             return this;
         }
 
-        public Builder audio(Audio audio) {
-            this.audio = audio;
+        public Builder audio(Video video) {
+            this.video = video;
             return this;
         }
         public Builder content(String content) {
@@ -164,7 +163,7 @@ public class SentenceEn {
         }
 
         public SentenceEn build() {
-            return new SentenceEn(sentenceId, audio, content, startTime, endTime, speaker, confidence, createdAt, updateAt, status);
+            return new SentenceEn(sentenceId, video, content, startTime, endTime, speaker, confidence, createdAt, updateAt, status);
         }
     }
 }

@@ -1,11 +1,8 @@
 package com.soma.ishadow.domains.user;
 
-import com.soma.ishadow.domains.audio.Audio;
 import com.soma.ishadow.domains.enums.Status;
-import com.soma.ishadow.domains.user_audio.UserAudio;
+import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.requests.PatchUserReq;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -71,10 +68,10 @@ public class User implements Serializable {
     private UserConvertor userConvertor;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserAudio> userAudios = new HashSet<>();
+    private Set<UserVideo> userVideos = new HashSet<>();
 
-    public void userAudeoAdd(UserAudio userAudio) {
-        userAudios.add(userAudio);
+    public void userAudeoAdd(UserVideo userVideo) {
+        userVideos.add(userVideo);
     }
 
     public User(Long userId, String name, String email, String password, int age, String gender, Long myPoint, String sns, String purposeOfUse, Timestamp createdAt, Timestamp lastLoginAt, Timestamp updateAt, Status status, String withdrawalContent) {
