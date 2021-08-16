@@ -30,7 +30,7 @@ spring:
     username: ishadow
     password: ishadow123*
     driver-class-name: com.mysql.cj.jdbc.Driver
-    data: classpath:testData.sql
+    #data: classpath:testData.sql
 
 logging:
   level: [info]
