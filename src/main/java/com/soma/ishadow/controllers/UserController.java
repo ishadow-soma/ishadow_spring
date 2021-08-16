@@ -146,11 +146,11 @@ public class UserController {
     }
 
     /**
-     * 비밀번호 수정
+     * 비밀번호 확인
      * @param searchPasswordReq
      * @return
      */
-    @PatchMapping("users/password")
+    @GetMapping("users/password")
     public BaseResponse<IsSuccessRes> searchPassword(
         @RequestBody SearchPasswordReq searchPasswordReq
     ) {
@@ -160,6 +160,17 @@ public class UserController {
             return BaseResponse.failed(exception.getStatus());
         }
     }
+
+    //TODO 비밀번호 수정
+    /**
+     * 비밀번호 수정
+     */
+
+    /**
+     * 비밀번호 찾기
+     */
+    //TODO 비밀번호 찾기
+
 
     /**
      * 인증 코드 검증

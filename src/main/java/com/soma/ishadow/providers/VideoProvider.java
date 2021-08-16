@@ -18,6 +18,7 @@ import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_USERV
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_VIDEO;
 
 @Service
+@Transactional(readOnly = true)
 public class VideoProvider {
 
     private final SentenceEnProvider sentenceEnProvider;
@@ -57,6 +58,7 @@ public class VideoProvider {
         return GetShadowingRes.builder()
                 .videoId(video.getVideoId())
                 .videoURL(video.getVideoURL())
+                .thumbNailURL(video.getThumbNailURL())
                 .build();
     }
 

@@ -6,12 +6,14 @@ import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_SENTENCE_EN;
 
 @Service
+@Transactional(readOnly = true)
 public class SentenceEnProvider {
 
     private final SentenceEnRepository sentenceEnRepository;

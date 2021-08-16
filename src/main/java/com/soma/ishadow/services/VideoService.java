@@ -36,6 +36,7 @@ import static com.soma.ishadow.configures.BaseResponseStatus.*;
 import static com.soma.ishadow.configures.Constant.baseUrl;
 
 @Service
+@Transactional
 public class VideoService {
 
     private final S3Util s3Util;
@@ -54,7 +55,6 @@ public class VideoService {
         this.userService = userService;
     }
 
-    @Transactional
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
 
         String type = postVideoReq.getType();
@@ -73,7 +73,7 @@ public class VideoService {
 
         if(type.equals("YOUTUBE")) {
 
-            Video newVideo = createAudio(postVideoReq);
+            Video newVideo = createVideo(postVideoReq);
             //audio DB에 저장
             Video createdVideo = saveVideo(newVideo);
             logger.info("영상 저장 성공: " + createdVideo.getVideoId());
@@ -84,10 +84,10 @@ public class VideoService {
 
             WebClient webClient = createWebClient();
 
-            String audioInfo = getInfo(webClient, url);
+            String videoInfo = getInfo(webClient, url);
             logger.info("영상 변환 성공: " + url);
 
-            audioTranslateToText(newVideo, audioInfo);
+            audioTranslateToText(newVideo, videoInfo);
 
             return new PostVideoRes(createdVideo.getVideoId(), url);
         }
@@ -204,15 +204,27 @@ public class VideoService {
                 .block();                   // await
     }
 
-    private Video createAudio(PostVideoReq postVideoReq) {
+    private Video createVideo(PostVideoReq postVideoReq) {
         String url = postVideoReq.getYoutubeURL();
+        String thumbnailURL = getThumbNailURL(url);
         String type = postVideoReq.getType().toLowerCase();
         return new Video.Builder()
                 .videoType(type)
                 .videoURL(url)
+                .thumbNailURL(thumbnailURL)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
                 .build();
+    }
+
+    //TODO 예외 처리 하기
+    private String getThumbNailURL(String url) {
+        int index = url.indexOf("v=");
+        if( index == -1 ) {
+            return "NONE";
+        }
+        String videoCode = url.substring(url.lastIndexOf("v=")).substring(2);
+        return "https://img.youtube.com/vi/" + videoCode + "/sddefault.jpg";
     }
 }
 

@@ -37,6 +37,7 @@ import static com.soma.ishadow.utils.PasswordEncoding.passwordEncoding;
 
 
 @Service
+@Transactional
 public class UserService {
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);

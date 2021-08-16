@@ -29,6 +29,9 @@ public class Video implements Serializable {
     @Column(name = "videoType")
     private String videoType;
 
+    @Column(name = "thumbNailURL", columnDefinition = "TEXT")
+    private String thumbNailURL;
+
     @Column(name = "videoURL", columnDefinition = "TEXT")
     private String videoURL;
 
@@ -65,12 +68,13 @@ public class Video implements Serializable {
 
     }
 
-    public Video(Long videoId, String videoName, Long videoLength, String videoType, String videoURL, int videoChannel, int videoSampling, Long videoCapacity, int videoSpeakerCount, Timestamp createdAt, Timestamp updateAt, Status status) {
+    public Video(Long videoId, String videoName, Long videoLength, String videoType, String thumbNailURL, String videoURL, int videoChannel, int videoSampling, Long videoCapacity, int videoSpeakerCount, Timestamp createdAt, Timestamp updateAt, Status status) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.videoLength = videoLength;
         this.videoType = videoType;
         this.videoURL = videoURL;
+        this.thumbNailURL = thumbNailURL;
         this.videoChannel = videoChannel;
         this.videoSampling = videoSampling;
         this.videoCapacity = videoCapacity;
@@ -88,6 +92,7 @@ public class Video implements Serializable {
         private Long videoLength;
         private String videoType;
         private String videoURL;
+        private String thumbNailURL;
         private int videoChannel;
         private int videoSampling;
         private Long videoCapacity;
@@ -107,6 +112,7 @@ public class Video implements Serializable {
             this.videoLength = video.getVideoLength();
             this.videoType = video.getVideoType();
             this.videoURL = video.getVideoURL();
+            this.thumbNailURL = video.getThumbNailURL();
             this.videoChannel = video.getVideoChannel();
             this.videoSampling = video.getVideoSampling();
             this.videoCapacity = video.getVideoCapacity();
@@ -151,6 +157,11 @@ public class Video implements Serializable {
             return this;
         }
 
+        public Builder thumbNailURL(String thumbNailURL) {
+            this.thumbNailURL = thumbNailURL;
+            return this;
+        }
+
         public Builder createdAt(Timestamp createdAt) {
             this.createdAt = createdAt;
             return this;
@@ -168,12 +179,16 @@ public class Video implements Serializable {
         }
 
         public Video build() {
-            return new Video(videoId, videoName, videoLength, videoType, videoURL, videoChannel, videoSampling, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
+            return new Video(videoId, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel, videoSampling, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
         }
     }
 
     public Long getVideoId() {
         return videoId;
+    }
+
+    public String getThumbNailURL() {
+        return thumbNailURL;
     }
 
     public String getVideoName() {

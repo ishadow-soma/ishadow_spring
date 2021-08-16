@@ -2,7 +2,6 @@ package com.soma.ishadow.responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import lombok.Builder;
 
 import java.io.Serializable;
@@ -18,14 +17,18 @@ public class GetShadowingRes implements Serializable {
     @JsonProperty("videoURL")
     private final String videoURL;
 
+    @JsonProperty("thumbNailURL")
+    private final String thumbNailURL;
+
     @JsonProperty("sentences")
     private final List<GetSentenceEnRes> sentences = new ArrayList<>();
 
     @JsonCreator
     @Builder
-    public GetShadowingRes(Long videoId, String videoURL) {
+    public GetShadowingRes(Long videoId, String videoURL, String thumbNailURL) {
         this.videoId = videoId;
         this.videoURL = videoURL;
+        this.thumbNailURL = thumbNailURL;
     }
 
     public String getVideoURL() {

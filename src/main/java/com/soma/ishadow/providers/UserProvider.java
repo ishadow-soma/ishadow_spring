@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_USER;
 
 @Service
+@Transactional(readOnly = true)
 public class UserProvider {
 
     private final UserConvertorRepository userConvertorRepository;
