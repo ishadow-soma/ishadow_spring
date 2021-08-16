@@ -94,6 +94,7 @@ public class Video implements Serializable {
         private int videoSpeakerCount;
         private Timestamp createdAt;
         private Timestamp updateAt;
+        @Enumerated(EnumType.STRING)
         private Status status;
 
         public Builder() {

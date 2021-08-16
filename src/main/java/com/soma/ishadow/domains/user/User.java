@@ -230,6 +230,7 @@ public class User implements Serializable {
         private Timestamp createdAt;
         private Timestamp lastLoginAt;
         private Timestamp updateAt;
+        @Enumerated(EnumType.STRING)
         private Status status;
         private String withdrawalContent;
 
