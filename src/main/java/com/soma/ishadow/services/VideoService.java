@@ -139,6 +139,9 @@ public class VideoService {
                 String speakerTag = context.getAsJsonObject().get("speaker_tag").getAsString();
                 JsonArray words = context.getAsJsonObject().get("words").getAsJsonArray();
                 int wordSize = context.getAsJsonObject().get("words").getAsJsonArray().size();
+                if(words.size() == 0 ) {
+                    throw new BaseException(FAILED_TO_GET_WORDS);
+                }
                 String startTime = words.get(0).getAsJsonObject().get("start_time").getAsString();
                 if (startTime.length() < 8) {
                     startTime += ".000000";

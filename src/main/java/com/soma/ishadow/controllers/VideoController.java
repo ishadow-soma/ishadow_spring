@@ -5,10 +5,12 @@ import com.soma.ishadow.configures.BaseResponse;
 import com.soma.ishadow.providers.UserProvider;
 import com.soma.ishadow.providers.VideoProvider;
 import com.soma.ishadow.requests.PostVideoReq;
-import com.soma.ishadow.responses.GetSentenceEn;
+import com.soma.ishadow.responses.GetShadowingRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.services.JwtService;
 import com.soma.ishadow.services.VideoService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,11 @@ public class VideoController {
 
     //영상 업로드 -> 유저 카운트 조회 ->
     @ApiOperation(value = "영상 업로드")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "YOUTUBE, UPLOAD -> 현재는 YOUTUBE만 가능"),
+            @ApiImplicitParam(name = "category", value = "현재는 아무 글자 입력 -> 추후 보완"),
+            @ApiImplicitParam(name = "youtubeURL", value = "youtube영상 url")
+    })
     @PostMapping(path = "/media")
     public BaseResponse<PostVideoRes> uploadVideo(
             @RequestPart(value = "file",required = false) MultipartFile video,
@@ -64,8 +71,8 @@ public class VideoController {
 
     @ApiOperation(value = "쉐도잉 영상 정보 가져오기")
     @GetMapping("/shadowing-player")
-    public BaseResponse<GetSentenceEn> getShadowingInformation(
-            @RequestParam(value = "videoId", required = false) Long videoId
+    public BaseResponse<GetShadowingRes> getShadowingInformation(
+            @RequestParam(value = "videoId", required = true) Long videoId
     ) {
         try {
             return BaseResponse.succeed(videoProvider.getShadowing(videoId));
