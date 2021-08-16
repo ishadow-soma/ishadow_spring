@@ -10,6 +10,8 @@ import com.soma.ishadow.responses.IsSuccessRes;
 import com.soma.ishadow.responses.JwtRes;
 import com.soma.ishadow.services.UserService;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.io.IOException;
 @RequestMapping("/api")
 public class UserController {
 
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final UserProvider userProvider;
 
@@ -32,6 +35,7 @@ public class UserController {
     @GetMapping("/check")
     public BaseResponse<String> healthCheck(
     ) {
+        logger.info("server health Check");
         return BaseResponse.succeed("server connection success");
     }
 
