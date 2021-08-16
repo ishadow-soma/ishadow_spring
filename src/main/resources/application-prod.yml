@@ -30,9 +30,17 @@ spring:
     username: ishadow
     password: ishadow123*
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #data: classpath:testData.sql
+    data: classpath:testData.sql
 
 logging:
-  level: [info]
+  pattern:
+    file: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
   file:
-    path: logs/prod/
+    name: /logs/spring_prod.log
+    level:
+      org:
+        springframework: INFO
+  logback:
+    rollingpolicy:
+      max-history: 30
+      file-name-pattern: "/logs/abc.%d{yyyy-MM-dd}.%i"
