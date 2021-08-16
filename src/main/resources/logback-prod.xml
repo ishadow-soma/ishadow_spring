@@ -6,8 +6,9 @@
 <configuration scan="true" scanPeriod="60 seconds">
 
     <!--springProfile 태그를 사용하면 logback 설정파일에서 복수개의 프로파일을 설정할 수 있다.-->
-    <springProfile name="local">
-        <property resource="application-local.yml"/>
+
+    <springProfile name="prod">
+        <property resource="application.prod"/>
     </springProfile>
 
     <!--Environment 내의 프로퍼티들을 개별적으로 설정할 수도 있다.-->
