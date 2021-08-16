@@ -36,7 +36,7 @@ logging:
   pattern:
     file: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
   file:
-    name: /logs/spring_prod/
+    path: /logs/spring_prod/
     level:
       org:
         springframework: INFO
