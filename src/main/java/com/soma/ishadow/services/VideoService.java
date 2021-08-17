@@ -5,22 +5,31 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.soma.ishadow.configures.BaseException;
+import com.soma.ishadow.domains.bookmark.BookmarkId;
+import com.soma.ishadow.domains.bookmark.BookmarkSentence;
 import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.user_video.UserVideoId;
+import com.soma.ishadow.providers.SentenceEnProvider;
+import com.soma.ishadow.providers.UserProvider;
+import com.soma.ishadow.providers.VideoProvider;
+import com.soma.ishadow.repository.bookmarkSentence.BookmarkSentenceRepository;
 import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
 import com.soma.ishadow.repository.user_video.UserVideoRepository;
+import com.soma.ishadow.requests.PostSentenceReq;
 import com.soma.ishadow.requests.PostVideoConvertorReq;
 import com.soma.ishadow.requests.PostVideoReq;
+import com.soma.ishadow.responses.PostSentenceRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.utils.S3Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -31,9 +40,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
 import static com.soma.ishadow.configures.Constant.baseUrl;
+import static com.soma.ishadow.configures.Constant.bookmarkCount;
 
 @Service
 @Transactional
@@ -41,18 +53,32 @@ public class VideoService {
 
     private final S3Util s3Util;
     private final VideoRepository videoRepository;
+    private final VideoProvider videoProvider;
     private final UserVideoRepository userVideoRepository;
     private final SentenceEnRepository sentenceEnRepository;
+    private final BookmarkSentenceRepository bookmarkSentenceRepository;
     private final UserService userService;
+    private final UserProvider userProvider;
+    private final SentenceEnProvider sentenceEnProvider;
+    private final JwtService jwtService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
 
+    @Qualifier("URLRepository")
+    private final HashMap<String, Long> URLRepository;
+
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, SentenceEnRepository sentenceEnRepository, UserService userService) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, VideoProvider videoProvider, UserVideoRepository userVideoRepository, SentenceEnRepository sentenceEnRepository, BookmarkSentenceRepository bookmarkSentenceRepository, UserService userService, UserProvider userProvider, SentenceEnProvider sentenceEnProvider, JwtService jwtService, HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
+        this.videoProvider = videoProvider;
         this.userVideoRepository = userVideoRepository;
         this.sentenceEnRepository = sentenceEnRepository;
+        this.bookmarkSentenceRepository = bookmarkSentenceRepository;
         this.userService = userService;
+        this.userProvider = userProvider;
+        this.sentenceEnProvider = sentenceEnProvider;
+        this.jwtService = jwtService;
+        this.URLRepository = urlRepository;
     }
 
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
@@ -73,6 +99,15 @@ public class VideoService {
 
         if(type.equals("YOUTUBE")) {
 
+            if(URLRepository.get(url) != null) {
+                Video exitedVideo = videoRepository.findById(URLRepository.get(url)).orElse(null);
+                if(exitedVideo == null) {
+                    logger.info("URLRepository에는 값이 존재하는데 DB에는 video가 없음");
+                    URLRepository.put(url,null);
+                    throw new BaseException(FAILED_TO_GET_VIDEO_YOUTUBE);
+                }
+                return new PostVideoRes(exitedVideo.getVideoId(), url);
+            }
             Video newVideo = createVideo(postVideoReq);
             //audio DB에 저장
             Video createdVideo = saveVideo(newVideo);
@@ -89,6 +124,7 @@ public class VideoService {
 
             audioTranslateToText(newVideo, videoInfo);
 
+            URLRepository.put(url, createdVideo.getVideoId());
             return new PostVideoRes(createdVideo.getVideoId(), url);
         }
 
@@ -225,6 +261,53 @@ public class VideoService {
         }
         String videoCode = url.substring(url.lastIndexOf("v=")).substring(2);
         return "https://img.youtube.com/vi/" + videoCode + "/sddefault.jpg";
+    }
+
+    public PostSentenceRes createBookmark(PostSentenceReq postSentenceReq) throws BaseException {
+
+        Long groupId = getGroupId();
+        logger.info("groupId: " + groupId);
+        Video video = videoProvider.findVideoById(postSentenceReq.getVideoId());
+        User user = userProvider.findById(jwtService.getUserInfo());
+        List<Long> sentences = postSentenceReq.getSentences();
+        String type = postSentenceReq.getSentenceSaveType();
+
+        for(Long sentenceId : sentences) {
+
+            SentenceEn sentence = sentenceEnProvider.findById(sentenceId);
+            BookmarkId bookmarkId = createBookmarkId(groupId, video.getVideoId(), user.getUserId(), sentence.getSentenceId());
+            BookmarkSentence bookmarkSentence = createBookmarkSentence(bookmarkId, video, user, sentence, type);
+
+            try {
+                bookmarkSentenceRepository.save(bookmarkSentence);
+            } catch (Exception exception) {
+                throw new BaseException(FAILED_TO_POST_BOOKMARK);
+            }
+        }
+
+        return new PostSentenceRes(groupId);
+    }
+
+    private BookmarkId createBookmarkId(Long groupId, Long videoId, Long userId, Long sentenceId) {
+        return new BookmarkId(groupId, videoId, userId, sentenceId);
+    }
+
+
+    private BookmarkSentence createBookmarkSentence(BookmarkId bookmarkId, Video video, User user, SentenceEn sentenceEn, String sentenceSaveType) {
+        return new BookmarkSentence.Builder()
+                .bookmarkId(bookmarkId)
+                .video(video)
+                .user(user)
+                .sentenceEn(sentenceEn)
+                .sentenceSaveType(sentenceSaveType)
+                .createAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
+                .build();
+    }
+
+    private synchronized Long getGroupId() {
+        bookmarkCount += 1;
+        return bookmarkCount;
     }
 }
 

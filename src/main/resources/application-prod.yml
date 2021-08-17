@@ -36,16 +36,3 @@ logging:
   level: [info]
   file:
     path: logs/prod/
-
-#logging:
-#  pattern:
-#    file: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
-#  file:
-#    path: /logs/spring_prod/
-#    level:
-#      org:
-#        springframework: INFO
-#  logback:
-#    rollingpolicy:
-#      max-history: 30
-#      file-name-pattern: "/logs/abc.%d{yyyy-MM-dd}.%i"

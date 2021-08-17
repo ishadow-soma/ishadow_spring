@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_audio")
+@Table(name = "user_video")
 public class UserVideo implements Serializable {
 
     @EmbeddedId

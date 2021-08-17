@@ -72,4 +72,9 @@ public class UserProvider {
         }
         return true;
     }
+
+    public User findById(Long userId) throws BaseException {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
+    }
 }

@@ -50,9 +50,7 @@ public class UserService {
     @Autowired
     @Qualifier("AuthenticationRepository")
     private Set<String> authenticationCodeRepository;
-    @Autowired
-    @Qualifier("URLRepository")
-    private Set<String> URLRepository;
+
 
 
     @Autowired

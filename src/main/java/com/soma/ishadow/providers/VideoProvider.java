@@ -74,7 +74,7 @@ public class VideoProvider {
                 .collect(Collectors.toList());
     }
 
-    private Video findVideoById(Long videoId) throws BaseException {
+    public Video findVideoById(Long videoId) throws BaseException {
         return videoRepository.findById(videoId)
                 .orElseThrow(() -> new BaseException(FAILED_TO_GET_VIDEO));
     }

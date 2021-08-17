@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
-//@Profile("local")
 public class LocalHashMapConfig {
 
     @Bean
@@ -18,7 +17,8 @@ public class LocalHashMapConfig {
     }
 
     @Bean
-    public Set<String> URLRepository() {
-        return new HashSet<>();
+    public HashMap<String, Long> URLRepository() {
+        return new HashMap<>();
     }
+
 }

@@ -30,4 +30,9 @@ public class SentenceEnProvider {
         }
         return sentenceEns;
     }
+
+    public SentenceEn findById(Long sentenceId) throws BaseException {
+        return sentenceEnRepository.findById(sentenceId)
+                .orElseThrow(() -> new BaseException(FAILED_TO_GET_SENTENCE_EN));
+    }
 }
