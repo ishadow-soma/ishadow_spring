@@ -4,10 +4,7 @@ import com.soma.ishadow.configures.BaseException;
 import com.soma.ishadow.configures.BaseResponse;
 import com.soma.ishadow.providers.UserProvider;
 import com.soma.ishadow.requests.*;
-import com.soma.ishadow.responses.DeleteUserRes;
-import com.soma.ishadow.responses.GetUserRes;
-import com.soma.ishadow.responses.IsSuccessRes;
-import com.soma.ishadow.responses.JwtRes;
+import com.soma.ishadow.responses.*;
 import com.soma.ishadow.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -113,6 +110,8 @@ public class UserController {
     }
 
 
+
+
     /**
      * 사용자 정보 삭제
      * @param deleteUserReq
@@ -204,6 +203,18 @@ public class UserController {
             return BaseResponse.failed(baseException.getStatus());
         }
     }
+
+    @GetMapping("users/my-room")
+    public BaseResponse<GetMyroomRes> getMyRoom() {
+
+        try {
+            return BaseResponse.succeed(userProvider.getMyConversion());
+        } catch (BaseException baseException) {
+            return BaseResponse.failed(baseException.getStatus());
+        }
+
+    }
+
 
     @GetMapping("users/media-convertor-limit")
     public BaseResponse<IsSuccessRes> ConversionCountCheck() {

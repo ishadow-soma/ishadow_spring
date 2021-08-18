@@ -5,25 +5,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.soma.ishadow.configures.BaseException;
-import com.soma.ishadow.domains.bookmark.BookmarkId;
-import com.soma.ishadow.domains.bookmark.BookmarkSentence;
 import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.user_video.UserVideoId;
-import com.soma.ishadow.providers.SentenceEnProvider;
-import com.soma.ishadow.providers.UserProvider;
-import com.soma.ishadow.providers.VideoProvider;
-import com.soma.ishadow.repository.bookmarkSentence.BookmarkSentenceRepository;
 import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
 import com.soma.ishadow.repository.user_video.UserVideoRepository;
-import com.soma.ishadow.requests.PostSentenceReq;
 import com.soma.ishadow.requests.PostVideoConvertorReq;
 import com.soma.ishadow.requests.PostVideoReq;
-import com.soma.ishadow.responses.PostSentenceRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.utils.S3Util;
 import org.slf4j.Logger;
@@ -41,11 +33,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
 import static com.soma.ishadow.configures.Constant.baseUrl;
-import static com.soma.ishadow.configures.Constant.bookmarkCount;
 
 @Service
 @Transactional
@@ -97,9 +87,18 @@ public class VideoService {
                     URLRepository.put(url,null);
                     throw new BaseException(FAILED_TO_GET_VIDEO_YOUTUBE);
                 }
-                return new PostVideoRes(exitedVideo.getVideoId(), url);
+                return new PostVideoRes(exitedVideo.getVideoId(), exitedVideo.getVideoName(), url);
             }
+
+            WebClient webClient = createWebClient();
+
+            String videoInfo = getInfo(webClient, url);
+            logger.info("영상 변환 성공: " + url);
+
             Video newVideo = createVideo(postVideoReq);
+            String title = audioTranslateToText(newVideo, videoInfo);
+            newVideo.setVideoName(title);
+
             //audio DB에 저장
             Video createdVideo = saveVideo(newVideo);
             logger.info("영상 저장 성공: " + createdVideo.getVideoId());
@@ -108,15 +107,8 @@ public class VideoService {
             UserVideo userVideo = saveUserVideo(userId, createdVideo);
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
-            WebClient webClient = createWebClient();
-
-            String videoInfo = getInfo(webClient, url);
-            logger.info("영상 변환 성공: " + url);
-
-            audioTranslateToText(newVideo, videoInfo);
-
             URLRepository.put(url, createdVideo.getVideoId());
-            return new PostVideoRes(createdVideo.getVideoId(), url);
+            return new PostVideoRes(createdVideo.getVideoId(), title, url);
         }
 
         throw new BaseException(INVALID_AUDIO_TYPE);
@@ -153,13 +145,16 @@ public class VideoService {
     }
 
 
-    private void audioTranslateToText(Video video, String audioInfo) throws BaseException {
+    private String audioTranslateToText(Video video, String audioInfo) throws BaseException {
 
         JsonElement element = JsonParser.parseString(audioInfo);
+        String title = "";
         try {
             JsonArray contexts = element.getAsJsonObject().get("results").getAsJsonArray();
+            title = contexts.get(0).getAsString();
+            System.out.println(title);
             int jsonSize = element.getAsJsonObject().get("results").getAsJsonArray().size();
-            for (int index = 0; index < jsonSize; index++) {
+            for (int index = 1; index < jsonSize; index++) {
                 JsonElement context = contexts.get(index);
                 String transcript = context.getAsJsonObject().get("transcript").getAsString();
                 String confidence = context.getAsJsonObject().get("confidence").getAsString();
@@ -193,7 +188,7 @@ public class VideoService {
         //user_audio 저장
         //스크립트 문장 저장
         //썸네일 추출 및 URL 저장
-
+        return title;
     }
 
     private SentenceEn createSentenceEn(Video video, String transcript, String startTime, String endTime, String speakerTag, String confidence) {

@@ -7,12 +7,16 @@ import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user.UserConvertor;
 import com.soma.ishadow.repository.user.UserConvertorRepository;
 import com.soma.ishadow.repository.user.UserRepository;
+import com.soma.ishadow.responses.GetMyroomRes;
 import com.soma.ishadow.responses.GetUserRes;
 import com.soma.ishadow.responses.IsSuccessRes;
+import com.soma.ishadow.responses.YoutubeVideo;
 import com.soma.ishadow.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_USER;
 
@@ -22,12 +26,14 @@ public class UserProvider {
 
     private final UserConvertorRepository userConvertorRepository;
     private final UserRepository userRepository;
+    private final VideoProvider videoProvider;
     private final JwtService jwtService;
 
     @Autowired
-    public UserProvider(UserConvertorRepository userConvertorRepository, UserRepository userRepository, JwtService jwtService) {
+    public UserProvider(UserConvertorRepository userConvertorRepository, UserRepository userRepository, VideoProvider videoProvider, JwtService jwtService) {
         this.userConvertorRepository = userConvertorRepository;
         this.userRepository = userRepository;
+        this.videoProvider = videoProvider;
         this.jwtService = jwtService;
     }
 
@@ -76,5 +82,16 @@ public class UserProvider {
     public User findById(Long userId) throws BaseException {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
+    }
+
+    public GetMyroomRes getMyConversion() throws BaseException {
+
+        Long userId = jwtService.getUserInfo();
+        GetMyroomRes getMyroomRes = new GetMyroomRes();
+        //List<YoutubeVideo> youtubeVideos =
+//        getMyroomRes.addYoutubeVideos();
+//        getMyroomRes.addUploadVideos();
+//        getMyroomRes.addUploadAudios();
+        return getMyroomRes;
     }
 }

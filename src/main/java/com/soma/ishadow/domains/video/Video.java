@@ -84,6 +84,10 @@ public class Video implements Serializable {
         this.status = status;
     }
 
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
 
     static public class Builder {
 
