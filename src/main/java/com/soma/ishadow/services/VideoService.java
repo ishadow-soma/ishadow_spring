@@ -53,31 +53,21 @@ public class VideoService {
 
     private final S3Util s3Util;
     private final VideoRepository videoRepository;
-    private final VideoProvider videoProvider;
     private final UserVideoRepository userVideoRepository;
     private final SentenceEnRepository sentenceEnRepository;
-    private final BookmarkSentenceRepository bookmarkSentenceRepository;
     private final UserService userService;
-    private final UserProvider userProvider;
-    private final SentenceEnProvider sentenceEnProvider;
-    private final JwtService jwtService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     @Qualifier("URLRepository")
     private final HashMap<String, Long> URLRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, VideoProvider videoProvider, UserVideoRepository userVideoRepository, SentenceEnRepository sentenceEnRepository, BookmarkSentenceRepository bookmarkSentenceRepository, UserService userService, UserProvider userProvider, SentenceEnProvider sentenceEnProvider, JwtService jwtService, HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, SentenceEnRepository sentenceEnRepository,  UserService userService,  HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
-        this.videoProvider = videoProvider;
         this.userVideoRepository = userVideoRepository;
         this.sentenceEnRepository = sentenceEnRepository;
-        this.bookmarkSentenceRepository = bookmarkSentenceRepository;
         this.userService = userService;
-        this.userProvider = userProvider;
-        this.sentenceEnProvider = sentenceEnProvider;
-        this.jwtService = jwtService;
         this.URLRepository = urlRepository;
     }
 
@@ -100,6 +90,7 @@ public class VideoService {
         if(type.equals("YOUTUBE")) {
 
             if(URLRepository.get(url) != null) {
+                logger.info("해당 "+ url + " 영상이 존재합니다.");
                 Video exitedVideo = videoRepository.findById(URLRepository.get(url)).orElse(null);
                 if(exitedVideo == null) {
                     logger.info("URLRepository에는 값이 존재하는데 DB에는 video가 없음");
@@ -263,51 +254,5 @@ public class VideoService {
         return "https://img.youtube.com/vi/" + videoCode + "/sddefault.jpg";
     }
 
-    public PostSentenceRes createBookmark(PostSentenceReq postSentenceReq) throws BaseException {
-
-        Long groupId = getGroupId();
-        logger.info("groupId: " + groupId);
-        Video video = videoProvider.findVideoById(postSentenceReq.getVideoId());
-        User user = userProvider.findById(jwtService.getUserInfo());
-        List<Long> sentences = postSentenceReq.getSentences();
-        String type = postSentenceReq.getSentenceSaveType();
-
-        for(Long sentenceId : sentences) {
-
-            SentenceEn sentence = sentenceEnProvider.findById(sentenceId);
-            BookmarkId bookmarkId = createBookmarkId(groupId, video.getVideoId(), user.getUserId(), sentence.getSentenceId());
-            BookmarkSentence bookmarkSentence = createBookmarkSentence(bookmarkId, video, user, sentence, type);
-
-            try {
-                bookmarkSentenceRepository.save(bookmarkSentence);
-            } catch (Exception exception) {
-                throw new BaseException(FAILED_TO_POST_BOOKMARK);
-            }
-        }
-
-        return new PostSentenceRes(groupId);
-    }
-
-    private BookmarkId createBookmarkId(Long groupId, Long videoId, Long userId, Long sentenceId) {
-        return new BookmarkId(groupId, videoId, userId, sentenceId);
-    }
-
-
-    private BookmarkSentence createBookmarkSentence(BookmarkId bookmarkId, Video video, User user, SentenceEn sentenceEn, String sentenceSaveType) {
-        return new BookmarkSentence.Builder()
-                .bookmarkId(bookmarkId)
-                .video(video)
-                .user(user)
-                .sentenceEn(sentenceEn)
-                .sentenceSaveType(sentenceSaveType)
-                .createAt(Timestamp.valueOf(LocalDateTime.now()))
-                .status(Status.YES)
-                .build();
-    }
-
-    private synchronized Long getGroupId() {
-        bookmarkCount += 1;
-        return bookmarkCount;
-    }
 }
 

@@ -21,6 +21,22 @@ public class BookmarkId implements Serializable {
     @Column(name = "userId", nullable = false, updatable = false)
     private Long userId;
 
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public Long getVideoId() {
+        return videoId;
+    }
+
+    public Long getSentenceId() {
+        return sentenceId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
     @Builder
     public BookmarkId(Long groupId, Long videoId, Long sentenceId, Long userId) {
         this.groupId = groupId;
