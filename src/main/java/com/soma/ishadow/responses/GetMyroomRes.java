@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GetMyroomRes {
 
-    @JsonProperty("sentences")
+    @JsonProperty("youtubeVideos")
     private List<YoutubeVideo> youtubeVideos = new ArrayList<>();
 
     @JsonProperty("uploadVideos")

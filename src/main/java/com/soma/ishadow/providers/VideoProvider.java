@@ -1,11 +1,13 @@
 package com.soma.ishadow.providers;
 
 import com.soma.ishadow.configures.BaseException;
-import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.video.Video;
+import com.soma.ishadow.repository.user_video.UserVideoRepository;
 import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.responses.GetSentenceEnRes;
 import com.soma.ishadow.responses.GetShadowingRes;
+import com.soma.ishadow.responses.UploadVideo;
+import com.soma.ishadow.responses.YoutubeVideo;
 import com.soma.ishadow.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +27,15 @@ public class VideoProvider {
     private final UserVideoProvider userVideoProvider;
     private final JwtService jwtService;
     private final VideoRepository videoRepository;
+    private final UserVideoRepository userVideoRepository;
 
     @Autowired
-    public VideoProvider(SentenceEnProvider sentenceEnProvider, UserVideoProvider userVideoProvider, JwtService jwtService, VideoRepository videoRepository) {
+    public VideoProvider(SentenceEnProvider sentenceEnProvider, UserVideoProvider userVideoProvider, JwtService jwtService, VideoRepository videoRepository, UserVideoRepository userVideoRepository) {
         this.sentenceEnProvider = sentenceEnProvider;
         this.userVideoProvider = userVideoProvider;
         this.jwtService = jwtService;
         this.videoRepository = videoRepository;
+        this.userVideoRepository = userVideoRepository;
     }
 
     @Transactional
@@ -77,5 +81,21 @@ public class VideoProvider {
     public Video findVideoById(Long videoId) throws BaseException {
         return videoRepository.findById(videoId)
                 .orElseThrow(() -> new BaseException(FAILED_TO_GET_VIDEO));
+    }
+
+
+    public List<YoutubeVideo> findYoutubeVideoByUserId(Long userId) {
+          return userVideoRepository.findYoutubeVideoByUserId(userId);
+
+    }
+
+    public List<UploadVideo> findUploadVideoByUserId(Long userId) {
+        return videoRepository.findUploadVideoByUserId(userId).stream()
+                .map(video -> UploadVideo.builder()
+                        .videoId(video.getVideoId())
+                        .title(video.getVideoName())
+                        .thumbNailURL(video.getThumbNailURL())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

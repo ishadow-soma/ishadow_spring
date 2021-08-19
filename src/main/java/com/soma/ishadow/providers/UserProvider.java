@@ -88,10 +88,9 @@ public class UserProvider {
 
         Long userId = jwtService.getUserInfo();
         GetMyroomRes getMyroomRes = new GetMyroomRes();
-        //List<YoutubeVideo> youtubeVideos =
-//        getMyroomRes.addYoutubeVideos();
-//        getMyroomRes.addUploadVideos();
-//        getMyroomRes.addUploadAudios();
+        getMyroomRes.addYoutubeVideos(videoProvider.findYoutubeVideoByUserId(userId));
+        //getMyroomRes.addUploadVideos(videoProvider.findUploadVideoByUserId(userId));
+        //getMyroomRes.addUploadAudios();
         return getMyroomRes;
     }
 }

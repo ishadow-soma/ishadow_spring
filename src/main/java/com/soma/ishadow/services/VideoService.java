@@ -90,25 +90,28 @@ public class VideoService {
                 return new PostVideoRes(exitedVideo.getVideoId(), exitedVideo.getVideoName(), url);
             }
 
-            WebClient webClient = createWebClient();
-
-            String videoInfo = getInfo(webClient, url);
-            logger.info("영상 변환 성공: " + url);
-
             Video newVideo = createVideo(postVideoReq);
-            String title = audioTranslateToText(newVideo, videoInfo);
-            newVideo.setVideoName(title);
 
             //audio DB에 저장
             Video createdVideo = saveVideo(newVideo);
             logger.info("영상 저장 성공: " + createdVideo.getVideoId());
 
+            WebClient webClient = createWebClient();
+
+            String videoInfo = getInfo(webClient, url);
+            logger.info("영상 변환 성공: " + url);
+
+            String title = audioTranslateToText(createdVideo, videoInfo);
+            createdVideo.setVideoName(title);
+            Video updatedVideo = saveVideo(createdVideo);
+            logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
+
             //audio Id를 이용해서 user_audio에 저장하기
-            UserVideo userVideo = saveUserVideo(userId, createdVideo);
+            UserVideo userVideo = saveUserVideo(userId, updatedVideo);
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
-            URLRepository.put(url, createdVideo.getVideoId());
-            return new PostVideoRes(createdVideo.getVideoId(), title, url);
+            URLRepository.put(url, updatedVideo.getVideoId());
+            return new PostVideoRes(updatedVideo.getVideoId(), title, url);
         }
 
         throw new BaseException(INVALID_AUDIO_TYPE);
@@ -151,8 +154,7 @@ public class VideoService {
         String title = "";
         try {
             JsonArray contexts = element.getAsJsonObject().get("results").getAsJsonArray();
-            title = contexts.get(0).getAsString();
-            System.out.println(title);
+            title = contexts.get(0).getAsJsonObject().get("title").getAsString();
             int jsonSize = element.getAsJsonObject().get("results").getAsJsonArray().size();
             for (int index = 1; index < jsonSize; index++) {
                 JsonElement context = contexts.get(index);
