@@ -248,7 +248,7 @@ public class VideoService {
             return "NONE";
         }
         String videoCode = url.substring(url.lastIndexOf("v=")).substring(2);
-        return "https://img.youtube.com/vi/" + videoCode + "/sddefault.jpg";
+        return "https://img.youtube.com/vi/" + videoCode + "/0.jpg";
     }
 
 }
