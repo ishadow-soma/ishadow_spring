@@ -149,16 +149,16 @@ public class UserController {
     }
 
     /**
-     * 비밀번호 확인
-     * @param searchPasswordReq
+     * 비밀번호 수정
+     * @param updatePasswordReq
      * @return
      */
-    @GetMapping("users/password")
-    public BaseResponse<IsSuccessRes> searchPassword(
-        @RequestBody SearchPasswordReq searchPasswordReq
+    @PatchMapping("users/password")
+    public BaseResponse<IsSuccessRes> updatePassword(
+        @RequestBody UpdatePasswordReq updatePasswordReq
     ) {
         try {
-            return BaseResponse.succeed(userService.updatePassword(searchPasswordReq));
+            return BaseResponse.succeed(userService.updatePassword(updatePasswordReq));
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());
         }

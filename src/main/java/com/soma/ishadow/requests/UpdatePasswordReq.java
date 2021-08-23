@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
-public class SearchPasswordReq {
+public class UpdatePasswordReq {
 
     private final String email;
     private final String password;
@@ -24,7 +24,7 @@ public class SearchPasswordReq {
 
     @Builder
     @JsonCreator
-    public SearchPasswordReq(
+    public UpdatePasswordReq(
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
             @JsonProperty("confirmPassword") String confirmPassword) {

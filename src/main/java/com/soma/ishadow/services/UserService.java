@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -246,15 +245,15 @@ public class UserService {
 
     /**
      * 비밀번호 수정
-     * @param searchPasswordReq
+     * @param updatePasswordReq
      * @return
      */
     @Transactional
-    public IsSuccessRes updatePassword(SearchPasswordReq searchPasswordReq) throws BaseException {
+    public IsSuccessRes updatePassword(UpdatePasswordReq updatePasswordReq) throws BaseException {
 
-        String email = searchPasswordReq.getEmail();
-        String password = searchPasswordReq.getPassword();
-        String confirmPassword = searchPasswordReq.getConfirmPassword();
+        String email = updatePasswordReq.getEmail();
+        String password = updatePasswordReq.getPassword();
+        String confirmPassword = updatePasswordReq.getConfirmPassword();
         emailCheck(email);
         if(!password.equals(confirmPassword)) {
             throw new BaseException(NOT_EQUAL_PASSWORD_AND_CONFIRM_PASSWORD);
@@ -262,6 +261,7 @@ public class UserService {
 
         User user = findByEmail(email);
         User newUser = user.updatePasswordConvertor(password);
+
         try {
             userRepository.save(newUser);
         } catch (Exception exception) {
