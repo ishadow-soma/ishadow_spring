@@ -7,3 +7,5 @@ deploy-to-server:
         - cd /home/ubuntu/ishadow_backend_spring_latest
         - ./deploy.sh
         - ehco 'build end'
+    tags:
+        - deploy
