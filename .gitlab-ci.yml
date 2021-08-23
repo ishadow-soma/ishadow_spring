@@ -5,7 +5,7 @@ deploy-to-server:
     script:
         - echo 'build start'
         - cd /home/ubuntu/ishadow_backend_spring_latest
-        - ./deploy.sh
+        - ./deploy.sh &
         - echo 'build end'
     tags:
         - deploy
