@@ -128,7 +128,7 @@ public class UserService {
             loginUser = requestLoginUserByNaver(parameters);
             User user = userRepository.findByEmail(loginUser.getEmail())
                     .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
-            logger.info("NAVER 로그인 성공: " +  user.getEmail() + "/" + loginUser.getUserId());
+            logger.info("NAVER 로그인 성공: " +  user.getEmail() + "/" + user.getUserId());
             return JwtRes.builder()
                     .email(user.getEmail())
                     .jwt(jwtService.createJwt(user.getUserId()))
