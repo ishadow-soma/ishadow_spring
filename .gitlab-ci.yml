@@ -1,0 +1,11 @@
+deploy-to-server:
+    stage: deploy
+    only:
+        - master
+    script:
+        - echo 'build start'
+        - cd /home/ubuntu/ishadow_backend_spring_latest
+        - ./deploy.sh &
+        - echo 'build end'
+    tags:
+        - deploy
