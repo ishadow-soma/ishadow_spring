@@ -38,7 +38,7 @@ public class VideoProvider {
         this.userVideoRepository = userVideoRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public GetShadowingRes getShadowing(Long videoId) throws BaseException {
         Long userId = jwtService.getUserInfo();
 

@@ -62,7 +62,6 @@ public class VideoController {
         PostVideoReq postVideoReq = new PostVideoReq(type,category,youtubeURL);
         try {
             return BaseResponse.succeed(videoService.upload(postVideoReq, video, userId));
-
         } catch (BaseException exception) {
             return BaseResponse.failed(exception.getStatus());
         }

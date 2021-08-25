@@ -11,6 +11,7 @@ import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.user_video.UserVideoId;
+import com.soma.ishadow.providers.UserVideoProvider;
 import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
 import com.soma.ishadow.repository.user_video.UserVideoRepository;
@@ -44,6 +45,7 @@ public class VideoService {
     private final S3Util s3Util;
     private final VideoRepository videoRepository;
     private final UserVideoRepository userVideoRepository;
+    private final UserVideoProvider userVideoProvider;
     private final SentenceEnRepository sentenceEnRepository;
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -52,10 +54,11 @@ public class VideoService {
     private final HashMap<String, Long> URLRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, SentenceEnRepository sentenceEnRepository,  UserService userService,  HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, UserService userService, HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
+        this.userVideoProvider = userVideoProvider;
         this.sentenceEnRepository = sentenceEnRepository;
         this.userService = userService;
         this.URLRepository = urlRepository;
@@ -87,6 +90,12 @@ public class VideoService {
                     URLRepository.put(url,null);
                     throw new BaseException(FAILED_TO_GET_VIDEO_YOUTUBE);
                 }
+
+                if(!userVideoProvider.findByUserVideo(userId, exitedVideo.getVideoId())) {
+                    UserVideo userVideo = saveUserVideo(userId, exitedVideo);
+                    logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
+                }
+
                 return new PostVideoRes(exitedVideo.getVideoId(), exitedVideo.getVideoName(), url);
             }
 
