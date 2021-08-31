@@ -462,6 +462,10 @@ public class UserService {
     }
 
     private void checkToken(String userInformation) throws BaseException {
+
+        if(JsonParser.parseString(userInformation).getAsJsonObject().get("error") == null) {
+            return;
+        }
         if(JsonParser.parseString(userInformation).getAsJsonObject().get("error").getAsString().equals("invalid_request")) {
             throw new BaseException(INVALID_NAVER_TOKEN);
         }
