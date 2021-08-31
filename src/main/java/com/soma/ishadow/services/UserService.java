@@ -79,9 +79,12 @@ public class UserService {
                 throw new BaseException(DUPLICATED_USER);
             }
         }
-//        if(parameters.getSns().equals("GOOGLE")) {
-//            user = createUserConvertor(parameters);
-//        }
+        if(parameters.getSns().equals("GOOGLE")) {
+            user = requestUserByGoogle(parameters);
+            if(duplicateCheck(user.getEmail())) {
+                throw new BaseException(DUPLICATED_USER);
+            }
+        }
 
         if(parameters.getSns().equals("NORMAL")) {
             if(duplicateCheck(parameters.getEmail())) {
@@ -113,6 +116,7 @@ public class UserService {
     }
 
 
+
     /**
      * 로그인
      * @param parameters
@@ -133,14 +137,25 @@ public class UserService {
                     .email(user.getEmail())
                     .jwt(jwtService.createJwt(user.getUserId()))
                     .build();
-
-
         }
+
+        if(parameters.getSns().equals("GOOGLE")) {
+            loginUser = requestLoginUserByGoogle(parameters);
+            User user = userRepository.findByEmail(loginUser.getEmail())
+                    .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
+            logger.info("Google 로그인 성공: " +  user.getEmail() + "/" + user.getUserId());
+            return JwtRes.builder()
+                    .email(user.getEmail())
+                    .jwt(jwtService.createJwt(user.getUserId()))
+                    .build();
+        }
+
         return userRepository.findByEmail(parameters.getEmail())
                 .filter(user -> passwordEncoding(parameters.getPassword()).equals(user.getPassword()))
                 .map(user -> JwtRes.builder().email(user.getEmail()).jwt(jwtService.createJwt(user.getUserId())).build())
                 .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
     }
+
 
 
     /**
@@ -305,6 +320,59 @@ public class UserService {
         return createUserConvertorByNaver(userInformation);
     }
 
+    private User requestUserByGoogle(PostSingUpReq parameters) throws IOException, BaseException {
+        String token = parameters.getUserToken(); // 구글 로그인 접근 토큰;
+        String header = "Bearer " +token; // Bearer 다음에 공백 추가
+        String apiURL = "https://www.googleapis.com/oauth2/v3/userinfo";
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("Authorization", header);
+        String userInformation = getNaverUserProfile(apiURL,requestHeaders);
+        checkToken(userInformation);
+        logger.info(userInformation);
+        return createUserConvertorByGoogle(userInformation);
+    }
+
+    private User createUserConvertorByGoogle(String parameters) throws BaseException {
+
+        JsonElement element = JsonParser.parseString(parameters);
+        String name;
+        String email;
+
+        try {
+            email = element.getAsJsonObject().get("email").getAsString();
+            name = element.getAsJsonObject().get("name").getAsString();
+        } catch (JsonIOException jsonIOException) {
+            throw new BaseException(FAILED_TO_PASING_USER_BY_NAVER);
+        }
+
+        return new User.Builder()
+                .name(name)
+                .email(email)
+                .password("NONE")
+                .gender("NONE")
+                .myPoint(0L)
+                .sns("NAVER")
+                .purposeOfUse("NONE")
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
+                .build();
+    }
+
+    private User requestLoginUserByGoogle(PostLoginReq parameters) throws BaseException, IOException {
+        String token = parameters.getUserToken(); // 네이버 로그인 접근 토큰;
+        if(token == null) {
+            throw new BaseException(EMPTY_TOKEN);
+        }
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        String apiURL = "https://www.googleapis.com/oauth2/v3/userinfo";
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("Authorization", header);
+        String userInformation = getNaverUserProfile(apiURL,requestHeaders);
+        checkToken(userInformation);
+        logger.info("login try by" + parameters.getSns());
+        return createUserConvertorByNaver(userInformation);
+    }
+
     private User requestLoginUserByNaver(PostLoginReq parameters) throws IOException, BaseException {
         String token = parameters.getUserToken(); // 네이버 로그인 접근 토큰;
         if(token == null) {
@@ -318,7 +386,7 @@ public class UserService {
         if(JsonParser.parseString(userInformation).getAsJsonObject().get("resultcode").getAsString().equals("024")) {
             throw new BaseException(INVALID_NAVER_TOKEN);
         }
-        logger.info("login try");
+        logger.info("login try by" + parameters.getSns());
         return createUserConvertorByNaver(userInformation);
     }
 
@@ -330,8 +398,8 @@ public class UserService {
         String email;
 
         try {
-            name = element.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
-            email = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+            email = element.getAsJsonObject().get("email").getAsString();
+            name = element.getAsJsonObject().get("name").getAsString();
         } catch (JsonIOException jsonIOException) {
             throw new BaseException(FAILED_TO_PASING_USER_BY_NAVER);
         }
@@ -393,6 +461,10 @@ public class UserService {
         return new UserConvertor(user.getUserId(), user, 0);
     }
 
-
+    private void checkToken(String userInformation) throws BaseException {
+        if(JsonParser.parseString(userInformation).getAsJsonObject().get("error").getAsString().equals("invalid_request")) {
+            throw new BaseException(INVALID_NAVER_TOKEN);
+        }
+    }
 
 }

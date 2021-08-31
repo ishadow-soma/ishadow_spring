@@ -19,7 +19,6 @@ public class NaverLoginUtil {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
 
-
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
                 return readBody(con.getInputStream());
