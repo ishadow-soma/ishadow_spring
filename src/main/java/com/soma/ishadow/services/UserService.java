@@ -345,10 +345,19 @@ public class UserService {
         String email;
 
         try {
-            email = element.getAsJsonObject().get("email").getAsString();
-            name = element.getAsJsonObject().get("name").getAsString();
+            if(sns.equals("NAVER")) {
+                email = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+                name = element.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
+            }
+            else if(sns.equals("GOOGLE")) {
+                email = element.getAsJsonObject().get("email").getAsString();
+                name = element.getAsJsonObject().get("name").getAsString();
+            }
+            else {
+                throw new BaseException(FAILED_TO_GET_SNS);
+            }
         } catch (JsonIOException jsonIOException) {
-            throw new BaseException(FAILED_TO_PASING_USER_BY_GOOGLE);
+            throw new BaseException(FAILED_TO_PASING_USER_BY_SNS);
         }
 
         return new User.Builder()
@@ -446,36 +455,6 @@ public class UserService {
             throw new BaseException(INVALID_NAVER_TOKEN);
         }
     }
-
-    /*
-private User createUserConvertorByNaver(String parameters) throws IOException, BaseException {
-
-
-        JsonElement element = JsonParser.parseString(parameters);
-        String name;
-        String email;
-
-        try {
-            email = element.getAsJsonObject().get("email").getAsString();
-            name = element.getAsJsonObject().get("name").getAsString();
-        } catch (JsonIOException jsonIOException) {
-            throw new BaseException(FAILED_TO_PASING_USER_BY_NAVER);
-        }
-
-        return new User.Builder()
-                .name(name)
-                .email(email)
-                .password("NONE")
-                .gender("NONE")
-                .myPoint(0L)
-                .sns("NAVER")
-                .purposeOfUse("NONE")
-                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
-                .status(Status.YES)
-                .build();
-
-    }
- */
 
 }
 

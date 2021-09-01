@@ -39,7 +39,8 @@ public enum BaseResponseStatus {
     FAILED_TO_GET_VIDEO_YOUTUBE(false, 2013, "영상 변환에 실패 했습니다. 다시 시도해주세요."),
     FAILED_TO_POST_BOOKMARK(false, 2014, "즐겨 찾기 저장에 실패 했습니다."),
     FAILED_TO_GET_BOOKMARK(false, 2015, "즐겨 찾기 조회에 실패 했습니다."),
-    FAILED_TO_PASING_USER_BY_GOOGLE(false, 2016, "사용자 정보 조회에 실패 했습니다.");
+    FAILED_TO_PASING_USER_BY_SNS(false, 2016, "SNS을 이용해서 사용자 정보 조회에 실패 했습니다."),
+    FAILED_TO_GET_SNS(false, 2017, "잘못된 SNS입니다.");
 
     private final Boolean success;
     private final int code;
