@@ -317,7 +317,7 @@ public class UserService {
         requestHeaders.put("Authorization", header);
         String userInformation = getNaverUserProfile(apiURL,requestHeaders);
         logger.info(userInformation);
-        return createUserConvertorByNaver(userInformation);
+        return createUserConvertor(userInformation, parameters.getSns());
     }
 
     private User requestUserByGoogle(PostSingUpReq parameters) throws IOException, BaseException {
@@ -329,10 +329,10 @@ public class UserService {
         String userInformation = getNaverUserProfile(apiURL,requestHeaders);
         checkToken(userInformation);
         logger.info(userInformation);
-        return createUserConvertorByGoogle(userInformation);
+        return createUserConvertor(userInformation, parameters.getSns());
     }
 
-    private User createUserConvertorByGoogle(String parameters) throws BaseException {
+    private User createUserConvertor(String parameters, String sns) throws BaseException {
 
         JsonElement element = JsonParser.parseString(parameters);
         String name;
@@ -342,7 +342,7 @@ public class UserService {
             email = element.getAsJsonObject().get("email").getAsString();
             name = element.getAsJsonObject().get("name").getAsString();
         } catch (JsonIOException jsonIOException) {
-            throw new BaseException(FAILED_TO_PASING_USER_BY_NAVER);
+            throw new BaseException(FAILED_TO_PASING_USER_BY_GOOGLE);
         }
 
         return new User.Builder()
@@ -351,7 +351,7 @@ public class UserService {
                 .password("NONE")
                 .gender("NONE")
                 .myPoint(0L)
-                .sns("NAVER")
+                .sns(sns)
                 .purposeOfUse("NONE")
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
@@ -370,7 +370,7 @@ public class UserService {
         String userInformation = getNaverUserProfile(apiURL,requestHeaders);
         checkToken(userInformation);
         logger.info("login try by" + parameters.getSns());
-        return createUserConvertorByNaver(userInformation);
+        return createUserConvertor(userInformation, parameters.getSns());
     }
 
     private User requestLoginUserByNaver(PostLoginReq parameters) throws IOException, BaseException {
@@ -387,38 +387,8 @@ public class UserService {
             throw new BaseException(INVALID_NAVER_TOKEN);
         }
         logger.info("login try by" + parameters.getSns());
-        return createUserConvertorByNaver(userInformation);
+        return createUserConvertor(userInformation, parameters.getSns());
     }
-
-    private User createUserConvertorByNaver(String parameters) throws IOException, BaseException {
-
-
-        JsonElement element = JsonParser.parseString(parameters);
-        String name;
-        String email;
-
-        try {
-            email = element.getAsJsonObject().get("email").getAsString();
-            name = element.getAsJsonObject().get("name").getAsString();
-        } catch (JsonIOException jsonIOException) {
-            throw new BaseException(FAILED_TO_PASING_USER_BY_NAVER);
-        }
-
-        return new User.Builder()
-                .name(name)
-                .email(email)
-                .password("NONE")
-                .gender("NONE")
-                .myPoint(0L)
-                .sns("NAVER")
-                .purposeOfUse("NONE")
-                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
-                .status(Status.YES)
-                .build();
-
-    }
-
-
 
     private User createUserConvertor(PostSingUpReq parameters) {
         return new User.Builder()
@@ -471,4 +441,35 @@ public class UserService {
         }
     }
 
+    /*
+private User createUserConvertorByNaver(String parameters) throws IOException, BaseException {
+
+
+        JsonElement element = JsonParser.parseString(parameters);
+        String name;
+        String email;
+
+        try {
+            email = element.getAsJsonObject().get("email").getAsString();
+            name = element.getAsJsonObject().get("name").getAsString();
+        } catch (JsonIOException jsonIOException) {
+            throw new BaseException(FAILED_TO_PASING_USER_BY_NAVER);
+        }
+
+        return new User.Builder()
+                .name(name)
+                .email(email)
+                .password("NONE")
+                .gender("NONE")
+                .myPoint(0L)
+                .sns("NAVER")
+                .purposeOfUse("NONE")
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
+                .build();
+
+    }
+ */
+
 }
+
