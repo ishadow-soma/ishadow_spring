@@ -127,9 +127,8 @@ public class UserService {
     public JwtRes login(PostLoginReq parameters) throws BaseException, IOException {
 
         User loginUser;
+
         //바로 return 하는 경우 log는 어떻게 남기지??
-
-
         if(parameters.getSns().equals("NAVER")) {
             loginUser = requestLoginUserByNaver(parameters);
             User user = userRepository.findByEmail(loginUser.getEmail())
@@ -152,13 +151,15 @@ public class UserService {
                     .build();
         }
 
-        if(!parameters.getSns().isEmpty()) {
-            throw new BaseException(INVALID_SNS);
+        if(parameters.getSns().equals("NORMAL")) {
+            return userRepository.findByEmail(parameters.getEmail())
+                    .filter(user -> passwordEncoding(parameters.getPassword()).equals(user.getPassword()))
+                    .map(user -> JwtRes.builder().email(user.getEmail()).jwt(jwtService.createJwt(user.getUserId())).build())
+                    .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
         }
-        return userRepository.findByEmail(parameters.getEmail())
-                .filter(user -> passwordEncoding(parameters.getPassword()).equals(user.getPassword()))
-                .map(user -> JwtRes.builder().email(user.getEmail()).jwt(jwtService.createJwt(user.getUserId())).build())
-                .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
+
+        throw new BaseException(INVALID_SNS);
+
     }
 
 
