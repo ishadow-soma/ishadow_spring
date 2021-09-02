@@ -32,6 +32,7 @@ public class BookmarkSentence implements Serializable {
     @JoinColumn(name = "sentenceId",nullable = false)
     private SentenceEn sentenceEn;
 
+    //REPEAT 반복 OR FAVORITE 즐겨찾기
     @Column(name = "sentenceSaveType")
     private String sentenceSaveType;
 

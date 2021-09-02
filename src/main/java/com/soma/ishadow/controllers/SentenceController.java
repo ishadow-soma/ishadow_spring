@@ -7,6 +7,8 @@ import com.soma.ishadow.requests.PostSentenceReq;
 import com.soma.ishadow.responses.GetBookmarkRes;
 import com.soma.ishadow.responses.PostSentenceRes;
 import com.soma.ishadow.services.SentenceService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,11 @@ public class SentenceController {
      * @return
      */
     @ApiOperation(value = "구간 반복 저장")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sentenceSaveType", value = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장"),
+            @ApiImplicitParam(name = "sentences", value = "sentences: [1, 2, 3] 이런식으로 저장, 숫자는 sentenceId"),
+            @ApiImplicitParam(name = "videoId", value = "현재 VIDEO ID")
+    })
     @PostMapping("/shadowing-player/sentence")
     public BaseResponse<PostSentenceRes> createBookmarkWithSentence(
             @RequestBody PostSentenceReq postSentenceReq
