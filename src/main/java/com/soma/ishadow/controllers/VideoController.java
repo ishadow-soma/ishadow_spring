@@ -67,7 +67,7 @@ public class VideoController {
             "\n")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "YOUTUBE, UPLOAD -> 현재는 YOUTUBE만 가능"),
-            @ApiImplicitParam(name = "category", value = "categoryId 배열 입력 -> category: [1, 2, 3]"),
+            @ApiImplicitParam(name = "category", value = "categoryId 배열 입력 -> 1, 2, 3"),
             @ApiImplicitParam(name = "youtubeURL", value = "youtube영상 url")
     })
     @PostMapping(value = "/media", consumes = {
