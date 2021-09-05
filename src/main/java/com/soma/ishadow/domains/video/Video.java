@@ -1,6 +1,7 @@
 package com.soma.ishadow.domains.video;
 
 
+import com.soma.ishadow.domains.category_video.CategoryVideo;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user_video.UserVideo;
@@ -59,6 +60,9 @@ public class Video implements Serializable {
 
     @OneToMany(mappedBy = "video", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserVideo> userVideos = new HashSet<>();
+
+    @OneToMany(mappedBy = "video", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CategoryVideo> categoryVideos = new HashSet<>();
 
     @OneToMany(mappedBy = "video", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<SentenceEn> sentenceEns = new HashSet<>();

@@ -5,13 +5,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.soma.ishadow.configures.BaseException;
+import com.soma.ishadow.domains.category.Category;
+import com.soma.ishadow.domains.category_video.CategoryVideo;
+import com.soma.ishadow.domains.category_video.CategoryVideoId;
 import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.sentence_en.SentenceEn;
 import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.user_video.UserVideoId;
+import com.soma.ishadow.providers.CategoryProvider;
 import com.soma.ishadow.providers.UserVideoProvider;
+import com.soma.ishadow.repository.category_video.CategoryVideoRepository;
 import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
 import com.soma.ishadow.repository.user_video.UserVideoRepository;
@@ -34,6 +39,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
 import static com.soma.ishadow.configures.Constant.baseUrl;
@@ -47,6 +53,8 @@ public class VideoService {
     private final UserVideoRepository userVideoRepository;
     private final UserVideoProvider userVideoProvider;
     private final SentenceEnRepository sentenceEnRepository;
+    private final CategoryProvider categoryProvider;
+    private final CategoryVideoRepository categoryVideoRepository;
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
 
@@ -54,12 +62,14 @@ public class VideoService {
     private final HashMap<String, Long> URLRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, UserService userService, HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, CategoryProvider categoryProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
         this.userVideoProvider = userVideoProvider;
         this.sentenceEnRepository = sentenceEnRepository;
+        this.categoryProvider = categoryProvider;
+        this.categoryVideoRepository = categoryVideoRepository;
         this.userService = userService;
         this.URLRepository = urlRepository;
     }
@@ -67,9 +77,8 @@ public class VideoService {
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
 
         String type = postVideoReq.getType();
-        String category = postVideoReq.getCategory();
+        List<Long> categoryId = postVideoReq.getCategoryId();
         String url = postVideoReq.getYoutubeURL();
-
 
         //S3에 저장하고 URL 반환하기
         if(type.equals("LOCAL")) {
@@ -101,9 +110,13 @@ public class VideoService {
 
             Video newVideo = createVideo(postVideoReq);
 
-            //audio DB에 저장
+            //video DB에 저장
             Video createdVideo = saveVideo(newVideo);
             logger.info("영상 저장 성공: " + createdVideo.getVideoId());
+
+            //categoryId 저장하기
+            saveCategoryVideo(categoryId, createdVideo);
+            logger.info("카테고리 영상 조인 테이블 저장 성공");
 
             WebClient webClient = createWebClient();
 
@@ -124,6 +137,29 @@ public class VideoService {
         }
 
         throw new BaseException(INVALID_AUDIO_TYPE);
+    }
+
+    private void saveCategoryVideo(List<Long> categoryId, Video video) throws BaseException {
+
+        for(Long id : categoryId) {
+            Category category = categoryProvider.findCategory(id);
+            CategoryVideo categoryVideo = createCategoryAudio(category, video);
+            try {
+                categoryVideoRepository.save(categoryVideo);
+            } catch (Exception exception) {
+                throw new BaseException(FAILED_TO_POST_USERAUDIO);
+            }
+        }
+    }
+
+    private CategoryVideo createCategoryAudio(Category category, Video video) {
+        return CategoryVideo.builder()
+                .categoryVideoId(new CategoryVideoId(category.getCategoryId(), video.getVideoId()))
+                .category(category)
+                .video(video)
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
+                .build();
     }
 
     private WebClient createWebClient() {

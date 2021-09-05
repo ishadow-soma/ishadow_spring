@@ -15,10 +15,12 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.EXCEED_CONVERSION_COUNT;
 
@@ -41,25 +43,49 @@ public class VideoController {
     }
 
     //영상 업로드 -> 유저 카운트 조회 ->
-    @ApiOperation(value = "영상 업로드")
+    @ApiOperation(value = "영상 업로드", notes =
+            "1, '라이프 스타일'\n" +
+            "2, '음악/댄스'\n" +
+            "3, '뷰티/패션'\n" +
+            "4, '영화/애니메이션'\n" +
+            "5, '키즈'\n" +
+            "6, '게임'\n" +
+            "7, '여행/아웃도어'\n" +
+            "8, '스포츠/건강'\n" +
+            "9, '뉴스/정치/이슈'\n" +
+            "10, '기관/단체/정부'\n" +
+            "11, '엔터테인먼트'\n" +
+            "12, '푸드/쿠킹'\n" +
+            "13, '인물/유명인'\n" +
+            "14, 'IT/기술/과학'\n" +
+            "15, '동물/펫'\n" +
+            "16, '취미'\n" +
+            "17, '차/배/바이크'\n" +
+            "18, '경제/금융/제테크'\n" +
+            "19, '교육/강의'\n" +
+            "20, 'ALL'\n" +
+            "\n")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "YOUTUBE, UPLOAD -> 현재는 YOUTUBE만 가능"),
-            @ApiImplicitParam(name = "category", value = "현재는 아무 글자 입력 -> 추후 보완"),
+            @ApiImplicitParam(name = "category", value = "categoryId 배열 입력 -> category: [1, 2, 3]"),
             @ApiImplicitParam(name = "youtubeURL", value = "youtube영상 url")
     })
-    @PostMapping(path = "/media")
+    @PostMapping(value = "/media", consumes = {
+            MediaType.MULTIPART_FORM_DATA_VALUE,
+            MediaType.APPLICATION_JSON_VALUE
+    })
     public BaseResponse<PostVideoRes> uploadVideo(
             @RequestPart(value = "file",required = false) MultipartFile video,
-            @RequestParam(value = "youtubeURL",required = false) String youtubeURL,
-            @RequestParam(value = "type") String type,
-            @RequestParam(value = "category") String category
+            @RequestPart(value = "youtubeURL",required = false) String youtubeURL,
+            @RequestPart(value = "type") String type,
+            @RequestPart(value = "category") List<Long> categoryId
     ) throws BaseException, IOException {
 
         Long userId = jwtService.getUserInfo();
         if(!userProvider.conversionCheck(userId)) {
             throw new BaseException(EXCEED_CONVERSION_COUNT);
         }
-        PostVideoReq postVideoReq = new PostVideoReq(type,category,youtubeURL);
+        PostVideoReq postVideoReq = new PostVideoReq(type, categoryId ,youtubeURL);
         try {
             return BaseResponse.succeed(videoService.upload(postVideoReq, video, userId));
         } catch (BaseException exception) {

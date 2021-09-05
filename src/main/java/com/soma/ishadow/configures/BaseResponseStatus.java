@@ -17,7 +17,8 @@ public enum BaseResponseStatus {
     INVALID_NAVER_TOKEN( false, 1011,"잘못된 토큰입니다."),
     INVALID_AUDIO_TYPE( false, 1012,"잘못된 영상 변환 방식입니다."),
     FAILED_TO_PARSING_SCRIPT( false, 1013,"스크립트 변환에 실패했습니다."),
-    INVALID_SNS( false, 1013,"잘못된 SNS 입니다."),
+    INVALID_SNS( false, 1014,"잘못된 SNS 입니다."),
+    FAILED_TO_GET_CATEGORY( false, 1015,"잘못된 카테고리 입니다."),
 
 
 

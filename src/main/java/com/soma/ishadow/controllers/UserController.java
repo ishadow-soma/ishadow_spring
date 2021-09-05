@@ -6,6 +6,8 @@ import com.soma.ishadow.providers.UserProvider;
 import com.soma.ishadow.requests.*;
 import com.soma.ishadow.responses.*;
 import com.soma.ishadow.services.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +45,7 @@ public class UserController {
      * @return
      * @throws BaseException
      */
-    @ApiOperation(value = "회원 가입")
+    @ApiOperation(value = "회원 가입", notes = "sns -> 일반 = NORMAL, naver = NAVER, google = GOOGLE")
     @PostMapping(path = "/users")
     public BaseResponse<JwtRes> signUp(
             @RequestBody PostSingUpReq parameters

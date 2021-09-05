@@ -4,20 +4,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
+import java.util.List;
+
 public class PostVideoReq {
 
     private String type;
-    private String category;
+    private List<Long> categoryId;
     private String youtubeURL;
 
     @Builder
     @JsonCreator
     public PostVideoReq(
             @JsonProperty("type") String type,
-            @JsonProperty("category") String category,
+            @JsonProperty("categoryId") List<Long> categoryId,
             @JsonProperty("youtubeURL") String youtubeURL) {
         this.type = type;
-        this.category = category;
+        this.categoryId = categoryId;
         this.youtubeURL = youtubeURL;
     }
 
@@ -30,8 +32,8 @@ public class PostVideoReq {
         return type;
     }
 
-    public String getCategory() {
-        return category;
+    public List<Long> getCategoryId() {
+        return categoryId;
     }
 
     public String getYoutubeURL() {
