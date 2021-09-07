@@ -78,6 +78,7 @@ public class VideoService {
 
         String type = postVideoReq.getType();
         List<Long> categoryId = postVideoReq.getCategoryId();
+        System.out.println(categoryId + " " + type);
         checkCategoryId(categoryId);
         String url = postVideoReq.getYoutubeURL();
 
@@ -300,7 +301,8 @@ public class VideoService {
 
     private void checkCategoryId(List<Long> categoryId) {
 
-        if(categoryId.isEmpty()) {
+        logger.info("categoryId 존재 여부: " + categoryId.size());
+        if(categoryId.size() == 0) {
             categoryId.add(20L);
         }
 

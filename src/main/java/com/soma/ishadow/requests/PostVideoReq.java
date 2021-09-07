@@ -4,25 +4,38 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PostVideoReq {
+public class PostVideoReq{
 
+    @JsonProperty("type")
     private String type;
-    private List<Long> categoryId;
+
+    @JsonProperty("categoryId")
+    private List<Long> categoryId = new ArrayList<>();
+
+    @JsonProperty("youtubeURL")
     private String youtubeURL;
 
     @Builder
-    @JsonCreator
-    public PostVideoReq(
-            @JsonProperty("type") String type,
-            @JsonProperty("categoryId") List<Long> categoryId,
-            @JsonProperty("youtubeURL") String youtubeURL) {
+    public PostVideoReq(String type, String youtubeURL) {
         this.type = type;
-        this.categoryId = categoryId;
         this.youtubeURL = youtubeURL;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setCategoryId(List<Long> categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setYoutubeURL(String youtubeURL) {
+        this.youtubeURL = youtubeURL;
+    }
 
     public PostVideoReq() {
 

@@ -43,7 +43,7 @@ public class VideoController {
     }
 
     //영상 업로드 -> 유저 카운트 조회 ->
-    @ApiOperation(value = "영상 업로드, 폼 데이터 형식으로 보내주세요.", notes =
+    @ApiOperation(value = "영상 업로드, \"Content-Type: multipart/form-data\"", notes =
             "1, '라이프 스타일'\n" +
             "2, '음악/댄스'\n" +
             "3, '뷰티/패션'\n" +
@@ -67,7 +67,7 @@ public class VideoController {
             "\n")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "YOUTUBE, UPLOAD -> 현재는 YOUTUBE만 가능"),
-            @ApiImplicitParam(name = "category", value = "categoryId 배열 입력 -> 1, 2, 3"),
+            @ApiImplicitParam(name = "categoryId", value = "categoryId 배열 입력 -> 1, 2, 3"),
             @ApiImplicitParam(name = "youtubeURL", value = "youtube영상 url")
     })
     @PostMapping(value = "/media", consumes = {
@@ -75,17 +75,14 @@ public class VideoController {
             MediaType.APPLICATION_JSON_VALUE
     })
     public BaseResponse<PostVideoRes> uploadVideo(
-            @RequestPart(value = "file",required = false) MultipartFile video,
-            @RequestPart(value = "youtubeURL",required = false) String youtubeURL,
-            @RequestPart(value = "type") String type,
-            @RequestPart(value = "category") List<Long> categoryId
+            @ModelAttribute PostVideoReq postVideoReq,
+            @RequestPart(value = "file",required = false) MultipartFile video
     ) throws BaseException, IOException {
 
         Long userId = jwtService.getUserInfo();
         if(!userProvider.conversionCheck(userId)) {
             throw new BaseException(EXCEED_CONVERSION_COUNT);
         }
-        PostVideoReq postVideoReq = new PostVideoReq(type, categoryId ,youtubeURL);
         try {
             return BaseResponse.succeed(videoService.upload(postVideoReq, video, userId));
         } catch (BaseException exception) {
