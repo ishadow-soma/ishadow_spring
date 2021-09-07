@@ -78,7 +78,6 @@ public class VideoService {
 
         String type = postVideoReq.getType();
         List<Long> categoryId = postVideoReq.getCategoryId();
-        System.out.println(categoryId + " " + type);
         checkCategoryId(categoryId);
         String url = postVideoReq.getYoutubeURL();
 
