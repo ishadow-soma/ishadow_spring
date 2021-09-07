@@ -78,6 +78,7 @@ public class VideoService {
 
         String type = postVideoReq.getType();
         List<Long> categoryId = postVideoReq.getCategoryId();
+        checkCategoryId(categoryId);
         String url = postVideoReq.getYoutubeURL();
 
         //S3에 저장하고 URL 반환하기
@@ -287,6 +288,7 @@ public class VideoService {
     }
 
     //TODO 예외 처리 하기
+
     private String getThumbNailURL(String url) {
         int index = url.indexOf("v=");
         if( index == -1 ) {
@@ -296,5 +298,11 @@ public class VideoService {
         return "https://img.youtube.com/vi/" + videoCode + "/0.jpg";
     }
 
+    private void checkCategoryId(List<Long> categoryId) {
+
+        if(categoryId.isEmpty()) {
+            categoryId.add(20L);
+        }
+    }
 }
 
