@@ -43,7 +43,7 @@ public class VideoController {
     }
 
     //영상 업로드 -> 유저 카운트 조회 ->
-    @ApiOperation(value = "영상 업로드", notes =
+    @ApiOperation(value = "영상 업로드, 폼 데이터 형식으로 보내주세요.", notes =
             "1, '라이프 스타일'\n" +
             "2, '음악/댄스'\n" +
             "3, '뷰티/패션'\n" +
