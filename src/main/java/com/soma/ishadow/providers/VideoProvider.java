@@ -61,7 +61,7 @@ public class VideoProvider {
     private GetShadowingRes createShadowing(Video video) {
         return GetShadowingRes.builder()
                 .videoId(video.getVideoId())
-                .videoTitle(video.getVideoName())
+                .videoName(video.getVideoName())
                 .videoURL(video.getVideoURL())
                 .thumbNailURL(video.getThumbNailURL())
                 .build();
