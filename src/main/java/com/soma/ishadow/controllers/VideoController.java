@@ -4,8 +4,10 @@ import com.soma.ishadow.configures.BaseException;
 import com.soma.ishadow.configures.BaseResponse;
 import com.soma.ishadow.providers.UserProvider;
 import com.soma.ishadow.providers.VideoProvider;
+import com.soma.ishadow.requests.PostVideoLevelReq;
 import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.GetShadowingRes;
+import com.soma.ishadow.responses.PostVideoLevelRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.services.JwtService;
 import com.soma.ishadow.services.VideoService;
@@ -91,6 +93,20 @@ public class VideoController {
 
     }
 
+//    @ApiOperation(value = "쉐도잉 영상 난이도 평가 하기")
+//    @PatchMapping("/media/{videoId}/level")
+//    public BaseResponse<PostVideoLevelRes> updateShadowingVideoLevel(
+//            @PathVariable("videoId") Long videoId,
+//            @RequestBody PostVideoLevelReq postVideoLevelReq
+//    ) {
+//        try {
+//            return BaseResponse.succeed(videoService.updateVideo(videoId, postVideoLevelReq));
+//        } catch (BaseException exception ) {
+//            return BaseResponse.failed(exception.getStatus());
+//        }
+//    }
+
+
     @ApiOperation(value = "쉐도잉 영상 정보 가져오기")
     @GetMapping("/shadowing-player")
     public BaseResponse<GetShadowingRes> getShadowingInformation(
@@ -102,5 +118,6 @@ public class VideoController {
             return BaseResponse.failed(exception.getStatus());
         }
     }
+
 
 }

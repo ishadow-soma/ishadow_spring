@@ -17,6 +17,9 @@ public class GetShadowingRes implements Serializable {
     @JsonProperty("videoName")
     private final String videoName;
 
+    @JsonProperty("videoLevel")
+    private final float videoLevel;
+
     @JsonProperty("videoURL")
     private final String videoURL;
 
@@ -28,11 +31,20 @@ public class GetShadowingRes implements Serializable {
 
     @JsonCreator
     @Builder
-    public GetShadowingRes(Long videoId, String videoName, String videoURL, String thumbNailURL) {
+    public GetShadowingRes(Long videoId, String videoName, float videoLevel, String videoURL, String thumbNailURL) {
         this.videoId = videoId;
         this.videoName = videoName;
+        this.videoLevel = videoLevel;
         this.videoURL = videoURL;
         this.thumbNailURL = thumbNailURL;
+    }
+
+    public String getThumbNailURL() {
+        return thumbNailURL;
+    }
+
+    public float getVideoLevel() {
+        return videoLevel;
     }
 
     public String getVideoName() {

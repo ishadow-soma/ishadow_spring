@@ -8,6 +8,9 @@ import com.soma.ishadow.configures.BaseException;
 import com.soma.ishadow.domains.category.Category;
 import com.soma.ishadow.domains.category_video.CategoryVideo;
 import com.soma.ishadow.domains.category_video.CategoryVideoId;
+import com.soma.ishadow.domains.review.Review;
+import com.soma.ishadow.domains.user_review.UserReview;
+import com.soma.ishadow.domains.user_review.UserReviewId;
 import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.sentence_en.SentenceEn;
@@ -16,11 +19,15 @@ import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.user_video.UserVideoId;
 import com.soma.ishadow.providers.CategoryProvider;
 import com.soma.ishadow.providers.UserVideoProvider;
+import com.soma.ishadow.providers.VideoProvider;
 import com.soma.ishadow.repository.category_video.CategoryVideoRepository;
+import com.soma.ishadow.repository.review.ReviewRepository;
+import com.soma.ishadow.repository.user_review.UserReviewRepository;
 import com.soma.ishadow.repository.video.VideoRepository;
 import com.soma.ishadow.repository.sentense.SentenceEnRepository;
 import com.soma.ishadow.repository.user_video.UserVideoRepository;
 import com.soma.ishadow.requests.PostVideoConvertorReq;
+import com.soma.ishadow.requests.PostVideoLevelReq;
 import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.utils.S3Util;
@@ -53,7 +60,10 @@ public class VideoService {
     private final UserVideoRepository userVideoRepository;
     private final UserVideoProvider userVideoProvider;
     private final SentenceEnRepository sentenceEnRepository;
+    private final ReviewRepository reviewRepository;
+    private final UserReviewRepository userReviewRepository;
     private final CategoryProvider categoryProvider;
+    private final VideoProvider videoProvider;
     private final CategoryVideoRepository categoryVideoRepository;
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -62,18 +72,31 @@ public class VideoService {
     private final HashMap<String, Long> URLRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, CategoryProvider categoryProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
         this.userVideoProvider = userVideoProvider;
         this.sentenceEnRepository = sentenceEnRepository;
+        this.reviewRepository = reviewRepository;
+        this.userReviewRepository = userReviewRepository;
         this.categoryProvider = categoryProvider;
+        this.videoProvider = videoProvider;
         this.categoryVideoRepository = categoryVideoRepository;
         this.userService = userService;
         this.URLRepository = urlRepository;
     }
 
+    /**
+     * 영상 업로드
+     * @param postVideoReq
+     * @param video
+     * @param userId
+     * @return
+     * @throws BaseException
+     * @throws IOException
+     */
+    //TODO manager 테이블 만들어서 오류가 나면 해당 오류 부터 확인 할 수 있게 한다.
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
 
         String type = postVideoReq.getType();
@@ -102,7 +125,8 @@ public class VideoService {
                 }
 
                 if(!userVideoProvider.findByUserVideo(userId, exitedVideo.getVideoId())) {
-                    UserVideo userVideo = saveUserVideo(userId, exitedVideo);
+                    User user = userService.findById(userId);
+                    UserVideo userVideo = saveUserVideo(user, exitedVideo);
                     logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
                 }
 
@@ -129,9 +153,15 @@ public class VideoService {
             Video updatedVideo = saveVideo(createdVideo);
             logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
 
-            //audio Id를 이용해서 user_audio에 저장하기
-            UserVideo userVideo = saveUserVideo(userId, updatedVideo);
+            //videoId를 이용해서 user_video에 저장하기
+            User user = userService.findById(userId);
+            UserVideo userVideo = saveUserVideo(user, updatedVideo);
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
+
+            Review review = createReview();
+            Review newReview = saveReview(review);
+            UserReview userReview = saveUserReview(user, newReview);
+            logger.info("리뷰 유저 조인 테이블 저장 성공: " + userReview.getUserReviewId().toString());
 
             URLRepository.put(url, updatedVideo.getVideoId());
             return new PostVideoRes(updatedVideo.getVideoId(), title, url);
@@ -139,6 +169,21 @@ public class VideoService {
 
         throw new BaseException(INVALID_AUDIO_TYPE);
     }
+
+
+    /**
+     * 영상 난이도 변경
+     * @param videoId
+     * @param postVideoLevelReq
+     * @return
+     */
+    public PostVideoLevelReq updateVideo(Long videoId, PostVideoLevelReq postVideoLevelReq) throws BaseException {
+
+        Video video = videoProvider.findVideoById(videoId);
+
+        return null;
+    }
+
 
     private void saveCategoryVideo(List<Long> categoryId, Video video) throws BaseException {
 
@@ -169,9 +214,8 @@ public class VideoService {
                 .build();
     }
 
-    private UserVideo saveUserVideo(Long userId, Video video) throws BaseException {
+    private UserVideo saveUserVideo(User user, Video video) throws BaseException {
 
-        User user = userService.findById(userId);
         UserVideo userVideo = createUserAudio(user, video);
         UserVideo newUserVideo;
         try {
@@ -180,6 +224,51 @@ public class VideoService {
             throw new BaseException(FAILED_TO_POST_USERAUDIO);
         }
         return newUserVideo;
+    }
+
+    private UserReview saveUserReview(User user, Review newReview) throws BaseException {
+
+        UserReview userReview = createUserReview(user, newReview);
+        UserReview newUserReview;
+        try {
+            newUserReview = userReviewRepository.save(userReview);
+        } catch (Exception exception) {
+            throw new BaseException(FAILED_TO_POST_USER_REVIEW);
+        }
+
+        return newUserReview;
+    }
+
+    private Review saveReview(Review review) throws BaseException {
+
+        Review savedReview;
+        try {
+            savedReview = reviewRepository.save(review);
+        } catch (Exception exception) {
+            throw new BaseException(FAILED_TO_POST_REVIEW);
+        }
+
+        return savedReview;
+    }
+
+    private UserReview createUserReview(User user, Review review) {
+
+        return UserReview.builder()
+                .userReviewId(new UserReviewId(user.getUserId(), review.getReviewId()))
+                .user(user)
+                .review(review)
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
+                .build();
+    }
+
+    private Review createReview() {
+        return Review.builder()
+                .level(3.0F)
+                .content("NONE")
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .status(Status.YES)
+                .build();
     }
 
     private UserVideo createUserAudio(User user, Video video) {
@@ -306,5 +395,6 @@ public class VideoService {
         }
 
     }
+
 }
 

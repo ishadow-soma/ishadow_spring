@@ -150,6 +150,7 @@ public class Video implements Serializable {
             return this;
         }
 
+
         public Builder videoChannel(int videoChannel) {
             this.videoChannel = videoChannel;
             return this;
@@ -187,7 +188,7 @@ public class Video implements Serializable {
         }
 
         public Video build() {
-            return new Video(videoId, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel, videoSampling, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
+            return new Video(videoId, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel,videoSampling, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
         }
     }
 

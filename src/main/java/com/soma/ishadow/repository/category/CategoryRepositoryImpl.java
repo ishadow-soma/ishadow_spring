@@ -37,4 +37,5 @@ public class CategoryRepositoryImpl extends QuerydslRepositorySupport implements
                 .where(category.categoryId.eq(categoryId), category.status.eq(Status.YES))
                 .fetchOne());
     }
+
 }
