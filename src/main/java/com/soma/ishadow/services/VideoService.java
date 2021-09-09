@@ -196,7 +196,7 @@ public class VideoService {
         logger.info("영상 저장 성공: " + newVideo.getVideoId());
         return PostVideoLevelRes.builder()
                 .videoId(newVideo.getVideoId())
-                .videoEvaluate(newVideo.getVideoEvaluation())
+                .videoEvaluation(newVideo.getVideoEvaluation())
                 .reviewId(newReview.getReviewId())
                 .build();
     }
