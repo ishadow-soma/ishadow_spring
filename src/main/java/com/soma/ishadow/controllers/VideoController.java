@@ -94,13 +94,13 @@ public class VideoController {
     }
 
     @ApiOperation(value = "쉐도잉 영상 난이도 평가 하기", notes = "5점 만점 소수점 한 자리까지 가능")
-    @PatchMapping("/media/{videoId}/level")
+    @PostMapping("/media/{videoId}/level")
     public BaseResponse<PostVideoLevelRes> updateShadowingVideoLevel(
             @PathVariable("videoId") Long videoId,
             @RequestBody PostVideoLevelReq postVideoLevelReq
     ) {
         try {
-            return BaseResponse.succeed(videoService.updateVideo(videoId, postVideoLevelReq));
+            return BaseResponse.succeed(videoService.createVideo(videoId, postVideoLevelReq));
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());
         }

@@ -18,6 +18,7 @@ import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.user_video.UserVideoId;
 import com.soma.ishadow.providers.CategoryProvider;
+import com.soma.ishadow.providers.ReviewProvider;
 import com.soma.ishadow.providers.UserVideoProvider;
 import com.soma.ishadow.providers.VideoProvider;
 import com.soma.ishadow.repository.category_video.CategoryVideoRepository;
@@ -29,6 +30,7 @@ import com.soma.ishadow.repository.user_video.UserVideoRepository;
 import com.soma.ishadow.requests.PostVideoConvertorReq;
 import com.soma.ishadow.requests.PostVideoLevelReq;
 import com.soma.ishadow.requests.PostVideoReq;
+import com.soma.ishadow.responses.PostVideoLevelRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.utils.S3Util;
 import org.slf4j.Logger;
@@ -64,6 +66,7 @@ public class VideoService {
     private final UserReviewRepository userReviewRepository;
     private final CategoryProvider categoryProvider;
     private final VideoProvider videoProvider;
+    private final ReviewProvider reviewProvider;
     private final CategoryVideoRepository categoryVideoRepository;
     private final UserService userService;
     private final JwtService jwtService;
@@ -73,7 +76,7 @@ public class VideoService {
     private final HashMap<String, Long> URLRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, ReviewProvider reviewProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
@@ -83,6 +86,7 @@ public class VideoService {
         this.userReviewRepository = userReviewRepository;
         this.categoryProvider = categoryProvider;
         this.videoProvider = videoProvider;
+        this.reviewProvider = reviewProvider;
         this.categoryVideoRepository = categoryVideoRepository;
         this.userService = userService;
         this.jwtService = jwtService;
@@ -160,11 +164,6 @@ public class VideoService {
             UserVideo userVideo = saveUserVideo(user, updatedVideo);
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
-            Review review = createReview(updatedVideo);
-            Review newReview = saveReview(review);
-            UserReview userReview = saveUserReview(user, newReview);
-            logger.info("리뷰 유저 조인 테이블 저장 성공: " + userReview.getUserReviewId().toString());
-
             URLRepository.put(url, updatedVideo.getVideoId());
             return new PostVideoRes(updatedVideo.getVideoId(), title, url);
         }
@@ -174,18 +173,26 @@ public class VideoService {
 
 
     /**
-     * 영상 난이도 변경
+     * 영상 난이도 추가
      * @param videoId
      * @param postVideoLevelReq
      * @return
      */
-    public PostVideoLevelReq updateVideo(Long videoId, PostVideoLevelReq postVideoLevelReq) throws BaseException {
+    public PostVideoLevelRes createVideo(Long videoId, PostVideoLevelReq postVideoLevelReq) throws BaseException {
 
         Long userId = jwtService.getUserInfo();
+        User user = userService.findById(userId);
         Video video = videoProvider.findVideoById(videoId);
 
+        Review review = createReview(user, video, postVideoLevelReq);
+        Review newReview = saveReview(review);
+        UserReview userReview = saveUserReview(user, newReview);
+        logger.info("리뷰 유저 조인 테이블 저장 성공: " + userReview.getUserReviewId().toString());
 
-        return null;
+        return PostVideoLevelRes.builder()
+                .videoId(video.getVideoId())
+                .reviewId(newReview.getReviewId())
+                .build();
     }
 
 
@@ -267,11 +274,12 @@ public class VideoService {
                 .build();
     }
 
-    private Review createReview(Video video) {
+    private Review createReview(User user, Video video, PostVideoLevelReq postVideoLevelReq) {
         return Review.builder()
-                .level(3.0F)
+                .level(postVideoLevelReq.getLevel())
+                .userId(user.getUserId())
                 .videoId(video.getVideoId())
-                .content("NONE")
+                .content(postVideoLevelReq.getContent())
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
                 .build();

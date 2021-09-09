@@ -4,14 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostVideoLevelReq {
 
-    @JsonProperty("videoLevel")
-    private final float videoLevel;
+    @JsonProperty("Level")
+    private final float level;
 
-    public PostVideoLevelReq(float videoLevel) {
-        this.videoLevel = videoLevel;
+    @JsonProperty("content")
+    private final String content;
+
+    public PostVideoLevelReq(float level, String content) {
+        this.level = level;
+        this.content = content;
     }
 
-    public float getVideoLevel() {
-        return videoLevel;
+    public float getLevel() {
+        return level;
+    }
+
+    public String getContent() {
+        return content;
     }
 }
