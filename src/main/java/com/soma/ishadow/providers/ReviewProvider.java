@@ -27,6 +27,6 @@ public class ReviewProvider {
      */
     public Review findReviewByUserAndVideo(Long userId, Long videoId) {
 
-
+        return null;
     }
 }
