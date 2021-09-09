@@ -93,18 +93,18 @@ public class VideoController {
 
     }
 
-//    @ApiOperation(value = "쉐도잉 영상 난이도 평가 하기")
-//    @PatchMapping("/media/{videoId}/level")
-//    public BaseResponse<PostVideoLevelRes> updateShadowingVideoLevel(
-//            @PathVariable("videoId") Long videoId,
-//            @RequestBody PostVideoLevelReq postVideoLevelReq
-//    ) {
-//        try {
-//            return BaseResponse.succeed(videoService.updateVideo(videoId, postVideoLevelReq));
-//        } catch (BaseException exception ) {
-//            return BaseResponse.failed(exception.getStatus());
-//        }
-//    }
+    @ApiOperation(value = "쉐도잉 영상 난이도 평가 하기", notes = "5점 만점 소수점 한 자리까지 가능")
+    @PatchMapping("/media/{videoId}/level")
+    public BaseResponse<PostVideoLevelRes> updateShadowingVideoLevel(
+            @PathVariable("videoId") Long videoId,
+            @RequestBody PostVideoLevelReq postVideoLevelReq
+    ) {
+        try {
+            return BaseResponse.succeed(videoService.updateVideo(videoId, postVideoLevelReq));
+        } catch (BaseException exception ) {
+            return BaseResponse.failed(exception.getStatus());
+        }
+    }
 
 
     @ApiOperation(value = "쉐도잉 영상 정보 가져오기")

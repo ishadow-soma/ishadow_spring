@@ -16,6 +16,9 @@ public class Review {
     @Column(name = "reviewId", nullable = false, updatable = false)
     private Long reviewId;
 
+    @Column(name = "videoId", nullable = false, updatable = false)
+    private Long videoId;
+
     @Column(name = "level")
     private float level;
 
@@ -33,8 +36,9 @@ public class Review {
     private Status status;
 
     @Builder
-    public Review(Long reviewId, float level, String content, Timestamp createdAt, Timestamp updateAt, Status status) {
+    public Review(Long reviewId, Long videoId, float level, String content, Timestamp createdAt, Timestamp updateAt, Status status) {
         this.reviewId = reviewId;
+        this.videoId = videoId;
         this.level = level;
         this.content = content;
         this.createdAt = createdAt;
@@ -44,6 +48,10 @@ public class Review {
 
     public Review() {
 
+    }
+
+    public Long getVideoId() {
+        return videoId;
     }
 
     public Long getReviewId() {

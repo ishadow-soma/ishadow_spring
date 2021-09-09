@@ -66,13 +66,14 @@ public class VideoService {
     private final VideoProvider videoProvider;
     private final CategoryVideoRepository categoryVideoRepository;
     private final UserService userService;
+    private final JwtService jwtService;
     private final Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     @Qualifier("URLRepository")
     private final HashMap<String, Long> URLRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
@@ -84,6 +85,7 @@ public class VideoService {
         this.videoProvider = videoProvider;
         this.categoryVideoRepository = categoryVideoRepository;
         this.userService = userService;
+        this.jwtService = jwtService;
         this.URLRepository = urlRepository;
     }
 
@@ -158,7 +160,7 @@ public class VideoService {
             UserVideo userVideo = saveUserVideo(user, updatedVideo);
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
-            Review review = createReview();
+            Review review = createReview(updatedVideo);
             Review newReview = saveReview(review);
             UserReview userReview = saveUserReview(user, newReview);
             logger.info("리뷰 유저 조인 테이블 저장 성공: " + userReview.getUserReviewId().toString());
@@ -179,7 +181,9 @@ public class VideoService {
      */
     public PostVideoLevelReq updateVideo(Long videoId, PostVideoLevelReq postVideoLevelReq) throws BaseException {
 
+        Long userId = jwtService.getUserInfo();
         Video video = videoProvider.findVideoById(videoId);
+
 
         return null;
     }
@@ -242,6 +246,7 @@ public class VideoService {
     private Review saveReview(Review review) throws BaseException {
 
         Review savedReview;
+
         try {
             savedReview = reviewRepository.save(review);
         } catch (Exception exception) {
@@ -262,9 +267,10 @@ public class VideoService {
                 .build();
     }
 
-    private Review createReview() {
+    private Review createReview(Video video) {
         return Review.builder()
                 .level(3.0F)
+                .videoId(video.getVideoId())
                 .content("NONE")
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
