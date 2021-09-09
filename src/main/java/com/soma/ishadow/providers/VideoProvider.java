@@ -63,6 +63,7 @@ public class VideoProvider {
                 .videoId(video.getVideoId())
                 .videoName(video.getVideoName())
                 .videoURL(video.getVideoURL())
+                .videoEvaluation(video.getVideoEvaluation())
                 .thumbNailURL(video.getThumbNailURL())
                 .build();
     }

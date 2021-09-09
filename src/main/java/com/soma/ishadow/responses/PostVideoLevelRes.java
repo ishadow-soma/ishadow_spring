@@ -10,16 +10,16 @@ public class PostVideoLevelRes implements Serializable {
     @JsonProperty("videoId")
     private final Long videoId;
 
-    @JsonProperty("videoEvaluate")
-    private final Boolean videoEvaluate;
+    @JsonProperty("videoEvaluation")
+    private final Boolean videoEvaluation;
 
     @JsonProperty("reviewId")
     private final Long reviewId;
 
     @Builder
-    public PostVideoLevelRes(Long videoId, Boolean videoEvaluate, Long reviewId) {
+    public PostVideoLevelRes(Long videoId, Boolean videoEvaluation, Long reviewId) {
         this.videoId = videoId;
-        this.videoEvaluate = videoEvaluate;
+        this.videoEvaluation = videoEvaluation;
         this.reviewId = reviewId;
     }
 
@@ -27,8 +27,8 @@ public class PostVideoLevelRes implements Serializable {
         return videoId;
     }
 
-    public Boolean getVideoEvaluate() {
-        return videoEvaluate;
+    public Boolean getVideoEvaluation() {
+        return videoEvaluation;
     }
 
     public Long getReviewId() {
