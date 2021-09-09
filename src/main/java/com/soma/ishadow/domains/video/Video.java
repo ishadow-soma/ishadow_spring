@@ -42,6 +42,9 @@ public class Video implements Serializable {
     @Column(name = "videoSampling")
     private int videoSampling;
 
+    @Column(name = "videoEvaluation")
+    private Boolean videoEvaluation;
+
     @Column(name = "videoCapacity")
     private Long videoCapacity;
 
@@ -72,7 +75,7 @@ public class Video implements Serializable {
 
     }
 
-    public Video(Long videoId, String videoName, Long videoLength, String videoType, String thumbNailURL, String videoURL, int videoChannel, int videoSampling, Long videoCapacity, int videoSpeakerCount, Timestamp createdAt, Timestamp updateAt, Status status) {
+    public Video(Long videoId, String videoName, Long videoLength, String videoType, String thumbNailURL, String videoURL, int videoChannel, int videoSampling, Boolean videoEvaluation, Long videoCapacity, int videoSpeakerCount, Timestamp createdAt, Timestamp updateAt, Status status) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.videoLength = videoLength;
@@ -81,6 +84,7 @@ public class Video implements Serializable {
         this.thumbNailURL = thumbNailURL;
         this.videoChannel = videoChannel;
         this.videoSampling = videoSampling;
+        this.videoEvaluation = videoEvaluation;
         this.videoCapacity = videoCapacity;
         this.videoSpeakerCount = videoSpeakerCount;
         this.createdAt = createdAt;
@@ -92,6 +96,10 @@ public class Video implements Serializable {
         this.videoName = videoName;
     }
 
+    public void setVideoEvaluation(Boolean videoEvaluation) {
+        this.videoEvaluation = videoEvaluation;
+    }
+
 
     static public class Builder {
 
@@ -100,6 +108,7 @@ public class Video implements Serializable {
         private Long videoLength;
         private String videoType;
         private String videoURL;
+        private Boolean videoEvaluation;
         private String thumbNailURL;
         private int videoChannel;
         private int videoSampling;
@@ -120,6 +129,7 @@ public class Video implements Serializable {
             this.videoLength = video.getVideoLength();
             this.videoType = video.getVideoType();
             this.videoURL = video.getVideoURL();
+            this.videoEvaluation = video.getVideoEvaluation();
             this.thumbNailURL = video.getThumbNailURL();
             this.videoChannel = video.getVideoChannel();
             this.videoSampling = video.getVideoSampling();
@@ -166,6 +176,12 @@ public class Video implements Serializable {
             return this;
         }
 
+        public Builder videoEvaluation(Boolean videoEvaluation) {
+            this.videoEvaluation = videoEvaluation;
+            return this;
+        }
+
+
         public Builder thumbNailURL(String thumbNailURL) {
             this.thumbNailURL = thumbNailURL;
             return this;
@@ -188,7 +204,7 @@ public class Video implements Serializable {
         }
 
         public Video build() {
-            return new Video(videoId, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel,videoSampling, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
+            return new Video(videoId, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel,videoSampling, videoEvaluation, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
         }
     }
 
@@ -242,5 +258,9 @@ public class Video implements Serializable {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Boolean getVideoEvaluation() {
+        return videoEvaluation;
     }
 }

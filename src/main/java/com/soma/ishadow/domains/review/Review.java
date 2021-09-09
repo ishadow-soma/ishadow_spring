@@ -1,11 +1,14 @@
 package com.soma.ishadow.domains.review;
 
 import com.soma.ishadow.domains.enums.Status;
+import com.soma.ishadow.domains.user_review.UserReview;
 import lombok.Builder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "review")
@@ -37,6 +40,9 @@ public class Review {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserReview> userReviews = new HashSet<>();
 
     @Builder
     public Review(Long reviewId, Long userId, Long videoId, float level, String content, Timestamp createdAt, Timestamp updateAt, Status status) {

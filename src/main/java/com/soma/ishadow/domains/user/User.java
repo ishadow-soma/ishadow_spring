@@ -1,6 +1,7 @@
 package com.soma.ishadow.domains.user;
 
 import com.soma.ishadow.domains.enums.Status;
+import com.soma.ishadow.domains.user_review.UserReview;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.requests.PatchUserReq;
 
@@ -69,6 +70,9 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserVideo> userVideos = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserReview> userReviews = new HashSet<>();
 
     public void userAudeoAdd(UserVideo userVideo) {
         userVideos.add(userVideo);

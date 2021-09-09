@@ -189,8 +189,14 @@ public class VideoService {
         UserReview userReview = saveUserReview(user, newReview);
         logger.info("리뷰 유저 조인 테이블 저장 성공: " + userReview.getUserReviewId().toString());
 
+        video.setVideoEvaluation(true);
+
+        Video newVideo = saveVideo(video);
+
+        logger.info("영상 저장 성공: " + newVideo.getVideoId());
         return PostVideoLevelRes.builder()
-                .videoId(video.getVideoId())
+                .videoId(newVideo.getVideoId())
+                .videoEvaluate(newVideo.getVideoEvaluation())
                 .reviewId(newReview.getReviewId())
                 .build();
     }
@@ -384,6 +390,7 @@ public class VideoService {
         return new Video.Builder()
                 .videoType(type)
                 .videoURL(url)
+                .videoEvaluation(false)
                 .thumbNailURL(thumbnailURL)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
