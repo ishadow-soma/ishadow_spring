@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static com.soma.ishadow.configures.BaseResponseStatus.ALREADY_EXISTED_REVIEW;
 
 @Service
@@ -20,9 +22,15 @@ public class ReviewProvider {
         this.reviewRepository = reviewRepository;
     }
 
-    public Review findReviewByUserAndVideo(Long userId, Long videoId) throws BaseException {
+    public Boolean reviewCheck(Long userId, Long videoId) throws BaseException {
 
-        return reviewRepository.findReviewByUserAndVideo(userId, videoId)
-                .orElseThrow(() -> new BaseException(ALREADY_EXISTED_REVIEW));
+        Optional<Review> review = reviewRepository.findReviewByUserAndVideo(userId, videoId);
+
+        //review 존재 -> 이미 난이도 평가
+        if(review.isPresent()) return true;
+
+        //난이도 평가 아직 하지 않음
+        return false;
+
     }
 }

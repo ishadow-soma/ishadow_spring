@@ -204,7 +204,10 @@ public class VideoService {
 
     private void reviewIsExisted(User user, Video video) throws BaseException {
 
-        reviewProvider.findReviewByUserAndVideo(user.getUserId(), video.getVideoId());
+        Boolean checkResult = reviewProvider.reviewCheck(user.getUserId(), video.getVideoId());
+        if(checkResult) {
+            throw new BaseException(ALREADY_EXISTED_REVIEW);
+        }
 
     }
 
