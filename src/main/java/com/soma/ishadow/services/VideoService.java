@@ -184,6 +184,7 @@ public class VideoService {
         User user = userService.findById(userId);
         Video video = videoProvider.findVideoById(videoId);
 
+        reviewIsExisted(user, video);
         Review review = createReview(user, video, postVideoLevelReq);
         Review newReview = saveReview(review);
         UserReview userReview = saveUserReview(user, newReview);
@@ -199,6 +200,12 @@ public class VideoService {
                 .videoEvaluation(newVideo.getVideoEvaluation())
                 .reviewId(newReview.getReviewId())
                 .build();
+    }
+
+    private void reviewIsExisted(User user, Video video) throws BaseException {
+
+        reviewProvider.findReviewByUserAndVideo(user.getUserId(), video.getVideoId());
+
     }
 
 
