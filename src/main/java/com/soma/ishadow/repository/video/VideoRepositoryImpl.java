@@ -1,11 +1,16 @@
 package com.soma.ishadow.repository.video;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.soma.ishadow.domains.category_video.QCategoryVideo;
 import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user_video.QUserVideo;
-import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.video.QVideo;
 import com.soma.ishadow.domains.video.Video;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -57,5 +62,19 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .innerJoin(userVideo).on(userVideo.video.videoId.eq(video.videoId))
                 .having(userVideo.user.userId.eq(userId),video.videoType.eq("UPLOAD"), video.status.eq(Status.YES))
                 .fetch();
+    }
+
+    @Override
+    public Page<Video> findByCategory(Long categoryId, Pageable pageable) {
+        QVideo video = QVideo.video;
+        QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
+        QueryResults<Video> result = queryFactory.selectFrom(video)
+                .innerJoin(categoryVideo).on(categoryVideo.category.categoryId.eq(categoryId))
+                .where(video.status.eq(Status.YES))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 }

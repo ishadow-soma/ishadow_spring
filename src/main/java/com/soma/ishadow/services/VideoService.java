@@ -192,6 +192,7 @@ public class VideoService {
 
         video.setVideoEvaluation(true);
 
+        updateReviewVideo(review, video);
         Video newVideo = saveVideo(video);
 
         logger.info("영상 저장 성공: " + newVideo.getVideoId());
@@ -200,6 +201,16 @@ public class VideoService {
                 .videoEvaluation(newVideo.getVideoEvaluation())
                 .reviewId(newReview.getReviewId())
                 .build();
+    }
+
+    private void updateReviewVideo(Review review, Video video) {
+
+        float level = review.getLevel();
+        int videoCount = video.getVideoLevelCount();
+        float videoLevel = video.getVideoLevel();
+        float result = (level + videoLevel) / (videoCount + 1);
+        video.updateVideoLevel(result,videoCount + 1);
+
     }
 
     private void reviewIsExisted(User user, Video video) throws BaseException {
@@ -400,6 +411,8 @@ public class VideoService {
         return new Video.Builder()
                 .videoType(type)
                 .videoURL(url)
+                .videoLevel(0F)
+                .videoLevelCount(0)
                 .videoEvaluation(false)
                 .thumbNailURL(thumbnailURL)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))

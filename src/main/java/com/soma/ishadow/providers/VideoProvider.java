@@ -1,15 +1,19 @@
 package com.soma.ishadow.providers;
 
 import com.soma.ishadow.configures.BaseException;
+import com.soma.ishadow.domains.category.Category;
 import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.repository.user_video.UserVideoRepository;
 import com.soma.ishadow.repository.video.VideoRepository;
-import com.soma.ishadow.responses.GetSentenceEnRes;
-import com.soma.ishadow.responses.GetShadowingRes;
-import com.soma.ishadow.responses.UploadVideo;
-import com.soma.ishadow.responses.YoutubeVideo;
+import com.soma.ishadow.responses.*;
 import com.soma.ishadow.services.JwtService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,17 +32,20 @@ public class VideoProvider {
     private final JwtService jwtService;
     private final VideoRepository videoRepository;
     private final UserVideoRepository userVideoRepository;
+    private final CategoryProvider categoryProvider;
+    private final Logger logger = LoggerFactory.getLogger(VideoProvider.class);
 
     @Autowired
-    public VideoProvider(SentenceEnProvider sentenceEnProvider, UserVideoProvider userVideoProvider, JwtService jwtService, VideoRepository videoRepository, UserVideoRepository userVideoRepository) {
+    public VideoProvider(SentenceEnProvider sentenceEnProvider, UserVideoProvider userVideoProvider, JwtService jwtService, VideoRepository videoRepository, UserVideoRepository userVideoRepository, CategoryProvider categoryProvider) {
         this.sentenceEnProvider = sentenceEnProvider;
         this.userVideoProvider = userVideoProvider;
         this.jwtService = jwtService;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
+        this.categoryProvider = categoryProvider;
     }
 
-    @Transactional(readOnly = true)
+
     public GetShadowingRes getShadowing(Long videoId) throws BaseException {
         Long userId = jwtService.getUserInfo();
 
@@ -80,6 +87,54 @@ public class VideoProvider {
                 .collect(Collectors.toList());
     }
 
+    public List<GetVideoRes> getVideos(Long categoryId, float levelStart, float levelEnd, int page) throws BaseException {
+
+        Sort.Order order = Sort.Order.desc("videoId");
+        Sort sort = Sort.by(order);
+
+        Pageable pageable = PageRequest.of(page, 10, sort);
+
+        Page<Video> videos = null;
+
+        logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd);
+
+//        //둘다 값이 들어 온다면
+//        if(parameterCheck(categoryId, levelStart, levelEnd)) {
+//            videos = findVideoByCategoryAndLevel(categoryId, pageable);
+//            return videos;
+//        }
+//
+//        //categoryId가 null이라면 level만 조회
+//        if(categoryId == null) {
+//            videos = findVideoByLevel(categoryId, pageable);
+//            return videos;
+//        }
+
+        if(levelStart < 0 && levelStart > 5 && levelEnd < 0 && levelEnd > 5) {
+            videos = findVideoByCategory(categoryId, pageable);
+        }
+
+        if(videos == null) {
+            throw new BaseException(FAILED_TO_GET_VIDEO);
+        }
+        Category category = categoryProvider.findCategory(categoryId);
+        return videos.stream().map(video -> GetVideoRes.builder()
+                .videoId(video.getVideoId())
+                .videoName(video.getVideoName())
+                .videoLevel(video.getVideoLevel())
+                .videoURL(video.getVideoURL())
+                .categoryId(category.getCategoryId())
+                .categoryName(category.getCategoryName())
+                .build())
+                .collect(Collectors.toList());
+        //throw new BaseException()
+    }
+
+    private Page<Video> findVideoByCategory(Long categoryId, Pageable pageable) {
+
+        return videoRepository.findByCategory(categoryId, pageable);
+    }
+
     public Video findVideoById(Long videoId) throws BaseException {
         return videoRepository.findById(videoId)
                 .orElseThrow(() -> new BaseException(FAILED_TO_GET_VIDEO));
@@ -100,4 +155,5 @@ public class VideoProvider {
                         .build())
                 .collect(Collectors.toList());
     }
+
 }

@@ -45,6 +45,12 @@ public class Video implements Serializable {
     @Column(name = "videoEvaluation")
     private Boolean videoEvaluation;
 
+    @Column(name = "videoLevel")
+    private float videoLevel;
+
+    @Column(name = "videoLevelCount")
+    private int videoLevelCount;
+
     @Column(name = "videoCapacity")
     private Long videoCapacity;
 
@@ -71,12 +77,26 @@ public class Video implements Serializable {
     private Set<SentenceEn> sentenceEns = new HashSet<>();
 
 
+    public Set<UserVideo> getUserVideos() {
+        return userVideos;
+    }
+
+    public Set<CategoryVideo> getCategoryVideos() {
+        return categoryVideos;
+    }
+
+    public Set<SentenceEn> getSentenceEns() {
+        return sentenceEns;
+    }
+
     public Video() {
 
     }
 
-    public Video(Long videoId, String videoName, Long videoLength, String videoType, String thumbNailURL, String videoURL, int videoChannel, int videoSampling, Boolean videoEvaluation, Long videoCapacity, int videoSpeakerCount, Timestamp createdAt, Timestamp updateAt, Status status) {
+    public Video(Long videoId, float videoLevel, int videoLevelCount, String videoName, Long videoLength, String videoType, String thumbNailURL, String videoURL, int videoChannel, int videoSampling, Boolean videoEvaluation, Long videoCapacity, int videoSpeakerCount, Timestamp createdAt, Timestamp updateAt, Status status) {
         this.videoId = videoId;
+        this.videoLevel = videoLevel;
+        this.videoLevelCount = videoLevelCount;
         this.videoName = videoName;
         this.videoLength = videoLength;
         this.videoType = videoType;
@@ -100,6 +120,10 @@ public class Video implements Serializable {
         this.videoEvaluation = videoEvaluation;
     }
 
+    public void updateVideoLevel(float videoLevel, int videoLevelCount) {
+        this.videoLevel = videoLevel;
+        this.videoLevelCount = videoLevelCount;
+    }
 
     static public class Builder {
 
@@ -114,6 +138,8 @@ public class Video implements Serializable {
         private int videoSampling;
         private Long videoCapacity;
         private int videoSpeakerCount;
+        private float videoLevel;
+        private int videoLevelCount;
         private Timestamp createdAt;
         private Timestamp updateAt;
         @Enumerated(EnumType.STRING)
@@ -135,6 +161,8 @@ public class Video implements Serializable {
             this.videoSampling = video.getVideoSampling();
             this.videoCapacity = video.getVideoCapacity();
             this.videoSpeakerCount = video.getVideoSpeakerCount();
+            this.videoLevel = video.getVideoLevel();
+            this.videoLevelCount = video.getVideoLevelCount();
             this.createdAt = video.getCreatedAt();
             this.updateAt = video.getUpdateAt();
             this.status = video.getStatus();
@@ -187,6 +215,16 @@ public class Video implements Serializable {
             return this;
         }
 
+        public Builder videoLevel(float videoLevel) {
+            this.videoLevel = videoLevel;
+            return this;
+        }
+
+        public Builder videoLevelCount(int videoLevelCount) {
+            this.videoLevelCount = videoLevelCount;
+            return this;
+        }
+
         public Builder createdAt(Timestamp createdAt) {
             this.createdAt = createdAt;
             return this;
@@ -204,7 +242,7 @@ public class Video implements Serializable {
         }
 
         public Video build() {
-            return new Video(videoId, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel,videoSampling, videoEvaluation, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
+            return new Video(videoId, videoLevel, videoLevelCount, videoName, videoLength, videoType, thumbNailURL,videoURL, videoChannel,videoSampling, videoEvaluation, videoCapacity, videoSpeakerCount, createdAt, updateAt, status);
         }
     }
 
@@ -259,6 +297,15 @@ public class Video implements Serializable {
     public Status getStatus() {
         return status;
     }
+
+    public float getVideoLevel() {
+        return videoLevel;
+    }
+
+    public int getVideoLevelCount() {
+        return videoLevelCount;
+    }
+
 
     public Boolean getVideoEvaluation() {
         return videoEvaluation;

@@ -7,6 +7,7 @@ import com.soma.ishadow.providers.VideoProvider;
 import com.soma.ishadow.requests.PostVideoLevelReq;
 import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.GetShadowingRes;
+import com.soma.ishadow.responses.GetVideoRes;
 import com.soma.ishadow.responses.PostVideoLevelRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.services.JwtService;
@@ -17,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -107,15 +109,22 @@ public class VideoController {
     }
 
     //TODO 유사한 난이도 영상 조회 (카테고리 별, 난이도 별) -> 10개씩
-//    @ApiOperation(value = "영상 추천 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
-//    @GetMapping("/media")
-//    public BaseResponse<List<GetVideoRes>> getVideos(
-//            @RequestParam(value = "",required = false) Long categoryId,
-//            @RequestParam(value = "",required = false) String Float,
-//
-//    ) {
-//
-//    }
+    @ApiOperation(value = "영상 추천 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
+    @GetMapping("/media")
+    public BaseResponse<List<GetVideoRes>> getVideos(
+            @RequestParam(value = "categoryId",required = false) Long categoryId,
+            @RequestParam(value = "levelStart",required = true, defaultValue = "0") float levelStart,
+            @RequestParam(value = "levelEnd",required = true, defaultValue = "5.0") float levelEnd,
+            @RequestParam(value = "page",required = true) int page
+    ) {
+
+        try {
+            return BaseResponse.succeed(videoProvider.getVideos(categoryId, levelStart, levelEnd, page));
+        } catch (BaseException exception ) {
+            return BaseResponse.failed(exception.getStatus());
+        }
+
+    }
 
 
     @ApiOperation(value = "쉐도잉 영상 정보 가져오기",notes = "videoEvaluation가 true라면 영상의 난이도가 평가된 것" +
