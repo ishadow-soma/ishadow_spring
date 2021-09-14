@@ -106,8 +106,20 @@ public class VideoController {
         }
     }
 
+    //TODO 유사한 난이도 영상 조회 (카테고리 별, 난이도 별) -> 10개씩
+//    @ApiOperation(value = "영상 추천 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
+//    @GetMapping("/media")
+//    public BaseResponse<List<GetVideoRes>> getVideos(
+//            @RequestParam(value = "",required = false) Long categoryId,
+//            @RequestParam(value = "",required = false) String Float,
+//
+//    ) {
+//
+//    }
 
-    @ApiOperation(value = "쉐도잉 영상 정보 가져오기")
+
+    @ApiOperation(value = "쉐도잉 영상 정보 가져오기",notes = "videoEvaluation가 true라면 영상의 난이도가 평가된 것" +
+            "-> true면 난이도 평가 X, false라면 90% 이상일 경우 난이도 평가하는 팝업 띄우기")
     @GetMapping("/shadowing-player")
     public BaseResponse<GetShadowingRes> getShadowingInformation(
             @RequestParam(value = "videoId", required = true) Long videoId
