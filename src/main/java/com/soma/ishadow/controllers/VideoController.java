@@ -91,9 +91,10 @@ public class VideoController {
         try {
             return BaseResponse.succeed(videoService.upload(postVideoReq, video, userId));
         } catch (BaseException exception) {
-            if(exception.getStatus().getCode() != 1018) {
-                convertorRepository.remove(userId);
+            if(exception.getStatus().getCode() == 1018) {
+                return BaseResponse.failed(exception.getStatus());
             }
+            convertorRepository.remove(userId);
             return BaseResponse.failed(exception.getStatus());
         }
 
