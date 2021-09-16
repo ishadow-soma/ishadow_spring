@@ -19,4 +19,6 @@ public interface VideoRepository extends JpaRepository<Video, Long> , VideoRepos
     List<Video> findUploadVideoByUserId(Long userId);
 
     Page<Video> findByCategory(Long categoryId, Pageable pageable);
+
+    Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable);
 }

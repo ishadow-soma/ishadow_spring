@@ -77,4 +77,18 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
+
+    @Override
+    public Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable) {
+        QVideo video = QVideo.video;
+        QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
+        QueryResults<Video> result = queryFactory.selectFrom(video)
+                .innerJoin(categoryVideo).on(categoryVideo.category.categoryId.eq(categoryId))
+                .where(video.status.eq(Status.YES), video.videoLevel.between(levelStart, levelEnd))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
 }

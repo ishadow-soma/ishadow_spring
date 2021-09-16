@@ -107,7 +107,8 @@ public class VideoService {
 
         String type = postVideoReq.getType();
         List<Long> categoryId = postVideoReq.getCategoryId();
-        checkCategoryId(categoryId);
+        if(!categoryId.contains(20L)) categoryId.add(20L);
+        logger.info(String.valueOf(categoryId));
         String url = postVideoReq.getYoutubeURL();
 
         //S3에 저장하고 URL 반환하기
@@ -431,14 +432,6 @@ public class VideoService {
         return "https://img.youtube.com/vi/" + videoCode + "/0.jpg";
     }
 
-    private void checkCategoryId(List<Long> categoryId) {
-
-        logger.info("categoryId 존재 여부: " + categoryId.size());
-        if(categoryId.size() == 0) {
-            categoryId.add(20L);
-        }
-
-    }
 
 }
 

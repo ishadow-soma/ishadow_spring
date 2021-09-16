@@ -20,6 +20,7 @@ public enum BaseResponseStatus {
     INVALID_SNS( false, 1014,"잘못된 SNS 입니다."),
     FAILED_TO_GET_CATEGORY( false, 1015,"잘못된 카테고리 입니다."),
     ALREADY_EXISTED_REVIEW( false, 1016,"이미 난이도 평가를 했습니다."),
+    INVALID_LEVEL( false, 1017,"잘못된 난이도 설정입니다."),
 
 
 

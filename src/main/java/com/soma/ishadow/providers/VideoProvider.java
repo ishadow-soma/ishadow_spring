@@ -20,8 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_USERVIDEO;
-import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_VIDEO;
+import static com.soma.ishadow.configures.BaseResponseStatus.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -87,47 +86,45 @@ public class VideoProvider {
                 .collect(Collectors.toList());
     }
 
-    public List<GetVideoRes> getVideos(Long categoryId, float levelStart, float levelEnd, int page) throws BaseException {
+    public GetVideosRes getVideos(Long categoryId, float levelStart, float levelEnd, int page) throws BaseException {
 
         Sort.Order order = Sort.Order.desc("videoId");
         Sort sort = Sort.by(order);
 
-        Pageable pageable = PageRequest.of(page, 10, sort);
+        Pageable pageable = PageRequest.of(page - 1, 6, sort);
 
-        Page<Video> videos = null;
+        Page<Video> videos = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
 
         logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd);
 
-//        //둘다 값이 들어 온다면
-//        if(parameterCheck(categoryId, levelStart, levelEnd)) {
-//            videos = findVideoByCategoryAndLevel(categoryId, pageable);
-//            return videos;
-//        }
-//
-//        //categoryId가 null이라면 level만 조회
-//        if(categoryId == null) {
-//            videos = findVideoByLevel(categoryId, pageable);
-//            return videos;
-//        }
+        parameterCheck(videos, levelStart, levelEnd);
 
-        if(levelStart < 0 && levelStart > 5 && levelEnd < 0 && levelEnd > 5) {
-            videos = findVideoByCategory(categoryId, pageable);
-        }
-
-        if(videos == null) {
-            throw new BaseException(FAILED_TO_GET_VIDEO);
-        }
         Category category = categoryProvider.findCategory(categoryId);
+        List<GetVideoRes> getVideoRes = convertGetVideoRes(videos, category);
+        return GetVideosRes.builder()
+                .pageStartNumber(1)
+                .pageEndNumber(videos.getTotalPages())
+                .currentPageNumber(page)
+                .videoList(getVideoRes)
+                .build();
+        //throw new BaseException()
+    }
+
+    private List<GetVideoRes> convertGetVideoRes(Page<Video> videos, Category category) {
         return videos.stream().map(video -> GetVideoRes.builder()
                 .videoId(video.getVideoId())
                 .videoName(video.getVideoName())
                 .videoLevel(video.getVideoLevel())
                 .videoURL(video.getVideoURL())
+                .thumbNailURL(video.getThumbNailURL())
                 .categoryId(category.getCategoryId())
                 .categoryName(category.getCategoryName())
                 .build())
                 .collect(Collectors.toList());
-        //throw new BaseException()
+    }
+
+    private Page<Video> findVideoByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable) {
+        return videoRepository.findByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
     }
 
     private Page<Video> findVideoByCategory(Long categoryId, Pageable pageable) {
@@ -154,6 +151,17 @@ public class VideoProvider {
                         .thumbNailURL(video.getThumbNailURL())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    private void parameterCheck(Page<Video> videos, float levelStart, float levelEnd) throws BaseException {
+
+        if(levelStart < 0 && levelStart > 5 && levelEnd < 0 && levelEnd > 5) {
+            throw new BaseException(INVALID_LEVEL);
+        }
+
+        if(videos == null) {
+            throw new BaseException(FAILED_TO_GET_VIDEO);
+        }
     }
 
 }

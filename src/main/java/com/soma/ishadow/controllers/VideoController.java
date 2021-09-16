@@ -6,10 +6,7 @@ import com.soma.ishadow.providers.UserProvider;
 import com.soma.ishadow.providers.VideoProvider;
 import com.soma.ishadow.requests.PostVideoLevelReq;
 import com.soma.ishadow.requests.PostVideoReq;
-import com.soma.ishadow.responses.GetShadowingRes;
-import com.soma.ishadow.responses.GetVideoRes;
-import com.soma.ishadow.responses.PostVideoLevelRes;
-import com.soma.ishadow.responses.PostVideoRes;
+import com.soma.ishadow.responses.*;
 import com.soma.ishadow.services.JwtService;
 import com.soma.ishadow.services.VideoService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -72,7 +69,7 @@ public class VideoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "YOUTUBE, UPLOAD -> 현재는 YOUTUBE만 가능"),
             @ApiImplicitParam(name = "categoryId", value = "categoryId 배열 입력 -> 1, 2, 3"),
-            @ApiImplicitParam(name = "youtubeURL", value = "youtube영상 url")
+            @ApiImplicitParam(name = "youtubeURL", value = "youtube영상 url EX) https://www.youtube.com/watch?v=ez7NA6X3x6s")
     })
     @PostMapping(value = "/media", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE,
@@ -111,11 +108,11 @@ public class VideoController {
     //TODO 유사한 난이도 영상 조회 (카테고리 별, 난이도 별) -> 10개씩
     @ApiOperation(value = "영상 추천 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
     @GetMapping("/media")
-    public BaseResponse<List<GetVideoRes>> getVideos(
-            @RequestParam(value = "categoryId",required = false) Long categoryId,
-            @RequestParam(value = "levelStart",required = true, defaultValue = "0") float levelStart,
-            @RequestParam(value = "levelEnd",required = true, defaultValue = "5.0") float levelEnd,
-            @RequestParam(value = "page",required = true) int page
+    public BaseResponse<GetVideosRes> getVideos(
+            @RequestParam(value = "categoryId",required = false, defaultValue = "20") Long categoryId,
+            @RequestParam(value = "levelStart",required = false, defaultValue = "0.0") float levelStart,
+            @RequestParam(value = "levelEnd",required = false, defaultValue = "5.0") float levelEnd,
+            @RequestParam(value = "page",required = false, defaultValue = "1") int page
     ) {
 
         try {
