@@ -147,6 +147,7 @@ public class VideoService {
                     logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
                 }
 
+                convertorRepository.remove(userId);
                 return new PostVideoRes(exitedVideo.getVideoId(), exitedVideo.getVideoName(), url);
             }
 
