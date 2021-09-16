@@ -15,13 +15,13 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.HashSet;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.EXCEED_CONVERSION_COUNT;
 
@@ -35,12 +35,16 @@ public class VideoController {
     private final UserProvider userProvider;
     private final JwtService jwtService;
 
+    @Qualifier("convertorRepository")
+    private final HashSet<Long> convertorRepository;
+
     @Autowired
-    public VideoController(VideoService videoService, VideoProvider videoProvider, UserProvider userProvider, JwtService jwtService) {
+    public VideoController(VideoService videoService, VideoProvider videoProvider, UserProvider userProvider, JwtService jwtService, HashSet<Long> convertorRepository) {
         this.videoService = videoService;
         this.videoProvider = videoProvider;
         this.userProvider = userProvider;
         this.jwtService = jwtService;
+        this.convertorRepository = convertorRepository;
     }
 
     //영상 업로드 -> 유저 카운트 조회 ->
@@ -87,6 +91,9 @@ public class VideoController {
         try {
             return BaseResponse.succeed(videoService.upload(postVideoReq, video, userId));
         } catch (BaseException exception) {
+            if(exception.getStatus().getCode() != 1018) {
+                convertorRepository.remove(userId);
+            }
             return BaseResponse.failed(exception.getStatus());
         }
 
@@ -131,6 +138,7 @@ public class VideoController {
             @RequestParam(value = "videoId", required = true) Long videoId
     ) {
         try {
+
             return BaseResponse.succeed(videoProvider.getShadowing(videoId));
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());

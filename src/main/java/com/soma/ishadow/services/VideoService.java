@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
@@ -74,9 +75,11 @@ public class VideoService {
 
     @Qualifier("URLRepository")
     private final HashMap<String, Long> URLRepository;
+    @Qualifier("convertorRepository")
+    private final HashSet<Long> convertorRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, ReviewProvider reviewProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, ReviewProvider reviewProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository, HashSet<Long> convertorRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
@@ -91,6 +94,7 @@ public class VideoService {
         this.userService = userService;
         this.jwtService = jwtService;
         this.URLRepository = urlRepository;
+        this.convertorRepository = convertorRepository;
     }
 
     /**
@@ -103,8 +107,14 @@ public class VideoService {
      * @throws IOException
      */
     //TODO manager 테이블 만들어서 오류가 나면 해당 오류 부터 확인 할 수 있게 한다.
+    //TODO map 사용해서 중복 URL 초기화 안돼서 redis로 바꾸기.
+    //TODO 영상 변환하고 있는데 또 영상 변환하기 누르면 에러 발생하게 하기
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
 
+        if(convertorRepository.contains(userId)){
+            throw new BaseException(ALREADY_EXISTED_CONVERTOR);
+        }
+        convertorRepository.add(userId);
         String type = postVideoReq.getType();
         List<Long> categoryId = postVideoReq.getCategoryId();
         if(!categoryId.contains(20L)) categoryId.add(20L);
@@ -127,7 +137,7 @@ public class VideoService {
                 Video exitedVideo = videoRepository.findById(URLRepository.get(url)).orElse(null);
                 if(exitedVideo == null) {
                     logger.info("URLRepository에는 값이 존재하는데 DB에는 video가 없음");
-                    URLRepository.put(url,null);
+                    URLRepository.remove(url);
                     throw new BaseException(FAILED_TO_GET_VIDEO_YOUTUBE);
                 }
 
@@ -166,9 +176,9 @@ public class VideoService {
             logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
 
             URLRepository.put(url, updatedVideo.getVideoId());
+            convertorRepository.remove(userId);
             return new PostVideoRes(updatedVideo.getVideoId(), title, url);
         }
-
         throw new BaseException(INVALID_AUDIO_TYPE);
     }
 

@@ -21,4 +21,9 @@ public class LocalHashMapConfig {
         return new HashMap<>();
     }
 
+    @Bean
+    public HashSet<Long> convertorRepository() {
+        return new HashSet<>();
+    }
+
 }

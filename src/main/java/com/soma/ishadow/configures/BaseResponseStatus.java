@@ -21,6 +21,7 @@ public enum BaseResponseStatus {
     FAILED_TO_GET_CATEGORY( false, 1015,"잘못된 카테고리 입니다."),
     ALREADY_EXISTED_REVIEW( false, 1016,"이미 난이도 평가를 했습니다."),
     INVALID_LEVEL( false, 1017,"잘못된 난이도 설정입니다."),
+    ALREADY_EXISTED_CONVERTOR( false, 1018,"이미 영상 변환 중입니다. 영상 변환이 끝나면 다시 시도 해주세요."),
 
 
 
