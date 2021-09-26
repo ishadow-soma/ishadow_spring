@@ -54,10 +54,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
 import static com.soma.ishadow.configures.Constant.*;
@@ -141,12 +144,19 @@ public class VideoService {
                 throw new BaseException(EMPTY_VIDEO);
             }
 
+            logger.info(userId + ": " + video.getOriginalFilename());
+            if(!Objects.requireNonNull(video.getOriginalFilename()).toLowerCase().endsWith(".mp4")) {
+                throw new BaseException(UNSUPPORTED_FORMAT);
+            }
 
-            String videoPath = "/home/ubuntu/video/";
+            String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String videoPath = "/home/ubuntu/video/" + today + "/";
             String videoName = video.getOriginalFilename();
-            File videoFile = new File(videoPath + videoName);
+            String fileName = today + "-" + videoName + "-" + userId;
+
+            File videoFile = new File(videoPath + fileName);
             video.transferTo(videoFile);
-            String command = startFilePath + videoPath + videoName + endFilePath;
+            String command = startFilePath + videoPath + fileName + endFilePath + "/" + today;
             logger.info("command : " + command);
             shellCmd(command);
             //url = s3Util.upload(video, userId);
