@@ -147,6 +147,7 @@ public class VideoService {
             File videoFile = new File(videoPath + videoName);
             video.transferTo(videoFile);
             String command = startFilePath + videoName + endFilePath;
+            logger.info("command : " + command);
             shellCmd(command);
             //url = s3Util.upload(video, userId);
             postVideoReq.setYoutubeURL(url);
@@ -510,15 +511,31 @@ public class VideoService {
     }
 
     private static void shellCmd(String command) throws Exception {
-        Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec(command);
-        InputStream is = process.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-        String line;
-        while((line = br.readLine()) != null) {
-            System.out.println(line);
+
+        String s;
+        Process p;
+        try {
+            //이 변수에 명령어를 넣어주면 된다.
+            String[] cmd = {"/bin/sh","-c", command};
+            p = Runtime.getRuntime().exec(cmd);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((s = br.readLine()) != null)
+                System.out.println(s);
+            p.waitFor();
+            System.out.println("exit: " + p.exitValue());
+            p.destroy();
+        } catch (Exception e) {
         }
+
+//        Runtime runtime = Runtime.getRuntime();
+//        Process process = runtime.exec(command);
+//        InputStream is = process.getInputStream();
+//        InputStreamReader isr = new InputStreamReader(is);
+//        BufferedReader br = new BufferedReader(isr);
+//        String line;
+//        while((line = br.readLine()) != null) {
+//            System.out.println(line);
+//        }
     }
 
 

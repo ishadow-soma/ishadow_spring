@@ -82,7 +82,7 @@ public class VideoController {
     public BaseResponse<PostVideoRes> uploadVideo(
             @ModelAttribute PostVideoReq postVideoReq,
             @RequestPart(value = "file",required = false) MultipartFile video
-    ) throws BaseException, IOException {
+    ) throws Exception {
 
         Long userId = jwtService.getUserInfo();
         if(!userProvider.conversionCheck(userId)) {
