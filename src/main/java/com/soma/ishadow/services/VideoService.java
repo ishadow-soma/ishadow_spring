@@ -204,7 +204,7 @@ public class VideoService {
         WebClient webClient = createWebClient();
 
 
-        String videoInfo = getInfo(webClient, url, videoFile, type);
+        String videoInfo = getInfo(webClient, url, video, type);
         logger.info("영상 변환 성공: " + url);
 
         String title = audioTranslateToText(createdVideo, videoInfo);
@@ -443,7 +443,7 @@ public class VideoService {
         return createVideo;
     }
 
-    public String getInfo(WebClient webClient,String url, File file, String type) throws BaseException {
+    public String getInfo(WebClient webClient,String url, MultipartFile file, String type) throws BaseException {
 
         PostVideoConvertorReq postVideoConvertorReq;
 
@@ -452,11 +452,14 @@ public class VideoService {
             if(type.equals("UPLOAD")) {
                 subURL = "/api2/local";
 
-                logger.info(file.getAbsolutePath());
+                File newFile = convertFile(file);
+                logger.info(String.valueOf(newFile));
+
+                //logger.info(file.getAbsolutePath());
                 return webClient.post()         // POST method
                         .uri(subURL)    // baseUrl 이후 uri
                         .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .body(BodyInserters.fromMultipartData(fromFile(file)))
+                        .body(BodyInserters.fromMultipartData(fromFile(newFile)))
                         //.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
                         //.bodyValue(BodyInserters.fromMultipartData(builder.build()))
                         //.bodyValue(BodyInserters.fromMultipartData(fromFile(newFile)))     // set body value
