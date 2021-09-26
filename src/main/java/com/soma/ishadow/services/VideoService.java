@@ -152,7 +152,7 @@ public class VideoService {
             String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String videoPath = "/home/ubuntu/video/" + today + "/";
             String videoName = video.getOriginalFilename();
-            String fileName = today + "-" + videoName + "-" + userId;
+            String fileName = today + "-" + userId + "-" + videoName;
 
             File videoFile = new File(videoPath + fileName);
             video.transferTo(videoFile);
