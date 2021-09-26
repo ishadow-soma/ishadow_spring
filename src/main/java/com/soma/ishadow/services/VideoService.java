@@ -146,6 +146,7 @@ public class VideoService {
             url = s3Util.upload(video, userId);
             postVideoReq.setYoutubeURL(url);
         }
+
         if(type.equals("YOUTUBE")) {
 
             if(URLRepository.get(url) != null) {
