@@ -132,6 +132,7 @@ public class VideoService {
         if(!categoryId.contains(20L)) categoryId.add(20L);
         logger.info(String.valueOf(categoryId));
         String url = postVideoReq.getYoutubeURL();
+        File videoFile;
 
         if(type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
             throw new BaseException(INVALID_AUDIO_TYPE);
@@ -154,7 +155,7 @@ public class VideoService {
             String videoName = video.getOriginalFilename();
             String fileName = today + "-" + userId + "-" + videoName;
 
-            File videoFile = new File(videoPath + fileName);
+            videoFile = new File(videoPath + fileName);
             if(!videoFile.exists()) {
                 videoFile.mkdirs();
             }
@@ -203,7 +204,7 @@ public class VideoService {
         WebClient webClient = createWebClient();
 
 
-        String videoInfo = getInfo(webClient, url, video, type);
+        String videoInfo = getInfo(webClient, url, videoFile, type);
         logger.info("영상 변환 성공: " + url);
 
         String title = audioTranslateToText(createdVideo, videoInfo);
@@ -442,7 +443,7 @@ public class VideoService {
         return createVideo;
     }
 
-    public String getInfo(WebClient webClient,String url, MultipartFile file, String type) throws BaseException {
+    public String getInfo(WebClient webClient,String url, File file, String type) throws BaseException {
 
         PostVideoConvertorReq postVideoConvertorReq;
 
@@ -451,12 +452,10 @@ public class VideoService {
             if(type.equals("UPLOAD")) {
                 subURL = "/api2/local";
 
-                File newFile = convertFile(file);
-
                 return webClient.post()         // POST method
                         .uri(subURL)    // baseUrl 이후 uri
                         .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .body(BodyInserters.fromMultipartData(fromFile(newFile)))
+                        .body(BodyInserters.fromMultipartData(fromFile(file)))
                         //.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
                         //.bodyValue(BodyInserters.fromMultipartData(builder.build()))
                         //.bodyValue(BodyInserters.fromMultipartData(fromFile(newFile)))     // set body value
