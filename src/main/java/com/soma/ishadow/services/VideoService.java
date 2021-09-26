@@ -132,7 +132,7 @@ public class VideoService {
         if(!categoryId.contains(20L)) categoryId.add(20L);
         logger.info(String.valueOf(categoryId));
         String url = postVideoReq.getYoutubeURL();
-        File videoFile;
+        File videoFile = null;
 
         if(type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
             throw new BaseException(INVALID_AUDIO_TYPE);
