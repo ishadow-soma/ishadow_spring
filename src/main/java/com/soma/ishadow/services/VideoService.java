@@ -51,9 +51,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -62,7 +60,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
-import static com.soma.ishadow.configures.Constant.baseUrl;
+import static com.soma.ishadow.configures.Constant.*;
 
 @Service
 @Transactional
@@ -120,7 +118,7 @@ public class VideoService {
     //TODO map 사용해서 중복 URL 초기화 안돼서 redis로 바꾸기.
     //TODO 영상 변환하고 있는데 또 영상 변환하기 누르면 에러 발생하게 하기
     @Transactional(rollbackFor = BaseException.class)
-    public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
+    public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws Exception {
 
         if(convertorRepository.contains(userId)){
             throw new BaseException(ALREADY_EXISTED_CONVERTOR);
@@ -143,11 +141,13 @@ public class VideoService {
                 throw new BaseException(EMPTY_VIDEO);
             }
 
+
             String videoPath = "/home/ubuntu/video/";
-
-
-            File videoFile = new File(videoPath + video.getOriginalFilename());
+            String videoName = video.getOriginalFilename();
+            File videoFile = new File(videoPath + videoName);
             video.transferTo(videoFile);
+            String command = startFilePath + videoName + endFilePath;
+            shellCmd(command);
             //url = s3Util.upload(video, userId);
             postVideoReq.setYoutubeURL(url);
         }
@@ -508,6 +508,19 @@ public class VideoService {
         builder.part("info", file);
         return builder.build();
     }
+
+    private static void shellCmd(String command) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        Process process = runtime.exec(command);
+        InputStream is = process.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        String line;
+        while((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+    }
+
 
 
 }
