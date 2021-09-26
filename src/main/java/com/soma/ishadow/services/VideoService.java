@@ -155,6 +155,9 @@ public class VideoService {
             String fileName = today + "-" + userId + "-" + videoName;
 
             File videoFile = new File(videoPath + fileName);
+            if(!videoFile.exists()) {
+                videoFile.mkdirs();
+            }
             video.transferTo(videoFile);
             String command = startFilePath + videoPath + fileName + endFilePath + "/" + today;
             logger.info("command : " + command);
