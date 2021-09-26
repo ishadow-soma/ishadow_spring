@@ -146,7 +146,7 @@ public class VideoService {
             String videoName = video.getOriginalFilename();
             File videoFile = new File(videoPath + videoName);
             video.transferTo(videoFile);
-            String command = startFilePath + videoName + endFilePath;
+            String command = startFilePath + videoPath + videoName + endFilePath;
             logger.info("command : " + command);
             shellCmd(command);
             //url = s3Util.upload(video, userId);
