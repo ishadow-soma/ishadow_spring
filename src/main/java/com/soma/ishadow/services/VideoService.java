@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
+import org.apache.commons.io.FileUtils;
 import com.soma.ishadow.configures.BaseException;
 import com.soma.ishadow.domains.category.Category;
 import com.soma.ishadow.domains.category_video.CategoryVideo;
@@ -52,6 +53,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -139,6 +141,22 @@ public class VideoService {
                 logger.info("영상이 비어있습니다.");
                 convertorRepository.remove(userId);
                 throw new BaseException(EMPTY_VIDEO);
+            }
+
+            File targetFile;
+
+            String videoPath = "/home/ubuntu/video/";
+            targetFile = new File(videoPath + video.getOriginalFilename());
+            logger.info(String.valueOf(targetFile));
+
+            try {
+                InputStream fileStream = video.getInputStream();
+                FileUtils.copyInputStreamToFile(fileStream, targetFile);
+                logger.info("저장에 성공했습니다.");
+            } catch (IOException e) {
+                FileUtils.deleteQuietly(targetFile);
+                logger.info("저장에 실패했습니다.");
+                throw new BaseException(FAILED_TO_UPLOAD_VIDEO);
             }
 
             File videoFile = new File("/home/ubuntu/video/" + video.getOriginalFilename());
