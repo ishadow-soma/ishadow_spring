@@ -144,13 +144,7 @@ public class VideoProvider {
     }
 
     public List<UploadVideo> findUploadVideoByUserId(Long userId) {
-        return videoRepository.findUploadVideoByUserId(userId).stream()
-                .map(video -> UploadVideo.builder()
-                        .videoId(video.getVideoId())
-                        .title(video.getVideoName())
-                        .thumbNailURL(video.getThumbNailURL())
-                        .build())
-                .collect(Collectors.toList());
+        return userVideoRepository.findUploadVideoByUserId(userId);
     }
 
     private void parameterCheck(Page<Video> videos, float levelStart, float levelEnd) throws BaseException {

@@ -22,6 +22,7 @@ public enum BaseResponseStatus {
     ALREADY_EXISTED_REVIEW( false, 1016,"이미 난이도 평가를 했습니다."),
     INVALID_LEVEL( false, 1017,"잘못된 난이도 설정입니다."),
     ALREADY_EXISTED_CONVERTOR( false, 1018,"이미 영상 변환 중입니다. 영상 변환이 끝나면 다시 시도 해주세요."),
+    INVALID_CONVERTOR_TYPE( false, 1019,"영상 변환 타입이 유효하지 않습니다."),
 
 
 
@@ -46,7 +47,8 @@ public enum BaseResponseStatus {
     FAILED_TO_PASING_USER_BY_SNS(false, 2016, "SNS을 이용해서 사용자 정보 조회에 실패 했습니다."),
     FAILED_TO_GET_SNS(false, 2017, "잘못된 SNS입니다."),
     FAILED_TO_POST_REVIEW(false, 2018, "리뷰 등록에 실패했습니다."),
-    FAILED_TO_POST_USER_REVIEW(false, 2019, "유저_리뷰 테이블 생성에 실패했습니다.");
+    FAILED_TO_POST_USER_REVIEW(false, 2019, "유저_리뷰 테이블 생성에 실패했습니다."),
+    FAILED_TO_CONVERTOR_VIDEO(false, 2020, "영상 변환에 실패 했습니다.");
 
     private final Boolean success;
     private final int code;

@@ -6,6 +6,7 @@ import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user_video.QUserVideo;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.video.QVideo;
+import com.soma.ishadow.responses.UploadVideo;
 import com.soma.ishadow.responses.YoutubeVideo;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
@@ -51,6 +52,22 @@ public class UserVideoRepositoryImpl extends QuerydslRepositorySupport implement
                 .join(video)
                 .on(userVideo.video.videoId.eq(video.videoId))
                 .groupBy(userVideo.video.videoId)
+                .having(video.videoType.eq("YOUTUBE"))
+                .orderBy(userVideo.video.createdAt.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<UploadVideo> findUploadVideoByUserId(Long userId) {
+        QUserVideo userVideo = QUserVideo.userVideo;
+        QVideo video = QVideo.video;
+        return queryFactory.select(Projections.constructor(UploadVideo.class, video.videoId, video.videoName, video.thumbNailURL))
+                .from(userVideo)
+                .where(userVideo.user.userId.eq(userId))
+                .join(video)
+                .on(userVideo.video.videoId.eq(video.videoId))
+                .groupBy(userVideo.video.videoId)
+                .having(video.videoType.eq("UPLOAD"))
                 .orderBy(userVideo.video.createdAt.desc())
                 .fetch();
     }

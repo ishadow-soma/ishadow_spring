@@ -37,14 +37,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -109,6 +117,7 @@ public class VideoService {
     //TODO manager 테이블 만들어서 오류가 나면 해당 오류 부터 확인 할 수 있게 한다.
     //TODO map 사용해서 중복 URL 초기화 안돼서 redis로 바꾸기.
     //TODO 영상 변환하고 있는데 또 영상 변환하기 누르면 에러 발생하게 하기
+    @Transactional(rollbackFor = BaseException.class)
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws BaseException, IOException {
 
         if(convertorRepository.contains(userId)){
@@ -121,15 +130,22 @@ public class VideoService {
         logger.info(String.valueOf(categoryId));
         String url = postVideoReq.getYoutubeURL();
 
+        if(type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
+            throw new BaseException(INVALID_AUDIO_TYPE);
+        }
         //S3에 저장하고 URL 반환하기
-        if(type.equals("LOCAL")) {
+        if(type.equals("UPLOAD")) {
             if(video.isEmpty()) {
                 logger.info("영상이 비어있습니다.");
+                convertorRepository.remove(userId);
                 throw new BaseException(EMPTY_VIDEO);
             }
-            url = s3Util.upload(video, userId);
-        }
 
+            File videoFile = new File("/home/ubuntu/video/" + video.getOriginalFilename());
+            video.transferTo(videoFile);
+            url = s3Util.upload(video, userId);
+            postVideoReq.setYoutubeURL(url);
+        }
         if(type.equals("YOUTUBE")) {
 
             if(URLRepository.get(url) != null) {
@@ -150,37 +166,38 @@ public class VideoService {
                 convertorRepository.remove(userId);
                 return new PostVideoRes(exitedVideo.getVideoId(), exitedVideo.getVideoName(), url);
             }
-
-            Video newVideo = createVideo(postVideoReq);
-
-            //video DB에 저장
-            Video createdVideo = saveVideo(newVideo);
-            logger.info("영상 저장 성공: " + createdVideo.getVideoId());
-
-            //categoryId 저장하기
-            saveCategoryVideo(categoryId, createdVideo);
-            logger.info("카테고리 영상 조인 테이블 저장 성공");
-
-            WebClient webClient = createWebClient();
-
-            String videoInfo = getInfo(webClient, url);
-            logger.info("영상 변환 성공: " + url);
-
-            String title = audioTranslateToText(createdVideo, videoInfo);
-            createdVideo.setVideoName(title);
-            Video updatedVideo = saveVideo(createdVideo);
-            logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
-
-            //videoId를 이용해서 user_video에 저장하기
-            User user = userService.findById(userId);
-            UserVideo userVideo = saveUserVideo(user, updatedVideo);
-            logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
-
-            URLRepository.put(url, updatedVideo.getVideoId());
-            convertorRepository.remove(userId);
-            return new PostVideoRes(updatedVideo.getVideoId(), title, url);
         }
-        throw new BaseException(INVALID_AUDIO_TYPE);
+
+
+        Video newVideo = createVideo(postVideoReq);
+
+        //video DB에 저장
+        Video createdVideo = saveVideo(newVideo);
+        logger.info("영상 저장 성공: " + createdVideo.getVideoId());
+
+        //categoryId 저장하기
+        saveCategoryVideo(categoryId, createdVideo);
+        logger.info("카테고리 영상 조인 테이블 저장 성공");
+
+        WebClient webClient = createWebClient();
+
+
+        String videoInfo = getInfo(webClient, url, video, type);
+        logger.info("영상 변환 성공: " + url);
+
+        String title = audioTranslateToText(createdVideo, videoInfo);
+        createdVideo.setVideoName(title);
+        Video updatedVideo = saveVideo(createdVideo);
+        logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
+
+        //videoId를 이용해서 user_video에 저장하기
+        User user = userService.findById(userId);
+        UserVideo userVideo = saveUserVideo(user, updatedVideo);
+        logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
+
+        URLRepository.put(url, updatedVideo.getVideoId());
+        convertorRepository.remove(userId);
+        return new PostVideoRes(updatedVideo.getVideoId(), title, url);
     }
 
 
@@ -404,21 +421,58 @@ public class VideoService {
         return createVideo;
     }
 
-    public String getInfo(WebClient webClient,String url) {
-        PostVideoConvertorReq postVideoConvertorReq = new PostVideoConvertorReq(url);
+    public String getInfo(WebClient webClient,String url, MultipartFile file, String type) throws BaseException {
 
-        return  webClient.post()         // POST method
-                .uri("/api2/youtube")    // baseUrl 이후 uri
-                .bodyValue(postVideoConvertorReq)     // set body value
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .retrieve()                 // client message 전송
-                .bodyToMono(String.class)  // body type : EmpInfo
-                .block();                   // await
+        PostVideoConvertorReq postVideoConvertorReq;
+
+        try {
+            String subURL = "";
+            if(type.equals("UPLOAD")) {
+                subURL = "/api2/local";
+
+                File newFile = convertFile(file);
+
+                return webClient.post()         // POST method
+                        .uri(subURL)    // baseUrl 이후 uri
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .body(BodyInserters.fromMultipartData(fromFile(newFile)))
+                        //.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
+                        //.bodyValue(BodyInserters.fromMultipartData(builder.build()))
+                        //.bodyValue(BodyInserters.fromMultipartData(fromFile(newFile)))     // set body value
+                        .retrieve()                 // client message 전송
+                        .bodyToMono(String.class)  // body type : EmpInfo
+                        .block();                   // await
+
+            }
+            else if(type.equals("YOUTUBE")) {
+                subURL = "/api2/youtube";
+                postVideoConvertorReq = new PostVideoConvertorReq(url);
+
+                return webClient.post()         // POST method
+                        .uri(subURL)    // baseUrl 이후 uri
+                        .bodyValue(postVideoConvertorReq)     // set body value
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .retrieve()                 // client message 전송
+                        .bodyToMono(String.class)  // body type : EmpInfo
+                        .block();                   // await
+            }
+            else {
+                throw new BaseException(INVALID_CONVERTOR_TYPE);
+            }
+        } catch (Exception e) {
+            throw new BaseException(FAILED_TO_CONVERTOR_VIDEO);
+        }
+    }
+
+    private File convertFile(MultipartFile file) throws IOException {
+        File newFile = new File(file.getOriginalFilename());
+        file.transferTo(newFile);
+        return newFile;
     }
 
     private Video createVideo(PostVideoReq postVideoReq) {
         String url = postVideoReq.getYoutubeURL();
-        String thumbnailURL = getThumbNailURL(url);
+        String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : "NONE";
         String type = postVideoReq.getType().toLowerCase();
         return new Video.Builder()
                 .videoType(type)
@@ -441,6 +495,12 @@ public class VideoService {
         }
         String videoCode = url.substring(url.lastIndexOf("v=")).substring(2);
         return "https://img.youtube.com/vi/" + videoCode + "/0.jpg";
+    }
+
+    public MultiValueMap<String, HttpEntity<?>> fromFile(File file) {
+        MultipartBodyBuilder builder = new MultipartBodyBuilder();
+        builder.part("info", file);
+        return builder.build();
     }
 
 

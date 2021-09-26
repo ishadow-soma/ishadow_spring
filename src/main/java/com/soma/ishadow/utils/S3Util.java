@@ -73,6 +73,7 @@ public class S3Util {
     private String fileUpload(File file, Long userId) {
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String fileName = today + "-" + file.getName() + "-" + userId;
+        String filePath = "/home/ubuntu/video/" + fileName;
         String uploadImageUrl = putS3(file, fileName);
 
         removeNewFile(file);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)

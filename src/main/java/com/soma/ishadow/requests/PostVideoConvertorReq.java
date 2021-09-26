@@ -3,17 +3,18 @@ package com.soma.ishadow.requests;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
+import org.springframework.web.multipart.MultipartFile;
 
 public class PostVideoConvertorReq {
 
-    private final String info;
+    @JsonProperty(value = "info")
+    private String info;
 
     @Builder
-    @JsonCreator
-    public PostVideoConvertorReq(
-            @JsonProperty("info") String info) {
+    public PostVideoConvertorReq(String info) {
         this.info = info;
     }
+
 
     public String getInfo() {
         return info;
