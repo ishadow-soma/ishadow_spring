@@ -164,7 +164,6 @@ public class VideoService {
             String command = startFilePath + videoPath + fileName + endFilePath + "/" + today;
             logger.info("command : " + command);
             shellCmd(command);
-            //url = s3Util.upload(video, userId);
             postVideoReq.setYoutubeURL(url);
         }
 
@@ -540,17 +539,9 @@ public class VideoService {
             System.out.println("exit: " + p.exitValue());
             p.destroy();
         } catch (Exception e) {
+
         }
 
-//        Runtime runtime = Runtime.getRuntime();
-//        Process process = runtime.exec(command);
-//        InputStream is = process.getInputStream();
-//        InputStreamReader isr = new InputStreamReader(is);
-//        BufferedReader br = new BufferedReader(isr);
-//        String line;
-//        while((line = br.readLine()) != null) {
-//            System.out.println(line);
-//        }
     }
 
 
