@@ -159,7 +159,7 @@ public class VideoService {
                 videoFile.mkdirs();
             }
             video.transferTo(videoFile);
-            String command = startFilePath + videoPath + fileName + endFilePath + "/" + today;
+            String command = startFilePath + videoPath + fileName + endFilePath + "/" + today + "/";
             logger.info("command : " + command);
             shellCmd(command);
             //url = s3Util.upload(video, userId);
