@@ -452,6 +452,7 @@ public class VideoService {
             if(type.equals("UPLOAD")) {
                 subURL = "/api2/local";
 
+                logger.info(file.getAbsolutePath());
                 return webClient.post()         // POST method
                         .uri(subURL)    // baseUrl 이후 uri
                         .contentType(MediaType.MULTIPART_FORM_DATA)
