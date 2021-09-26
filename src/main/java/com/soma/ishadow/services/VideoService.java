@@ -143,25 +143,12 @@ public class VideoService {
                 throw new BaseException(EMPTY_VIDEO);
             }
 
-            File targetFile;
-
             String videoPath = "/home/ubuntu/video/";
-            targetFile = new File(videoPath + video.getOriginalFilename());
-            logger.info(String.valueOf(targetFile));
 
-            try {
-                InputStream fileStream = video.getInputStream();
-                FileUtils.copyInputStreamToFile(fileStream, targetFile);
-                logger.info("저장에 성공했습니다.");
-            } catch (IOException e) {
-                FileUtils.deleteQuietly(targetFile);
-                logger.info("저장에 실패했습니다.");
-                throw new BaseException(FAILED_TO_UPLOAD_VIDEO);
-            }
 
-            File videoFile = new File("/home/ubuntu/video/" + video.getOriginalFilename());
+            File videoFile = new File(videoPath + video.getOriginalFilename());
             video.transferTo(videoFile);
-            url = s3Util.upload(video, userId);
+            //url = s3Util.upload(video, userId);
             postVideoReq.setYoutubeURL(url);
         }
 
