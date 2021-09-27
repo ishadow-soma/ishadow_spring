@@ -12,6 +12,8 @@ import com.soma.ishadow.responses.GetUserRes;
 import com.soma.ishadow.responses.IsSuccessRes;
 import com.soma.ishadow.responses.YoutubeVideo;
 import com.soma.ishadow.services.JwtService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_USER;
 @Transactional(readOnly = true)
 public class UserProvider {
 
+    private final Logger logger = LoggerFactory.getLogger(UserProvider.class);
     private final UserConvertorRepository userConvertorRepository;
     private final UserRepository userRepository;
     private final VideoProvider videoProvider;
@@ -88,7 +91,9 @@ public class UserProvider {
 
         Long userId = jwtService.getUserInfo();
         GetMyroomRes getMyroomRes = new GetMyroomRes();
+        logger.info("start " + "userId: " + userId);
         getMyroomRes.addYoutubeVideos(videoProvider.findYoutubeVideoByUserId(userId));
+        logger.info("getMyRoom: YoutubeSuccess - " + "userId: " + userId);
         //getMyroomRes.addUploadVideos(videoProvider.findUploadVideoByUserId(userId));
         //getMyroomRes.addUploadAudios();
         return getMyroomRes;

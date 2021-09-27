@@ -48,6 +48,7 @@ public class VideoProvider {
     public GetShadowingRes getShadowing(Long videoId) throws BaseException {
         Long userId = jwtService.getUserInfo();
 
+        logger.info("getShadowing:  " + "userId: " + userId + "videoId: " + videoId);
         //해당 유저가 생성한 영상이 없다면 에러 처리
        if(!userVideoProvider.findByUserVideo(userId, videoId)) {
             throw new BaseException(FAILED_TO_GET_USERVIDEO);
