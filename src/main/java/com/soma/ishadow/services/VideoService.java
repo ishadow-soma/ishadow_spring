@@ -132,6 +132,7 @@ public class VideoService {
         if(!categoryId.contains(20L)) categoryId.add(20L);
         logger.info(String.valueOf(categoryId));
         String url = postVideoReq.getYoutubeURL();
+        String thumbNail = "";
         File videoFile = null;
 
         if(type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
@@ -191,7 +192,7 @@ public class VideoService {
         }
 
 
-        Video newVideo = createVideo(postVideoReq);
+        Video newVideo = createVideo(postVideoReq, thumbNail);
 
         //video DB에 저장
         Video createdVideo = saveVideo(newVideo);
@@ -491,9 +492,9 @@ public class VideoService {
         return newFile;
     }
 
-    private Video createVideo(PostVideoReq postVideoReq) {
+    private Video createVideo(PostVideoReq postVideoReq, String thumbNail) {
         String url = postVideoReq.getYoutubeURL();
-        String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : "NONE";
+        String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : "https://img.youtube.com/vi/ez7NA6X3x6s/0.jpg";
         String type = postVideoReq.getType().toLowerCase();
         logger.info(type);
         return new Video.Builder()
