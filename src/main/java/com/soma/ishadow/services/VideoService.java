@@ -34,6 +34,10 @@ import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.PostVideoLevelRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.utils.S3Util;
+import org.jcodec.api.FrameGrab;
+import org.jcodec.api.JCodecException;
+import org.jcodec.common.model.Picture;
+import org.jcodec.scale.AWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +55,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.Timestamp;
@@ -169,6 +175,12 @@ public class VideoService {
             url = videoBasePath + today + "/" +fileName;
             logger.info("upload url: " + url);
             postVideoReq.setYoutubeURL(url);
+
+            logger.info("getThumbNail");
+            String thumbNailPath = "/home/ubuntu/image/test.png";
+            //System.getProperty("user.home")+"/src/main/resources/thumbnails/";
+            File thumbNailFile = new File(thumbNailPath);
+            thumbNail = createThumbNail(videoFile, thumbNailFile);
         }
 
         if(type.equals("YOUTUBE")) {
@@ -543,9 +555,20 @@ public class VideoService {
             System.out.println("exit: " + p.exitValue());
             p.destroy();
         } catch (Exception e) {
-
+            throw new BaseException(FAILED_RUNNING_SHELL_SCRIPT);
         }
 
+    }
+
+    public String createThumbNail(File source, File thumbnail) throws IOException, JCodecException {
+        logger.info("extracting thumbnail from video");
+        int frameNumber = 5;
+
+        Picture picture = FrameGrab.getFrameFromFile(source, frameNumber);
+
+        BufferedImage bufferedImage = AWTUtil.toBufferedImage(picture);
+        ImageIO.write(bufferedImage, IMAGE_PNG_FORMAT, thumbnail);
+        return thumbnail.getAbsolutePath();
     }
 
 

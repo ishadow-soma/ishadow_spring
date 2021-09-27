@@ -49,7 +49,8 @@ public enum BaseResponseStatus {
     FAILED_TO_POST_REVIEW(false, 2018, "리뷰 등록에 실패했습니다."),
     FAILED_TO_POST_USER_REVIEW(false, 2019, "유저_리뷰 테이블 생성에 실패했습니다."),
     FAILED_TO_CONVERTOR_VIDEO(false, 2020, "영상 변환에 실패 했습니다."),
-    FAILED_TO_UPLOAD_VIDEO(false, 2021, "영상 업로드에 실패 했습니다.");
+    FAILED_TO_UPLOAD_VIDEO(false, 2021, "영상 업로드에 실패 했습니다."),
+    FAILED_RUNNING_SHELL_SCRIPT(false, 2022, "스크립트 실행에 실패했습니다.");
 
     private final Boolean success;
     private final int code;
