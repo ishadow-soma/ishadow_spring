@@ -52,7 +52,7 @@ public class UserVideoRepositoryImpl extends QuerydslRepositorySupport implement
                 .join(video)
                 .on(userVideo.video.videoId.eq(video.videoId))
                 .groupBy(userVideo.video.videoId)
-                .having(video.videoType.eq("YOUTUBE"))
+                .having(userVideo.video.videoType.eq("YOUTUBE"))
                 .orderBy(userVideo.video.createdAt.desc())
                 .fetch();
     }
