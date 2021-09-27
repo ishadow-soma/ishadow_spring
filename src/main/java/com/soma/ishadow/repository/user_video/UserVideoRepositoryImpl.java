@@ -62,11 +62,10 @@ public class UserVideoRepositoryImpl extends QuerydslRepositorySupport implement
         QVideo video = QVideo.video;
         return queryFactory.select(Projections.constructor(UploadVideo.class, video.videoId, video.videoName, video.thumbNailURL))
                 .from(userVideo)
-                .where(userVideo.user.userId.eq(userId))
                 .join(video)
                 .on(userVideo.video.videoId.eq(video.videoId))
-                .groupBy(userVideo.video.videoId)
-                .having(video.videoType.eq("UPLOAD"))
+                .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType)
+                .having(userVideo.user.userId.eq(userId), video.videoType.eq("UPLOAD"))
                 .orderBy(userVideo.video.createdAt.desc())
                 .fetch();
     }
