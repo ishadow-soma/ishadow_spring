@@ -181,7 +181,7 @@ public class VideoService {
             makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
             shellCmd(makeFile);
 
-            String thumbNailPath = "/home/ubuntu/image/" + today + "/" + today + "-" + userId + "-" + video.getName() + ".png";
+            String thumbNailPath = "/home/ubuntu/image/" + today + "/" + today + "-" + userId + "-" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
             File thumbNailFile = new File(thumbNailPath);
             thumbNail = createThumbNail(videoFile, thumbNailFile);
             logger.info("thumbNail URL: " + thumbNail);
