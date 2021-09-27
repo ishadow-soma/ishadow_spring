@@ -177,10 +177,14 @@ public class VideoService {
             postVideoReq.setYoutubeURL(url);
 
             logger.info("getThumbNail");
-            String thumbNailPath = "/home/ubuntu/image/test.png";
-            //System.getProperty("user.home")+"/src/main/resources/thumbnails/";
+
+            makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
+            shellCmd(makeFile);
+
+            String thumbNailPath = "/home/ubuntu/image/" + today + "/" + today + "-" + userId + "-" + video.getName() + ".png";
             File thumbNailFile = new File(thumbNailPath);
             thumbNail = createThumbNail(videoFile, thumbNailFile);
+            logger.info("thumbNail URL: " + thumbNail);
         }
 
         if(type.equals("YOUTUBE")) {
