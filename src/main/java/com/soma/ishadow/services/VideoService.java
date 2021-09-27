@@ -495,6 +495,7 @@ public class VideoService {
         String url = postVideoReq.getYoutubeURL();
         String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : "NONE";
         String type = postVideoReq.getType().toLowerCase();
+        logger.info(type);
         return new Video.Builder()
                 .videoType(type)
                 .videoURL(url)
