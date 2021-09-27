@@ -166,6 +166,8 @@ public class VideoService {
             String command = startFilePath + videoPath + fileName + endFilePath + "/" + today;
             logger.info("command : " + command);
             shellCmd(command);
+            url = videoBasePath + today + "/" +fileName;
+            logger.info("upload url: " + url);
             postVideoReq.setYoutubeURL(url);
         }
 
