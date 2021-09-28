@@ -183,10 +183,11 @@ public class VideoService {
             logger.info("mkidrPath : " + makeFile);
             shellCmd(makeFile);
 
-            String thumbNailPath = "/home/ubuntu/image/" + today + "/" + today + "-" + userId + "-" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
+            String thumNailName = today + "-" + userId + "-" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
+            String thumbNailPath = "/home/ubuntu/image/" + today + "/" + thumNailName;
             File thumbNailFile = new File(thumbNailPath);
             createThumbNail(videoFile, thumbNailFile);
-            thumbNail = imageBasePath + today + "/" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
+            thumbNail = imageBasePath + today + "/" + thumNailName;
             logger.info("thumbNail URL: " + thumbNail);
 
             command = startFilePath + thumbNailPath + endFilePath + "image/" + today;
