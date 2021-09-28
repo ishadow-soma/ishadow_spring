@@ -235,9 +235,12 @@ public class VideoService {
         logger.info("영상 변환 성공: " + url);
 
         String title = audioTranslateToText(createdVideo, videoInfo);
-        createdVideo.setVideoName(title);
+
         if(type.equals("UPLOAD")) {
             createdVideo.setVideoName(video.getOriginalFilename());
+        }
+        if(type.equals("YOUTUBE")) {
+            createdVideo.setVideoName(title);
         }
         Video updatedVideo = saveVideo(createdVideo);
         logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
