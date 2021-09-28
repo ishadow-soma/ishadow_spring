@@ -185,7 +185,8 @@ public class VideoService {
 
             String thumbNailPath = "/home/ubuntu/image/" + today + "/" + today + "-" + userId + "-" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
             File thumbNailFile = new File(thumbNailPath);
-            thumbNail = createThumbNail(videoFile, thumbNailFile);
+            createThumbNail(videoFile, thumbNailFile);
+            thumbNail = imageBasePath + today + "/" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
             logger.info("thumbNail URL: " + thumbNail);
 
             command = startFilePath + thumbNailPath + endFilePath + "image/" + today;
@@ -234,6 +235,9 @@ public class VideoService {
 
         String title = audioTranslateToText(createdVideo, videoInfo);
         createdVideo.setVideoName(title);
+        if(type.equals("UPLOAD")) {
+            createdVideo.setVideoName(video.getOriginalFilename());
+        }
         Video updatedVideo = saveVideo(createdVideo);
         logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
 
@@ -518,7 +522,7 @@ public class VideoService {
 
     private Video createVideo(PostVideoReq postVideoReq, String thumbNail) {
         String url = postVideoReq.getYoutubeURL();
-        String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : "https://img.youtube.com/vi/ez7NA6X3x6s/0.jpg";
+        String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : thumbNail;
         String type = postVideoReq.getType().toLowerCase();
         logger.info(type);
         return new Video.Builder()
