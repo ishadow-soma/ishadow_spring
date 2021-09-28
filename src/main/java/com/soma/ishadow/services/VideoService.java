@@ -235,7 +235,7 @@ public class VideoService {
 
         String title = audioTranslateToText(createdVideo, videoInfo);
         if(type.equals("UPLOAD")) {
-            title = video.getName();
+            title = video.getOriginalFilename().substring(0, video.getOriginalFilename().length() - 4);
         }
         createdVideo.setVideoName(title);
         Video updatedVideo = saveVideo(createdVideo);
