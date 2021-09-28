@@ -175,7 +175,6 @@ public class VideoService {
             url = videoBasePath + today + "/" +fileName;
             logger.info("upload url: " + url);
             postVideoReq.setYoutubeURL(url);
-
             logger.info("getThumbNail");
 
             makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
@@ -472,13 +471,13 @@ public class VideoService {
                 subURL = "/api2/local";
 
                 logger.info(file.getAbsolutePath());
+                postVideoConvertorReq = new PostVideoConvertorReq(file.getAbsolutePath());
                 return webClient.post()         // POST method
                         .uri(subURL)    // baseUrl 이후 uri
-                        .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .body(BodyInserters.fromMultipartData(fromFile(file)))
-                        //.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
-                        //.bodyValue(BodyInserters.fromMultipartData(builder.build()))
-                        //.bodyValue(BodyInserters.fromMultipartData(fromFile(newFile)))     // set body value
+                        //.contentType(MediaType.MULTIPART_FORM_DATA)
+                        //.body(BodyInserters.fromMultipartData(fromFile(file)))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .bodyValue(postVideoConvertorReq)     // set body value
                         .retrieve()                 // client message 전송
                         .bodyToMono(String.class)  // body type : EmpInfo
                         .block();                   // await
