@@ -169,7 +169,7 @@ public class VideoService {
             video.transferTo(videoFile);
             String makeFile = mkdirPath + " \"mkdir -p " + videoPath + "\"";
             shellCmd(makeFile);
-            String command = startFilePath + videoPath + fileName + endFilePath + "/" + today;
+            String command = startFilePath + videoPath + fileName + endFilePath + "video/" + today;
             logger.info("command : " + command);
             shellCmd(command);
             url = videoBasePath + today + "/" +fileName;
@@ -179,11 +179,18 @@ public class VideoService {
 
             makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
             shellCmd(makeFile);
+            makeFile = mkdirPath + " \"" + makeFile + "\"";
+            logger.info("mkidrPath : " + makeFile);
+            shellCmd(makeFile);
 
             String thumbNailPath = "/home/ubuntu/image/" + today + "/" + today + "-" + userId + "-" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
             File thumbNailFile = new File(thumbNailPath);
             thumbNail = createThumbNail(videoFile, thumbNailFile);
             logger.info("thumbNail URL: " + thumbNail);
+
+            command = startFilePath + thumbNailPath + endFilePath + "image/" + today;
+            logger.info("command : " + command);
+            shellCmd(command);
         }
 
         if(type.equals("YOUTUBE")) {
