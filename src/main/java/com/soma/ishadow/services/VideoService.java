@@ -129,6 +129,7 @@ public class VideoService {
     @Transactional(rollbackFor = BaseException.class)
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws Exception {
 
+        //TODO 영상 변환 여부 확인 로직 수정
         if(convertorRepository.contains(userId)){
             throw new BaseException(ALREADY_EXISTED_CONVERTOR);
         }
@@ -141,19 +142,20 @@ public class VideoService {
         String thumbNail = "";
         File videoFile = null;
 
-        if(type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
+        if (type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
             throw new BaseException(INVALID_AUDIO_TYPE);
         }
+
         //S3에 저장하고 URL 반환하기
-        if(type.equals("UPLOAD")) {
-            if(video.isEmpty()) {
+        if (type.equals("UPLOAD")) {
+            if (video.isEmpty()) {
                 logger.info("영상이 비어있습니다.");
                 convertorRepository.remove(userId);
                 throw new BaseException(EMPTY_VIDEO);
             }
 
             logger.info(userId + ": " + video.getOriginalFilename());
-            if(!Objects.requireNonNull(video.getOriginalFilename()).toLowerCase().endsWith(".mp4")) {
+            if (!Objects.requireNonNull(video.getOriginalFilename()).toLowerCase().endsWith(".mp4")) {
                 throw new BaseException(UNSUPPORTED_FORMAT);
             }
 
@@ -163,7 +165,7 @@ public class VideoService {
             String fileName = today + "-" + userId + "-" + videoName;
 
             videoFile = new File(videoPath + fileName);
-            if(!videoFile.exists()) {
+            if (!videoFile.exists()) {
                 videoFile.mkdirs();
             }
             video.transferTo(videoFile);
@@ -172,7 +174,7 @@ public class VideoService {
             String command = startFilePath + videoPath + fileName + endFilePath + "video/" + today;
             logger.info("command : " + command);
             shellCmd(command);
-            url = videoBasePath + today + "/" +fileName;
+            url = videoBasePath + today + "/" + fileName;
             logger.info("upload url: " + url);
             postVideoReq.setYoutubeURL(url);
             logger.info("getThumbNail");
@@ -183,7 +185,7 @@ public class VideoService {
             logger.info("mkidrPath : " + makeFile);
             shellCmd(makeFile);
 
-            String thumNailName = today + "-" + userId + "-" + video.getOriginalFilename().substring(0,video.getOriginalFilename().length() - 4) + ".png";
+            String thumNailName = today + "-" + userId + "-" + video.getOriginalFilename().substring(0, video.getOriginalFilename().length() - 4) + ".png";
             String thumbNailPath = "/home/ubuntu/image/" + today + "/" + thumNailName;
             File thumbNailFile = new File(thumbNailPath);
             createThumbNail(videoFile, thumbNailFile);
@@ -195,18 +197,18 @@ public class VideoService {
             shellCmd(command);
         }
 
-        if(type.equals("YOUTUBE")) {
+        if (type.equals("YOUTUBE")) {
 
-            if(URLRepository.get(url) != null) {
-                logger.info("해당 "+ url + " 영상이 존재합니다.");
+            if (URLRepository.get(url) != null) {
+                logger.info("해당 " + url + " 영상이 존재합니다.");
                 Video exitedVideo = videoRepository.findById(URLRepository.get(url)).orElse(null);
-                if(exitedVideo == null) {
+                if (exitedVideo == null) {
                     logger.info("URLRepository에는 값이 존재하는데 DB에는 video가 없음");
                     URLRepository.remove(url);
                     throw new BaseException(FAILED_TO_GET_VIDEO_YOUTUBE);
                 }
 
-                if(!userVideoProvider.findByUserVideo(userId, exitedVideo.getVideoId())) {
+                if (!userVideoProvider.findByUserVideo(userId, exitedVideo.getVideoId())) {
                     User user = userService.findById(userId);
                     UserVideo userVideo = saveUserVideo(user, exitedVideo);
                     logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
@@ -234,7 +236,7 @@ public class VideoService {
         logger.info("영상 변환 성공: " + url);
 
         String title = audioTranslateToText(createdVideo, videoInfo);
-        if(type.equals("UPLOAD")) {
+        if (type.equals("UPLOAD")) {
             title = video.getOriginalFilename().substring(0, video.getOriginalFilename().length() - 4);
         }
         createdVideo.setVideoName(title);
@@ -249,6 +251,7 @@ public class VideoService {
         URLRepository.put(url, updatedVideo.getVideoId());
         convertorRepository.remove(userId);
         return new PostVideoRes(updatedVideo.getVideoId(), title, url);
+
     }
 
 

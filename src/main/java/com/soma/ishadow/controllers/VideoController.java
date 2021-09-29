@@ -94,6 +94,7 @@ public class VideoController {
             if(exception.getStatus().getCode() == 1018) {
                 return BaseResponse.failed(exception.getStatus());
             }
+            //TODO 추후 Redis로 대체
             convertorRepository.remove(userId);
             return BaseResponse.failed(exception.getStatus());
         }
