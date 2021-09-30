@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.EXCEED_CONVERSION_COUNT;
@@ -36,10 +38,10 @@ public class VideoController {
     private final JwtService jwtService;
 
     @Qualifier("convertorRepository")
-    private final HashSet<Long> convertorRepository;
+    private final HashMap<Long, Date> convertorRepository;
 
     @Autowired
-    public VideoController(VideoService videoService, VideoProvider videoProvider, UserProvider userProvider, JwtService jwtService, HashSet<Long> convertorRepository) {
+    public VideoController(VideoService videoService, VideoProvider videoProvider, UserProvider userProvider, JwtService jwtService, HashMap<Long, Date> convertorRepository) {
         this.videoService = videoService;
         this.videoProvider = videoProvider;
         this.userProvider = userProvider;

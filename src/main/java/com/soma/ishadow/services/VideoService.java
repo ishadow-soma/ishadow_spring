@@ -63,10 +63,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
 import static com.soma.ishadow.configures.Constant.*;
@@ -93,10 +90,12 @@ public class VideoService {
     @Qualifier("URLRepository")
     private final HashMap<String, Long> URLRepository;
     @Qualifier("convertorRepository")
-    private final HashSet<Long> convertorRepository;
+    private final HashMap<Long, Date> convertorRepository;
+    //@Qualifier("convertorRepository")
+    //private final HashSet<Long> convertorRepository;
 
     @Autowired
-    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, ReviewProvider reviewProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository, HashSet<Long> convertorRepository) {
+    public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, ReviewProvider reviewProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository, HashMap<Long, Date> convertorRepository) {
         this.s3Util = s3Util;
         this.videoRepository = videoRepository;
         this.userVideoRepository = userVideoRepository;
@@ -130,10 +129,13 @@ public class VideoService {
     public PostVideoRes upload(PostVideoReq postVideoReq, MultipartFile video, Long userId) throws Exception {
 
         //TODO 영상 변환 여부 확인 로직 수정
-        if(convertorRepository.contains(userId)){
-            throw new BaseException(ALREADY_EXISTED_CONVERTOR);
+        if(convertorRepository.containsKey(userId)){
+            if(timeDifferenceLessThanTenSecond(userId)) {
+                throw new BaseException(ALREADY_EXISTED_CONVERTOR);
+            }
+            convertorRepository.remove(userId);
         }
-        convertorRepository.add(userId);
+        convertorRepository.put(userId, new Date());
         String type = postVideoReq.getType();
         List<Long> categoryId = postVideoReq.getCategoryId();
         if(!categoryId.contains(20L)) categoryId.add(20L);
@@ -540,8 +542,8 @@ public class VideoService {
                 .build();
     }
 
-    //TODO 예외 처리 하기
 
+    //TODO 예외 처리 하기
     private String getThumbNailURL(String url) {
         int index = url.indexOf("v=");
         if( index == -1 ) {
@@ -586,6 +588,16 @@ public class VideoService {
         BufferedImage bufferedImage = AWTUtil.toBufferedImage(picture);
         ImageIO.write(bufferedImage, IMAGE_PNG_FORMAT, thumbnail);
         return thumbnail.getAbsolutePath();
+    }
+
+    private boolean timeDifferenceLessThanTenSecond(Long userId) {
+
+        Date current = new Date();
+        Date time = convertorRepository.get(userId);
+        if(current.getTime() - time.getTime() <= 10) {
+            return true;
+        }
+        return false;
     }
 
 

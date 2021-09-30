@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +23,8 @@ public class LocalHashMapConfig {
     }
 
     @Bean
-    public HashSet<Long> convertorRepository() {
-        return new HashSet<>();
+    public HashMap<Long, Date> convertorRepository() {
+        return new HashMap<>();
     }
 
 }
