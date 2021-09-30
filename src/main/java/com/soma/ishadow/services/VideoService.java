@@ -91,8 +91,6 @@ public class VideoService {
     private final HashMap<String, Long> URLRepository;
     @Qualifier("convertorRepository")
     private final HashMap<Long, Date> convertorRepository;
-    //@Qualifier("convertorRepository")
-    //private final HashSet<Long> convertorRepository;
 
     @Autowired
     public VideoService(S3Util s3Util, VideoRepository videoRepository, UserVideoRepository userVideoRepository, UserVideoProvider userVideoProvider, SentenceEnRepository sentenceEnRepository, ReviewRepository reviewRepository, UserReviewRepository userReviewRepository, CategoryProvider categoryProvider, VideoProvider videoProvider, ReviewProvider reviewProvider, CategoryVideoRepository categoryVideoRepository, UserService userService, JwtService jwtService, HashMap<String, Long> urlRepository, HashMap<Long, Date> convertorRepository) {
@@ -131,6 +129,7 @@ public class VideoService {
         //TODO 영상 변환 여부 확인 로직 수정
         if(convertorRepository.containsKey(userId)){
             if(timeDifferenceLessThanTenSecond(userId)) {
+                logger.info("이미 영상 변환 중입니다.");
                 throw new BaseException(ALREADY_EXISTED_CONVERTOR);
             }
             convertorRepository.remove(userId);
