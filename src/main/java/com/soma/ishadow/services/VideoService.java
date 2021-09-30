@@ -594,7 +594,7 @@ public class VideoService {
 
         Date current = new Date();
         Date time = convertorRepository.get(userId);
-        if(current.getTime() - time.getTime() <= 10) {
+        if(current.getTime() - time.getTime() <= 10000) {
             return true;
         }
         return false;
