@@ -128,6 +128,7 @@ public class VideoService {
 
         //TODO 영상 변환 여부 확인 로직 수정
         if(convertorRepository.containsKey(userId)){
+            logger.info("해당 유저 아이디 " + userId + "가 존재합니다.");
             if(timeDifferenceLessThanTenSecond(userId)) {
                 logger.info("이미 영상 변환 중입니다.");
                 throw new BaseException(ALREADY_EXISTED_CONVERTOR);
