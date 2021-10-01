@@ -175,6 +175,7 @@ public class UserService {
 
         Long userId = jwtService.getUserInfo();
 
+        logger.info("update user start: " +  userId);
         User user = findById(userId);
         logger.info("user: " +  user.getUserId());
         User newUser = user.updateUserConvertor(patchUserReq);
