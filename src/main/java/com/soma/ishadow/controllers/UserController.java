@@ -32,7 +32,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/check")
+    @PatchMapping("/check")
     public BaseResponse<String> healthCheck(
     ) {
         logger.info("server health Check");
