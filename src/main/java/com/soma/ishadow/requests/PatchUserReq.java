@@ -6,18 +6,25 @@ import lombok.Builder;
 
 public class PatchUserReq {
 
-    private final String name;
-    private final int age;
-    private final String gender;
-    private final String purposeOfUse;
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("age")
+    private int age;
+
+    @JsonProperty("gender")
+    private String gender;
+
+    @JsonProperty("purposeOfUse")
+    private String purposeOfUse;
 
     @Builder
     @JsonCreator
     public PatchUserReq(
-            @JsonProperty("name") String name,
-            @JsonProperty("age") int age,
-            @JsonProperty("gender") String gender,
-            @JsonProperty("purposeOfUse") String purposeOfUse) {
+            String name,
+            int age,
+            String gender,
+            String purposeOfUse) {
         this.name = name;
         this.age = age;
         this.gender = gender;
