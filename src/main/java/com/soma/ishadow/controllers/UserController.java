@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -98,14 +99,15 @@ public class UserController {
      * @return
      * @throws BaseException
      */
-    @PatchMapping("/users")
-    public BaseResponse<IsSuccessRes> update(
+    @PatchMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse<Void> update(
             @RequestBody PatchUserReq patchUserReq
     ) throws BaseException{
 
         try{
             logger.info("update user start");
-            return BaseResponse.succeed(userService.updateUser(patchUserReq));
+            userService.updateUser(patchUserReq);
+            return BaseResponse.succeed();
         } catch (BaseException exception) {
             return BaseResponse.failed(exception.getStatus());
         }

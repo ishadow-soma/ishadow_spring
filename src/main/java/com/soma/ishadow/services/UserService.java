@@ -36,6 +36,7 @@ import static com.soma.ishadow.utils.PasswordEncoding.passwordEncoding;
 
 
 @Service
+@Transactional
 public class UserService {
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -169,7 +170,8 @@ public class UserService {
      * @throws BaseException
      */
     @Transactional
-    public IsSuccessRes updateUser(PatchUserReq patchUserReq) throws BaseException {
+    public void updateUser(PatchUserReq patchUserReq) throws BaseException {
+
 
         Long userId = jwtService.getUserInfo();
 
@@ -184,9 +186,6 @@ public class UserService {
             throw new BaseException(FAILED_TO_UPDATE_USER);
         }
 
-        return IsSuccessRes.builder()
-                .isSuccess(IsSuccess.YES)
-                .build();
     }
 
     /**
