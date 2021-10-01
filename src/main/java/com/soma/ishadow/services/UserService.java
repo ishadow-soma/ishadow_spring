@@ -169,7 +169,7 @@ public class UserService {
      * @throws BaseException
      */
     @Transactional
-    public void updateUser(PatchUserReq patchUserReq) throws BaseException {
+    public IsSuccessRes updateUser(PatchUserReq patchUserReq) throws BaseException {
 
         Long userId = jwtService.getUserInfo();
 
@@ -184,6 +184,9 @@ public class UserService {
             throw new BaseException(FAILED_TO_UPDATE_USER);
         }
 
+        return IsSuccessRes.builder()
+                .isSuccess(IsSuccess.YES)
+                .build();
     }
 
     /**

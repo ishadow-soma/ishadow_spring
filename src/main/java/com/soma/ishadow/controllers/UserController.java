@@ -99,14 +99,13 @@ public class UserController {
      * @throws BaseException
      */
     @PatchMapping("/users")
-    public BaseResponse<Void> update(
+    public BaseResponse<IsSuccessRes> update(
             @RequestBody PatchUserReq patchUserReq
     ) throws BaseException{
 
         try{
             logger.info("update user start");
-            userService.updateUser(patchUserReq);
-            return BaseResponse.succeed();
+            return BaseResponse.succeed(userService.updateUser(patchUserReq));
         } catch (BaseException exception) {
             return BaseResponse.failed(exception.getStatus());
         }
