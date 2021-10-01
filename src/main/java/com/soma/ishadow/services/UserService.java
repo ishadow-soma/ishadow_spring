@@ -36,7 +36,6 @@ import static com.soma.ishadow.utils.PasswordEncoding.passwordEncoding;
 
 
 @Service
-@Transactional
 public class UserService {
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -172,10 +171,8 @@ public class UserService {
     @Transactional
     public void updateUser(PatchUserReq patchUserReq) throws BaseException {
 
-
         Long userId = jwtService.getUserInfo();
 
-        logger.info("update user start: " +  userId);
         User user = findById(userId);
         logger.info("user: " +  user.getUserId());
         User newUser = user.updateUserConvertor(patchUserReq);

@@ -104,6 +104,7 @@ public class UserController {
     ) throws BaseException{
 
         try{
+            logger.info("update user start");
             userService.updateUser(patchUserReq);
             return BaseResponse.succeed();
         } catch (BaseException exception) {
