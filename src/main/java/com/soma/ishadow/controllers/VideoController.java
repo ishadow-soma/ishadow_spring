@@ -86,10 +86,6 @@ public class VideoController {
             @RequestPart(value = "file",required = false) MultipartFile file
     ) throws Exception {
 
-        logger.info(postVideoReq.getType());
-        logger.info(file.getName());
-        logger.info(postVideoReq.getYoutubeURL());
-        logger.info(postVideoReq.getCategoryId().toString());
         Long userId = jwtService.getUserInfo();
         if(!userProvider.conversionCheck(userId)) {
             throw new BaseException(EXCEED_CONVERSION_COUNT);
