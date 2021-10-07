@@ -66,11 +66,20 @@ public class VideoProvider {
     }
 
     private GetShadowingRes createShadowing(Video video) {
+
+        boolean evaluation = false;
+        if(video.getVideoType().equals("upload")) {
+            evaluation = true;
+        }
+
+        if(video.getVideoType().equals("youtube")) {
+            evaluation = video.getVideoEvaluation();
+        }
         return GetShadowingRes.builder()
                 .videoId(video.getVideoId())
                 .videoName(video.getVideoName())
                 .videoURL(video.getVideoURL())
-                .videoEvaluation(video.getVideoEvaluation())
+                .videoEvaluation(evaluation)
                 .thumbNailURL(video.getThumbNailURL())
                 .build();
     }
