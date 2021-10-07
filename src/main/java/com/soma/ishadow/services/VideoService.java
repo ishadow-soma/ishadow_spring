@@ -157,10 +157,20 @@ public class VideoService {
             }
 
             logger.info(userId + ": " + video.getOriginalFilename());
-            String fileFormat = Objects.requireNonNull(video.getOriginalFilename());
+            String fileFormat = Objects.requireNonNull(video.getOriginalFilename()).toLowerCase();
+            if(fileFormat.endsWith(".mp4")) {
+                fileFormat = "mp4";
+            }
+            if(fileFormat.endsWith(".mp3")) {
+                fileFormat = "mp3";
+            }
+            if(fileFormat.endsWith(".wav")) {
+                fileFormat = "wav";
+            }
             if( !checkFileFormat(fileFormat) ) {
                 throw new BaseException(UNSUPPORTED_FORMAT);
             }
+
 
             String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String videoPath = "/home/ubuntu/video/" + today + "/";
@@ -182,24 +192,26 @@ public class VideoService {
             url = videoBasePath + today + "/" + fileName;
             logger.info("upload url: " + url);
             postVideoReq.setYoutubeURL(url);
-            logger.info("getThumbNail");
 
-            makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
-            shellCmd(makeFile);
-            makeFile = mkdirPath + " \"" + makeFile + "\"";
-            logger.info("mkidrPath : " + makeFile);
-            shellCmd(makeFile);
+            if(fileFormat.equals("mp3") || fileFormat.equals("wav")) {
+                logger.info("getThumbNail");
+                makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
+                shellCmd(makeFile);
+                makeFile = mkdirPath + " \"" + makeFile + "\"";
+                logger.info("mkidrPath : " + makeFile);
+                shellCmd(makeFile);
 
-            String thumNailName = today + "-" + userId + "-" + video.getOriginalFilename().substring(0, video.getOriginalFilename().length() - 4) + ".png";
-            String thumbNailPath = "/home/ubuntu/image/" + today + "/" + thumNailName;
-            File thumbNailFile = new File(thumbNailPath);
-            createThumbNail(videoFile, thumbNailFile);
-            thumbNail = imageBasePath + today + "/" + thumNailName;
-            logger.info("thumbNail URL: " + thumbNail);
+                String thumNailName = today + "-" + userId + "-" + video.getOriginalFilename().substring(0, video.getOriginalFilename().length() - 4) + ".png";
+                String thumbNailPath = "/home/ubuntu/image/" + today + "/" + thumNailName;
+                File thumbNailFile = new File(thumbNailPath);
+                createThumbNail(videoFile, thumbNailFile);
+                thumbNail = imageBasePath + today + "/" + thumNailName;
+                logger.info("thumbNail URL: " + thumbNail);
 
-            command = startFilePath + thumbNailPath + endFilePath + "image/" + today;
-            logger.info("command : " + command);
-            shellCmd(command);
+                command = startFilePath + thumbNailPath + endFilePath + "image/" + today;
+                logger.info("command : " + command);
+                shellCmd(command);
+            }
         }
 
         if (type.equals("YOUTUBE")) {
@@ -546,8 +558,8 @@ public class VideoService {
     }
 
 
-    private boolean checkFileFormat(String fileName) {
-        if((fileName.toLowerCase().endsWith(".mp4") || fileName.toLowerCase().endsWith(".mp3") || fileName.toLowerCase().endsWith(".wav"))){
+    private boolean checkFileFormat(String fileFormat) {
+        if((fileFormat.equals("mp4") || fileFormat.equals("mp3") || fileFormat.equals("wav"))){
             return true;
         }
         return false;

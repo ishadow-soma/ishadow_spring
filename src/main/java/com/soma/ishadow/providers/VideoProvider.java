@@ -67,10 +67,7 @@ public class VideoProvider {
 
     private GetShadowingRes createShadowing(Video video) {
 
-        boolean evaluation = false;
-        if(video.getVideoType().equals("upload")) {
-            evaluation = true;
-        }
+        boolean evaluation = video.getVideoType().equals("upload");
 
         if(video.getVideoType().equals("youtube")) {
             evaluation = video.getVideoEvaluation();
