@@ -157,7 +157,8 @@ public class VideoService {
             }
 
             logger.info(userId + ": " + video.getOriginalFilename());
-            if (!Objects.requireNonNull(video.getOriginalFilename()).toLowerCase().endsWith(".mp4")) {
+            String fileFormat = Objects.requireNonNull(video.getOriginalFilename());
+            if( !checkFileFormat(fileFormat) ) {
                 throw new BaseException(UNSUPPORTED_FORMAT);
             }
 
@@ -167,9 +168,11 @@ public class VideoService {
             String fileName = today + "-" + userId + "-" + videoName;
 
             videoFile = new File(videoPath + fileName);
+
             if (!videoFile.exists()) {
                 videoFile.mkdirs();
             }
+
             video.transferTo(videoFile);
             String makeFile = mkdirPath + " \"mkdir -p " + videoPath + "\"";
             shellCmd(makeFile);
@@ -542,6 +545,13 @@ public class VideoService {
                 .build();
     }
 
+
+    private boolean checkFileFormat(String fileName) {
+        if((fileName.toLowerCase().endsWith(".mp4") || fileName.toLowerCase().endsWith(".mp3") || fileName.toLowerCase().endsWith(".wav"))){
+            return true;
+        }
+        return false;
+    }
 
     //TODO 예외 처리 하기
     private String getThumbNailURL(String url) {
