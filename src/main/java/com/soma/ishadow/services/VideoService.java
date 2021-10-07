@@ -193,7 +193,7 @@ public class VideoService {
             logger.info("upload url: " + url);
             postVideoReq.setYoutubeURL(url);
 
-            if(fileFormat.equals("mp3") || fileFormat.equals("wav")) {
+            if(fileFormat.equals("mp4")) {
                 logger.info("getThumbNail");
                 makeFile = "mkdir -p " + "/home/ubuntu/image/" + today + "/";
                 shellCmd(makeFile);
