@@ -5,9 +5,8 @@ import com.soma.ishadow.configures.BaseResponse;
 import com.soma.ishadow.providers.UserProvider;
 import com.soma.ishadow.requests.*;
 import com.soma.ishadow.responses.*;
+import com.soma.ishadow.services.JwtService;
 import com.soma.ishadow.services.UserService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,20 +23,39 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final UserProvider userProvider;
+    private final JwtService jwtService;
 
     @Autowired
-    public UserController(UserService userService, UserProvider userProvider) {
+    public UserController(UserService userService, UserProvider userProvider, JwtService jwtService) {
         this.userService = userService;
         this.userProvider = userProvider;
+        this.jwtService = jwtService;
     }
 
 
-    @PatchMapping("/check")
+    @GetMapping("/check")
     public BaseResponse<String> healthCheck(
     ) {
         logger.info("server health Check");
         return BaseResponse.succeed("server connection success");
     }
+
+    /**
+     * JWT에서 userID 추출
+     * @return
+     */
+    @GetMapping("/user-id")
+    public BaseResponse<GetUserIdRes> getUserId(
+    ) {
+
+        try {
+            Long userId = jwtService.getUserInfo();
+            return BaseResponse.succeed(new GetUserIdRes(userId));
+        } catch (BaseException exception) {
+            return BaseResponse.failed(exception.getStatus());
+        }
+    }
+
 
     //TODO 이메일 인증할 때 이메일도 같이 넘기고 회원가입할 때 email을 받아서 비교한다.
     /**
