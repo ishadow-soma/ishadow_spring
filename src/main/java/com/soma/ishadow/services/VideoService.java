@@ -435,6 +435,7 @@ public class VideoService {
             for (int index = 1; index < jsonSize; index++) {
                 JsonElement context = contexts.get(index);
                 String transcript = context.getAsJsonObject().get("transcript").getAsString();
+                logger.info(transcript);
                 String confidence = context.getAsJsonObject().get("confidence").getAsString();
                 String speakerTag = context.getAsJsonObject().get("speaker_tag").getAsString();
                 JsonArray words = context.getAsJsonObject().get("words").getAsJsonArray();
