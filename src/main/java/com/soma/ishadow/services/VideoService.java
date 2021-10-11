@@ -425,6 +425,7 @@ public class VideoService {
 
         JsonElement element = JsonParser.parseString(audioInfo);
         String title = "";
+        logger.info(String.valueOf(element));
         try {
             JsonElement contexts = element.getAsJsonObject().get("results");
             title = contexts.getAsJsonObject().get("title").getAsString();
