@@ -423,11 +423,11 @@ public class VideoService {
 
     private String audioTranslateToText(Video video, String audioInfo) throws BaseException {
 
-        JsonElement element = JsonParser.parseString(audioInfo);
+        JsonElement contexts = JsonParser.parseString(audioInfo);
         String title = "";
-        logger.info(String.valueOf(element));
+        //logger.info(String.valueOf(element));
         try {
-            JsonElement contexts = element.getAsJsonObject().get("results");
+            //JsonElement contexts = element.getAsJsonObject().get("results");
             title = contexts.getAsJsonObject().get("title").getAsString();
             JsonArray jsonArray = contexts.getAsJsonObject().get("transcript").getAsJsonArray();
             for (int index = 0; index < jsonArray.size(); index++) {
