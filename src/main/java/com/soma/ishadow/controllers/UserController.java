@@ -33,11 +33,18 @@ public class UserController {
     }
 
 
-    @GetMapping("/check")
+    @PutMapping("/check")
     public BaseResponse<String> healthCheck(
     ) {
         logger.info("server health Check");
         return BaseResponse.succeed("server connection success");
+    }
+
+    @PatchMapping("/check")
+    public BaseResponse<String> healthCheck1(
+    ) {
+        logger.info("server health Check1");
+        return BaseResponse.succeed("server connection success1");
     }
 
     /**
@@ -118,14 +125,14 @@ public class UserController {
      * @throws BaseException
      */
     @PatchMapping(value = "/users")
-    public BaseResponse<String> update(
+    public BaseResponse<Void> update(
             @RequestBody PatchUserReq patchUserReq
     ) throws BaseException{
 
         try{
             logger.info("update user start");
             userService.updateUser(patchUserReq);
-            return BaseResponse.succeed("test");
+            return BaseResponse.succeed();
         } catch (BaseException exception) {
             return BaseResponse.failed(exception.getStatus());
         }
