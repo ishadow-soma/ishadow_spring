@@ -17,6 +17,7 @@ import com.soma.ishadow.responses.DeleteUserRes;
 import com.soma.ishadow.responses.IsSuccessRes;
 import com.soma.ishadow.responses.JwtRes;
 import com.soma.ishadow.utils.EmailSenderUtil;
+import com.soma.ishadow.utils.PasswordEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,7 +162,6 @@ public class UserService {
         throw new BaseException(INVALID_SNS);
 
     }
-
 
 
     /**
@@ -340,6 +340,7 @@ public class UserService {
         return createUserConvertor(userInformation, parameters.getSns());
     }
 
+
     private User createUserConvertor(String parameters, String sns) throws BaseException {
 
         JsonElement element = JsonParser.parseString(parameters);
@@ -450,13 +451,12 @@ public class UserService {
 
     private void checkToken(String userInformation) throws BaseException {
 
-        if(JsonParser.parseString(userInformation).getAsJsonObject().get("error") == null) {
+        if (JsonParser.parseString(userInformation).getAsJsonObject().get("error") == null) {
             return;
         }
-        if(JsonParser.parseString(userInformation).getAsJsonObject().get("error").getAsString().equals("invalid_request")) {
+        if (JsonParser.parseString(userInformation).getAsJsonObject().get("error").getAsString().equals("invalid_request")) {
             throw new BaseException(INVALID_NAVER_TOKEN);
         }
     }
-
 }
 

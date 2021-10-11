@@ -196,8 +196,18 @@ public class UserController {
 
     //TODO 비밀번호 수정
     /**
-     * 비밀번호 수정
+     * 비밀번호 변경 전 확인
      */
+    @GetMapping("users/password")
+    public BaseResponse<IsSuccessRes> checkPassword(
+            @RequestBody GetPasswordReq getPasswordReq
+    ) {
+        try {
+            return BaseResponse.succeed(userProvider.checkPassword(getPasswordReq));
+        } catch (BaseException exception ) {
+            return BaseResponse.failed(exception.getStatus());
+        }
+    }
 
     /**
      * 비밀번호 찾기

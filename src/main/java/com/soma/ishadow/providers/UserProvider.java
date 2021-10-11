@@ -7,20 +7,21 @@ import com.soma.ishadow.domains.user.User;
 import com.soma.ishadow.domains.user.UserConvertor;
 import com.soma.ishadow.repository.user.UserConvertorRepository;
 import com.soma.ishadow.repository.user.UserRepository;
+import com.soma.ishadow.requests.GetPasswordReq;
 import com.soma.ishadow.responses.GetMyroomRes;
 import com.soma.ishadow.responses.GetUserRes;
 import com.soma.ishadow.responses.IsSuccessRes;
-import com.soma.ishadow.responses.YoutubeVideo;
 import com.soma.ishadow.services.JwtService;
+import com.soma.ishadow.services.UserService;
+import com.soma.ishadow.utils.PasswordEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_USER;
+import static com.soma.ishadow.configures.BaseResponseStatus.INVALID_PASSWORD;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,13 +31,15 @@ public class UserProvider {
     private final UserConvertorRepository userConvertorRepository;
     private final UserRepository userRepository;
     private final VideoProvider videoProvider;
+    private final UserService userService;
     private final JwtService jwtService;
 
     @Autowired
-    public UserProvider(UserConvertorRepository userConvertorRepository, UserRepository userRepository, VideoProvider videoProvider, JwtService jwtService) {
+    public UserProvider(UserConvertorRepository userConvertorRepository, UserRepository userRepository, VideoProvider videoProvider, UserService userService, JwtService jwtService) {
         this.userConvertorRepository = userConvertorRepository;
         this.userRepository = userRepository;
         this.videoProvider = videoProvider;
+        this.userService = userService;
         this.jwtService = jwtService;
     }
 
@@ -61,6 +64,28 @@ public class UserProvider {
                 .sns(user.getSns())
                 .build();
     }
+
+    /**
+     * 비밀번호 확인
+     * @param getPasswordReq
+     * @return
+     * @throws BaseException
+     */
+    @Transactional(readOnly = true)
+    public IsSuccessRes checkPassword(GetPasswordReq getPasswordReq) throws BaseException {
+        String email = getPasswordReq.getEmail();
+        String password = getPasswordReq.getPassword();
+        String encodingPassword = PasswordEncoding.passwordEncoding(password);
+        User user = userService.findByEmail(email);
+        if(!user.getPassword().equals(encodingPassword)) {
+            throw new BaseException(INVALID_PASSWORD);
+        }
+        return IsSuccessRes.builder()
+                .isSuccess(IsSuccess.YES)
+                .sns(user.getSns())
+                .build();
+    }
+
 
     @Transactional(readOnly = true)
     public IsSuccessRes getConversionCount() throws BaseException {
@@ -99,4 +124,5 @@ public class UserProvider {
         //getMyroomRes.addUploadAudios();
         return getMyroomRes;
     }
+
 }

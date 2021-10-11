@@ -6,13 +6,8 @@ import lombok.Builder;
 
 public class UpdatePasswordReq {
 
-    private final String email;
     private final String password;
     private final String confirmPassword;
-
-    public String getEmail() {
-        return email;
-    }
 
     public String getPassword() {
         return password;
@@ -25,10 +20,8 @@ public class UpdatePasswordReq {
     @Builder
     @JsonCreator
     public UpdatePasswordReq(
-            @JsonProperty("email") String email,
             @JsonProperty("password") String password,
             @JsonProperty("confirmPassword") String confirmPassword) {
-        this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }

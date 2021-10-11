@@ -425,9 +425,9 @@ public class VideoService {
 
         JsonElement contexts = JsonParser.parseString(audioInfo);
         String title = "";
-        //logger.info(String.valueOf(element));
         try {
             //JsonElement contexts = element.getAsJsonObject().get("results");
+            logger.info(video.getVideoId() + "번 영상 변환 성공");
             title = contexts.getAsJsonObject().get("title").getAsString();
             JsonArray jsonArray = contexts.getAsJsonObject().get("transcript").getAsJsonArray();
             for (int index = 0; index < jsonArray.size(); index++) {
@@ -445,6 +445,7 @@ public class VideoService {
                 SentenceEn sentenceEn = createSentenceEn(video, script, startTime, endTime);
                 try {
                     sentenceEnRepository.save(sentenceEn);
+                    logger.info(video.getVideoId() + "번 영상 및 문장 저장 성공");
                 } catch (Exception exception) {
                     throw new BaseException(FAILED_TO_POST_SENTENCE);
                 }
