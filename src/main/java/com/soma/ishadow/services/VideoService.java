@@ -428,34 +428,23 @@ public class VideoService {
         try {
             JsonElement contexts = element.getAsJsonObject().get("results");
             title = contexts.getAsJsonObject().get("title").getAsString();
-            logger.info(title);
             int jsonSize = contexts.getAsJsonObject().get("transcript").getAsJsonArray().size();
-            logger.info(String.valueOf(jsonSize));
             JsonArray jsonArray = contexts.getAsJsonObject().get("transcript").getAsJsonArray();
             for (int index = 0; index < jsonArray.size(); index++) {
-                logger.info(String.valueOf(jsonArray.get(index)));
-//                JsonElement context = contexts.get(index);
-//                String transcript = context.getAsJsonObject().get("transcript").getAsString();
-//                logger.info(transcript);
-//                String confidence = context.getAsJsonObject().get("confidence").getAsString();
-//                String speakerTag = context.getAsJsonObject().get("speaker_tag").getAsString();
-//                JsonArray words = context.getAsJsonObject().get("words").getAsJsonArray();
-//                int wordSize = context.getAsJsonObject().get("words").getAsJsonArray().size();
-//                if(words.size() == 0 ) {
-//                    throw new BaseException(FAILED_TO_GET_WORDS);
-//                }
-//                String startTime = words.get(0).getAsJsonObject().get("start_time").getAsString();
-//                if (startTime.length() < 8) {
-//                    startTime += ".000000";
-//                }
-//                String endTime = words.get(wordSize - 1).getAsJsonObject().get("start_time").getAsString();
-//                if (endTime.length() < 8) {
-//                    endTime += ".000000";
-//                }
-//
-//                SentenceEn sentenceEn = createSentenceEn(video, transcript, startTime, endTime, speakerTag, confidence);
+                JsonElement jsonElement = jsonArray.get(index);
+                String script = jsonElement.getAsJsonObject().get("script").getAsString();
+                String startTime = jsonElement.getAsJsonObject().get("start_time").getAsString();
+                String endTime = jsonElement.getAsJsonObject().get("end_time").getAsString();
+                if (startTime.length() < 8) {
+                    startTime += ".000000";
+                }
+                if (endTime.length() < 8) {
+                    endTime += ".000000";
+                }
+
+                SentenceEn sentenceEn = createSentenceEn(video, script, startTime, endTime);
                 try {
-                    //sentenceEnRepository.save(sentenceEn);
+                    sentenceEnRepository.save(sentenceEn);
                 } catch (Exception exception) {
                     throw new BaseException(FAILED_TO_POST_SENTENCE);
                 }
@@ -471,14 +460,14 @@ public class VideoService {
         return title;
     }
 
-    private SentenceEn createSentenceEn(Video video, String transcript, String startTime, String endTime, String speakerTag, String confidence) {
+    private SentenceEn createSentenceEn(Video video, String transcript, String startTime, String endTime) {
         return new SentenceEn.Builder()
                 .video(video)
                 .content(transcript)
                 .startTime(startTime)
                 .endTime(endTime)
-                .speaker(speakerTag)
-                .confidence(confidence)
+                .speaker("NONE")
+                .confidence("NONE")
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
                 .build();
