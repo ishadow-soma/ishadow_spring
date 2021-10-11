@@ -117,7 +117,7 @@ public class UserController {
      * @return
      * @throws BaseException
      */
-    @PatchMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/users")
     public BaseResponse<Void> update(
             @RequestBody PatchUserReq patchUserReq
     ) throws BaseException{

@@ -428,7 +428,6 @@ public class VideoService {
         try {
             JsonElement contexts = element.getAsJsonObject().get("results");
             title = contexts.getAsJsonObject().get("title").getAsString();
-            int jsonSize = contexts.getAsJsonObject().get("transcript").getAsJsonArray().size();
             JsonArray jsonArray = contexts.getAsJsonObject().get("transcript").getAsJsonArray();
             for (int index = 0; index < jsonArray.size(); index++) {
                 JsonElement jsonElement = jsonArray.get(index);
