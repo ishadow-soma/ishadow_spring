@@ -429,9 +429,9 @@ public class VideoService {
             JsonElement contexts = element.getAsJsonObject().get("results");
             title = contexts.getAsJsonObject().get("title").getAsString();
             logger.info(title);
-            int jsonSize = element.getAsJsonObject().get("transcript").getAsJsonArray().size();
+            int jsonSize = contexts.getAsJsonObject().get("transcript").getAsJsonArray().size();
             logger.info(String.valueOf(jsonSize));
-            JsonArray jsonArray = element.getAsJsonObject().get("transcript").getAsJsonArray();
+            JsonArray jsonArray = contexts.getAsJsonObject().get("transcript").getAsJsonArray();
             for (int index = 0; index < jsonArray.size(); index++) {
                 logger.info(String.valueOf(jsonArray.get(index)));
 //                JsonElement context = contexts.get(index);
