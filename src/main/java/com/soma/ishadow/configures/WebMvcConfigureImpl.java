@@ -15,6 +15,7 @@ public class WebMvcConfigureImpl implements WebMvcConfigurer {
                         HttpMethod.HEAD.name(),
                         HttpMethod.POST.name(),
                         HttpMethod.PUT.name(),
+                        HttpMethod.PATCH.name(),
                         HttpMethod.DELETE.name())
                 .allowedOrigins("*");
     }
