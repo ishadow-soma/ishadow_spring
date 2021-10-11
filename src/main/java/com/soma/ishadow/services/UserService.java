@@ -288,9 +288,9 @@ public class UserService {
         try {
             userRepository.save(newUser);
         } catch (Exception exception) {
-            return new IsSuccessRes(IsSuccess.NO);
+            return new IsSuccessRes(IsSuccess.NO, newUser.getSns());
         }
-        return new IsSuccessRes(IsSuccess.YES);
+        return new IsSuccessRes(IsSuccess.YES, newUser.getSns());
     }
 
     /**
