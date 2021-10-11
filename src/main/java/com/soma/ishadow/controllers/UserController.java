@@ -188,7 +188,7 @@ public class UserController {
      * @param updatePasswordReq
      * @return
      */
-    @PatchMapping("users/password")
+    @PatchMapping("/users/password")
     @ApiOperation(value = "비밀번호 수정")
     public BaseResponse<IsSuccessRes> updatePassword(
         @RequestBody UpdatePasswordReq updatePasswordReq
@@ -204,7 +204,7 @@ public class UserController {
     /**
      * 비밀번호 변경 전 확인
      */
-    @GetMapping("users/password")
+    @GetMapping("/users/password")
     @ApiOperation(value = "비밀번호 변경 전 확인")
     public BaseResponse<IsSuccessRes> checkPassword(
             @RequestBody GetPasswordReq getPasswordReq
@@ -240,7 +240,7 @@ public class UserController {
      * @return
      */
     @ApiOperation(value = "이메일 중복 검증")
-    @PostMapping("users/duplication-email")
+    @PostMapping("/users/duplication-email")
     public BaseResponse<IsSuccessRes> DuplicationCheck(
             @RequestBody PostEmailReq postEmailReq
     ) {
@@ -252,7 +252,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("users/my-room")
+    @GetMapping("/users/my-room")
     @ApiOperation(value = "마이룸 조회")
     public BaseResponse<GetMyroomRes> getMyRoom() {
 
@@ -265,7 +265,7 @@ public class UserController {
     }
 
 
-    @GetMapping("users/media-convertor-limit")
+    @GetMapping("/users/media-convertor-limit")
     @ApiOperation(value = "오늘 영상 변환 횟수 조회")
     public BaseResponse<IsSuccessRes> ConversionCountCheck() {
 
