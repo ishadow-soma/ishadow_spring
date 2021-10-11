@@ -92,6 +92,7 @@ public class UserController {
      * @throws BaseException
      */
     @PostMapping("/login")
+    @ApiOperation(value = "로그인")
     public BaseResponse<JwtRes> login(
             @RequestBody PostLoginReq parameters
     ) throws BaseException, IOException {
@@ -109,6 +110,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/users")
+    @ApiOperation(value = "내 프로필 조회")
     public BaseResponse<GetUserRes> myProfile() {
 
         try {
@@ -125,6 +127,7 @@ public class UserController {
      * @throws BaseException
      */
     @PatchMapping(value = "/users")
+    @ApiOperation(value = "내 프로필 수정")
     public BaseResponse<Void> update(
             @RequestBody PatchUserReq patchUserReq
     ) throws BaseException{
@@ -148,6 +151,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/users")
+    @ApiOperation(value = "유저 삭제")
     public BaseResponse<DeleteUserRes> delete(
             @RequestBody DeleteUserReq deleteUserReq
     ) {
@@ -165,6 +169,7 @@ public class UserController {
      * @throws BaseException
      */
     @PostMapping("users/authentication-email")
+    @ApiOperation(value = "이메일 인증")
     public BaseResponse<Void> emailAuthentication(
             @RequestBody PostEmailReq postEmailReq
     ) throws BaseException {
@@ -184,6 +189,7 @@ public class UserController {
      * @return
      */
     @PatchMapping("users/password")
+    @ApiOperation(value = "비밀번호 수정")
     public BaseResponse<IsSuccessRes> updatePassword(
         @RequestBody UpdatePasswordReq updatePasswordReq
     ) {
@@ -199,6 +205,7 @@ public class UserController {
      * 비밀번호 변경 전 확인
      */
     @GetMapping("users/password")
+    @ApiOperation(value = "비밀번호 변경 전 확인")
     public BaseResponse<IsSuccessRes> checkPassword(
             @RequestBody GetPasswordReq getPasswordReq
     ) {
@@ -221,6 +228,7 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/users/authentication-code")
+    @ApiOperation(value = "인증 코드 검증")
     public BaseResponse<IsSuccessRes> AuthenticationCodeCheck(
             @RequestBody PostAuthenticationCodeReq postAuthenticationCodeReq) {
         return BaseResponse.succeed(userService.authenticationCodeCheck(postAuthenticationCodeReq));
@@ -245,6 +253,7 @@ public class UserController {
     }
 
     @GetMapping("users/my-room")
+    @ApiOperation(value = "마이룸 조회")
     public BaseResponse<GetMyroomRes> getMyRoom() {
 
         try {
@@ -257,6 +266,7 @@ public class UserController {
 
 
     @GetMapping("users/media-convertor-limit")
+    @ApiOperation(value = "오늘 영상 변환 횟수 조회")
     public BaseResponse<IsSuccessRes> ConversionCountCheck() {
 
         try {
