@@ -16,17 +16,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .headers().frameOptions().disable()
-                .and()
-                .authorizeRequests()
-                    .antMatchers(
-                        "/v2/api-docs",
-                        "/swagger-resources",
-                        "/swagger-resources/configuration/ui",
-                        "/swagger-resources/configuration/security")
-                    .permitAll()
-                .and()
                 .csrf().disable()
+                .headers().frameOptions().disable()
+//                .and()
+//                .authorizeRequests()
+//                    .antMatchers(
+//                        "/v2/api-docs",
+//                        "/swagger-resources",
+//                        "/swagger-resources/configuration/ui",
+//                        "/swagger-resources/configuration/security")
+//                    .permitAll()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // jwt token으로 인증할것이므로 세션필요없으므로 생성안함.
 
 
