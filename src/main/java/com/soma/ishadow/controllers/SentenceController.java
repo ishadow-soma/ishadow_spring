@@ -28,6 +28,13 @@ public class SentenceController {
         this.sentenceProvider = sentenceProvider;
     }
 
+    @GetMapping("/check")
+    @ApiOperation(value = "체크")
+    public BaseResponse<String> healthCheck(
+    ) {
+        return BaseResponse.succeed("server connection success");
+    }
+
     /**
      * 문장 즐겨찾기 저장
      * @param postSentenceReq
