@@ -91,8 +91,8 @@ public class UserController {
      * @return
      * @throws BaseException
      */
-    @PostMapping("/login")
     @ApiOperation(value = "로그인")
+    @PostMapping("/login")
     public BaseResponse<JwtRes> login(
             @RequestBody PostLoginReq parameters
     ) throws BaseException, IOException {
@@ -188,8 +188,8 @@ public class UserController {
      * @param updatePasswordReq
      * @return
      */
-    @PatchMapping("/users/password")
     @ApiOperation(value = "비밀번호 수정")
+    @PatchMapping("/users/password")
     public BaseResponse<IsSuccessRes> updatePassword(
         @RequestBody UpdatePasswordReq updatePasswordReq
     ) {
@@ -204,8 +204,8 @@ public class UserController {
     /**
      * 비밀번호 변경 전 확인
      */
-    @GetMapping("/users/password")
     @ApiOperation(value = "비밀번호 변경 전 확인")
+    @GetMapping("/users/password")
     public BaseResponse<IsSuccessRes> checkPassword(
             @RequestBody GetPasswordReq getPasswordReq
     ) {
@@ -227,8 +227,8 @@ public class UserController {
      * @param postAuthenticationCodeReq
      * @return
      */
-    @PostMapping(value = "/users/authentication-code")
     @ApiOperation(value = "인증 코드 검증")
+    @PostMapping(value = "/users/authentication-code")
     public BaseResponse<IsSuccessRes> AuthenticationCodeCheck(
             @RequestBody PostAuthenticationCodeReq postAuthenticationCodeReq) {
         return BaseResponse.succeed(userService.authenticationCodeCheck(postAuthenticationCodeReq));
@@ -252,8 +252,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/my-room")
     @ApiOperation(value = "마이룸 조회")
+    @GetMapping("/users/my-room")
     public BaseResponse<GetMyroomRes> getMyRoom() {
 
         try {
