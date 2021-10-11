@@ -40,13 +40,6 @@ public class UserController {
         return BaseResponse.succeed("server connection success");
     }
 
-    @PatchMapping("/check")
-    public BaseResponse<String> healthCheck1(
-    ) {
-        logger.info("server health Check1");
-        return BaseResponse.succeed("server connection success1");
-    }
-
     /**
      * JWT에서 userID 추출
      * @return
