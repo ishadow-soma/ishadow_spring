@@ -1,9 +1,6 @@
 package com.soma.ishadow.services;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.apache.commons.io.FileUtils;
 import com.soma.ishadow.configures.BaseException;
 import com.soma.ishadow.domains.category.Category;
@@ -429,13 +426,16 @@ public class VideoService {
         JsonElement element = JsonParser.parseString(audioInfo);
         String title = "";
         try {
-            JsonArray contexts = element.getAsJsonObject().get("results").getAsJsonArray();
-            title = contexts.get(0).getAsJsonObject().get("title").getAsString();
-            int jsonSize = element.getAsJsonObject().get("results").getAsJsonArray().size();
-            logger.info(String.valueOf(contexts));
-            for (int index = 1; index < jsonSize; index++) {
-                JsonElement context = contexts.get(index);
-                String transcript = context.getAsJsonObject().get("transcript").getAsString();
+            JsonElement contexts = element.getAsJsonObject().get("results");
+            title = contexts.getAsJsonObject().get("title").getAsString();
+            logger.info(title);
+            int jsonSize = element.getAsJsonObject().get("transcript").getAsJsonArray().size();
+            logger.info(String.valueOf(jsonSize));
+            JsonArray jsonArray = element.getAsJsonObject().get("transcript").getAsJsonArray();
+            for (int index = 0; index < jsonArray.size(); index++) {
+                logger.info(String.valueOf(jsonArray.get(index)));
+//                JsonElement context = contexts.get(index);
+//                String transcript = context.getAsJsonObject().get("transcript").getAsString();
 //                logger.info(transcript);
 //                String confidence = context.getAsJsonObject().get("confidence").getAsString();
 //                String speakerTag = context.getAsJsonObject().get("speaker_tag").getAsString();
@@ -561,10 +561,7 @@ public class VideoService {
 
 
     private boolean checkFileFormat(String fileFormat) {
-        if((fileFormat.equals("mp4") || fileFormat.equals("mp3") || fileFormat.equals("wav"))){
-            return true;
-        }
-        return false;
+        return fileFormat.equals("mp4") || fileFormat.equals("mp3") || fileFormat.equals("wav");
     }
 
     //TODO 예외 처리 하기
@@ -618,10 +615,7 @@ public class VideoService {
 
         Date current = new Date();
         Date time = convertorRepository.get(userId);
-        if(current.getTime() - time.getTime() <= 30000) {
-            return true;
-        }
-        return false;
+        return current.getTime() - time.getTime() <= 30000;
     }
 
 
