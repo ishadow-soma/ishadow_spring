@@ -274,15 +274,15 @@ public class UserService {
     @Transactional
     public IsSuccessRes updatePassword(UpdatePasswordReq updatePasswordReq) throws BaseException {
 
-        String email = updatePasswordReq.getEmail();
+        Long userId = jwtService.getUserInfo();
+        User user = findById(userId);
         String password = updatePasswordReq.getPassword();
         String confirmPassword = updatePasswordReq.getConfirmPassword();
-        emailCheck(email);
+
         if(!password.equals(confirmPassword)) {
             throw new BaseException(NOT_EQUAL_PASSWORD_AND_CONFIRM_PASSWORD);
         }
 
-        User user = findByEmail(email);
         User newUser = user.updatePasswordConvertor(password);
 
         try {
