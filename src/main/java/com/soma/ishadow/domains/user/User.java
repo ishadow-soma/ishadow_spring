@@ -4,6 +4,7 @@ import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user_review.UserReview;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.requests.PatchUserReq;
+import com.soma.ishadow.responses.JwtRes;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -160,8 +161,9 @@ public class User implements Serializable {
     }
 
     public void afterLoginSuccess() {
-        lastLoginAt = Timestamp.valueOf(now());
+        this.lastLoginAt = Timestamp.valueOf(now());
     }
+
 
     public Long getUserId() {
         return userId;

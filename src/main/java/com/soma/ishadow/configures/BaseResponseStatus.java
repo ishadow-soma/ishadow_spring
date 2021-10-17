@@ -24,6 +24,7 @@ public enum BaseResponseStatus {
     ALREADY_EXISTED_CONVERTOR( false, 1018,"이미 영상 변환 중입니다. 영상 변환이 끝나면 다시 시도 해주세요."),
     INVALID_CONVERTOR_TYPE( false, 1019,"영상 변환 타입이 유효하지 않습니다."),
     INVALID_PASSWORD( false, 1020,"비밀번호가 일치하지 않습니다."),
+    EMPTY_NAME( false, 1021,"이름이 비었습니다."),
 
 
 

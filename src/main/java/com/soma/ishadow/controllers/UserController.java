@@ -193,26 +193,46 @@ public class UserController {
         }
     }
 
-    //TODO 비밀번호 수정
-    /**
-     * 비밀번호 변경 전 확인
-     */
-    @ApiOperation(value = "비밀번호 변경 전 확인")
-    @GetMapping("/users/password")
-    public BaseResponse<IsSuccessRes> checkPassword(
-            @RequestBody GetPasswordReq getPasswordReq
-    ) {
-        try {
-            return BaseResponse.succeed(userProvider.checkPassword(getPasswordReq));
-        } catch (BaseException exception ) {
-            return BaseResponse.failed(exception.getStatus());
-        }
-    }
+//    //TODO 비밀번호 수정
+//    /**
+//     * 비밀번호 변경 전 확인
+//     */
+//    @ApiOperation(value = "비밀번호 변경 전 확인")
+//    @GetMapping("/users/password")
+//    public BaseResponse<IsSuccessRes> checkPassword(
+//            @RequestBody GetPasswordReq getPasswordReq
+//    ) {
+//        try {
+//            return BaseResponse.succeed(userProvider.checkPassword(getPasswordReq));
+//        } catch (BaseException exception ) {
+//            return BaseResponse.failed(exception.getStatus());
+//        }
+//    }
+
+//    /**
+//     * 비밀번호 찾기
+//     */
+//    @ApiOperation(value = "비밀번호 찾기")
+//    @PostMapping(value = "/users/authentication-code")
+//    public BaseResponse<IsSuccessRes> AuthenticationCodeCheck(
+//            @RequestBody PostAuthenticationCodeReq postAuthenticationCodeReq) {
+//        return BaseResponse.succeed(userService.authenticationCodeCheck(postAuthenticationCodeReq));
+//    }
 
     /**
      * 비밀번호 찾기
      */
-    //TODO 비밀번호 찾기
+    @ApiOperation(value = "비밀번호 찾기", notes = "이름을 추가하지 않은 경우는 NONE를 기입해주세요.")
+    @PatchMapping(value = "/users/search-password")
+    public BaseResponse<IsSuccessRes> searchPassword(
+            @RequestBody PatchSearchPasswordReq patchSearchPasswordReq) {
+        try {
+            userService.searchPassword(patchSearchPasswordReq);
+            return BaseResponse.succeed();
+        } catch (BaseException baseException) {
+            return BaseResponse.failed(baseException.getStatus());
+        }
+    }
 
 
     /**

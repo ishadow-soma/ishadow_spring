@@ -18,4 +18,6 @@ public interface UserRepositoryQuerydsl {
     Optional<User> findByEmail(String email);
 
     Optional<User> delete(Long userId) throws BaseException;
+
+    Optional<User> findByEmailAndName(String email, String name);
 }

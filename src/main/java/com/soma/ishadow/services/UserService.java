@@ -17,7 +17,6 @@ import com.soma.ishadow.responses.DeleteUserRes;
 import com.soma.ishadow.responses.IsSuccessRes;
 import com.soma.ishadow.responses.JwtRes;
 import com.soma.ishadow.utils.EmailSenderUtil;
-import com.soma.ishadow.utils.PasswordEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,6 +134,7 @@ public class UserService {
             User user = userRepository.findByEmail(loginUser.getEmail())
                     .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
             logger.info("NAVER 로그인 성공: " +  user.getEmail() + "/" + user.getUserId());
+            user.afterLoginSuccess();
             return JwtRes.builder()
                     .email(user.getEmail())
                     .jwt(jwtService.createJwt(user.getUserId()))
@@ -146,6 +146,7 @@ public class UserService {
             User user = userRepository.findByEmail(loginUser.getEmail())
                     .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
             logger.info("Google 로그인 성공: " +  user.getEmail() + "/" + user.getUserId());
+            user.afterLoginSuccess();
             return JwtRes.builder()
                     .email(user.getEmail())
                     .jwt(jwtService.createJwt(user.getUserId()))
@@ -153,7 +154,10 @@ public class UserService {
         }
 
         if(parameters.getSns().equals("NORMAL")) {
-            return userRepository.findByEmail(parameters.getEmail())
+
+            Optional<User> userLogin = userRepository.findByEmail(parameters.getEmail());
+            userLogin.ifPresent(User::afterLoginSuccess);
+            return userLogin
                     .filter(user -> passwordEncoding(parameters.getPassword()).equals(user.getPassword()))
                     .map(user -> JwtRes.builder().email(user.getEmail()).jwt(jwtService.createJwt(user.getUserId())).build())
                     .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
@@ -232,7 +236,7 @@ public class UserService {
         ArrayList<String> toEmail = new ArrayList<>();
         toEmail.add(email);
         String authenticationCode = emailSenderUtil.createKey("code");
-        String emailContent = emailSenderUtil.createEmailTemplate(authenticationCode);
+        String emailContent = emailSenderUtil.createEmailTemplate(1, authenticationCode);
         SendEmailRequest sendEmailRequest =
                 new SendEmailRequest(Constant.sender , new Destination(toEmail), createMessage(emailContent));
         emailSenderUtil.sendEmail(sendEmailRequest);
@@ -306,6 +310,30 @@ public class UserService {
         Optional<User> user = userRepository.findByEmail(postEmailReq.getEmail());
 
         return user.map(value -> new IsSuccessRes(IsSuccess.NO, value.getSns())).orElseGet(() -> new IsSuccessRes(IsSuccess.YES, "NONE"));
+
+    }
+
+    /**
+     * 비밀번호 찾기
+     * @param patchSearchPasswordReq
+     */
+    @Transactional
+    public void searchPassword(PatchSearchPasswordReq patchSearchPasswordReq) throws BaseException {
+
+        String email = patchSearchPasswordReq.getEmail();
+        String name = patchSearchPasswordReq.getName();
+        emailCheck(email);
+        nameCheck(name);
+        User user = findByEmailAndName(email, name);
+        String tempPassword = "soma123!";
+        user.updatePasswordConvertor(tempPassword);
+
+        ArrayList<String> toEmail = new ArrayList<>();
+        toEmail.add(email);
+        String emailContent = emailSenderUtil.createEmailTemplate(2, tempPassword);
+        SendEmailRequest sendEmailRequest =
+                new SendEmailRequest(Constant.sender , new Destination(toEmail), createMessage(emailContent));
+        emailSenderUtil.sendEmail(sendEmailRequest);
 
     }
 
@@ -410,7 +438,7 @@ public class UserService {
 
     private User createUserConvertor(PostSingUpReq parameters) {
         return new User.Builder()
-                .name(parameters.getName())
+                .name(parameters.getName() == null ? "NONE" : parameters.getName())
                 .email(parameters.getEmail())
                 .password(passwordEncoding(parameters.getPassword()))
                 .age(0)
@@ -444,6 +472,17 @@ public class UserService {
         }
     }
 
+    public void nameCheck(String name) throws BaseException {
+        if( name == null) {
+            throw new BaseException(EMPTY_NAME);
+        }
+    }
+
+    public User findByEmailAndName(String email, String name) throws BaseException {
+        return userRepository.findByEmailAndName(email, name)
+                .orElseThrow(() -> new BaseException(FAILED_TO_GET_USER));
+    }
+
 
     private UserConvertor userConvertUserConversion(User user) {
         return new UserConvertor(user.getUserId(), user, 0);
@@ -458,5 +497,6 @@ public class UserService {
             throw new BaseException(INVALID_NAVER_TOKEN);
         }
     }
+
 }
 

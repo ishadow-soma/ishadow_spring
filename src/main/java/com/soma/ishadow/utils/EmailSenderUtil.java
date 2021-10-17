@@ -60,7 +60,12 @@ public class EmailSenderUtil {
 
 
 
-    public String createEmailTemplate(String authenticationCode) {
+    public String createEmailTemplate(int type, String authenticationCode) {
+
+        String purpose = "인증코드";;
+        if(type == 2) {
+            purpose = "임시 비밀번호";
+        }
 
         StringBuilder emailContent = new StringBuilder();
         emailContent.append("<!DOCTYPE html>");
@@ -78,7 +83,7 @@ public class EmailSenderUtil {
                         "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">"																													+
                         "		안녕하세요.<br />"																																													+
                         "		IShadow에 가입해 주셔서 진심으로 감사드립니다.<br />"																																						+
-                        "		인증코드는 "+ authenticationCode + "입니다<br />"																													+
+                        "		"+ purpose +"는 "+ authenticationCode + "입니다<br />"																													+
                         "		감사합니다."																																															+
                         "	</p>"																																																	+
                         "	<div style=\"border-top: 1px solid #DDD; padding: 5px;\"></div>"																																		+

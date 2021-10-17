@@ -63,4 +63,12 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements Use
         em.remove(user);
         return user;
     }
+
+    @Override
+    public Optional<User> findByEmailAndName(String email, String name) {
+        QUser user = QUser.user;
+        return Optional.ofNullable(queryFactory.selectFrom(user)
+                .where(user.email.eq(email),user.name.eq(name),user.status.eq(Status.YES))
+                .fetchOne());
+    }
 }
