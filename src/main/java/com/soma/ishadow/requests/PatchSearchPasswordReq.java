@@ -9,7 +9,7 @@ public class PatchSearchPasswordReq {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("age")
+    @JsonProperty("email")
     private String email;
 
     @Builder

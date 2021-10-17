@@ -238,7 +238,7 @@ public class UserService {
         String authenticationCode = emailSenderUtil.createKey("code");
         String emailContent = emailSenderUtil.createEmailTemplate(1, authenticationCode);
         SendEmailRequest sendEmailRequest =
-                new SendEmailRequest(Constant.sender , new Destination(toEmail), createMessage(emailContent));
+                new SendEmailRequest(Constant.sender , new Destination(toEmail), createMessage(1, emailContent));
         emailSenderUtil.sendEmail(sendEmailRequest);
         if( environment.getActiveProfiles()[0].equals("local") ) {
             authenticationCodeRepository.add(authenticationCode);
@@ -332,13 +332,18 @@ public class UserService {
         toEmail.add(email);
         String emailContent = emailSenderUtil.createEmailTemplate(2, tempPassword);
         SendEmailRequest sendEmailRequest =
-                new SendEmailRequest(Constant.sender , new Destination(toEmail), createMessage(emailContent));
+                new SendEmailRequest(Constant.sender , new Destination(toEmail), createMessage(2, emailContent));
         emailSenderUtil.sendEmail(sendEmailRequest);
 
     }
 
 
-    private Message createMessage(String emailContent) {
+    private Message createMessage(int type, String emailContent) {
+        if(type == 2) {
+            return new Message()
+                    .withSubject(new Content().withCharset("UTF-8").withData(Constant.tempPassword))
+                    .withBody(new Body().withHtml(new Content().withCharset("UTF-8").withData(emailContent)));
+        }
         return new Message()
                 .withSubject(new Content().withCharset("UTF-8").withData(Constant.subject))
                 .withBody(new Body().withHtml(new Content().withCharset("UTF-8").withData(emailContent)));
