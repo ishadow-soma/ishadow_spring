@@ -32,7 +32,7 @@ public class SentenceProvider {
         Long userId = jwtService.getUserInfo();
         List<BookmarkSentence> bookmarkSentences = new ArrayList<>();
         List<GetBookmarkRes> bookmarks = new ArrayList<>();
-        if(type.equals("REPEAT")) {
+        if(type.equals("FAVORITE")) {
             bookmarks.addAll(getFavoriteSentences(videoId, userId));
         }
 //        if(type.equals("FAVORITE")) {
