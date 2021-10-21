@@ -33,7 +33,7 @@ public class SentenceController {
      * @param postSentenceReq
      * @return
      */
-    @ApiOperation(value = "구간 반복 저장")
+    @ApiOperation(value = "문장 즐겨찾기 저장")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "sentenceSaveType", value = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장"),
             @ApiImplicitParam(name = "sentences", value = "sentences: [1, 2, 3] 이런식으로 저장, 숫자는 sentenceId"),
@@ -50,7 +50,7 @@ public class SentenceController {
         }
     }
 
-    @ApiOperation(value = "구간 반복 조회", notes = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장")
+    @ApiOperation(value = "즐겨찾기 문장 조회", notes = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장")
     @GetMapping("/shadowing-player/bookmark")
     public BaseResponse<List<GetBookmarkRes>> getBookmarkWithSentence(
             @RequestParam("videoId") Long videoId,
