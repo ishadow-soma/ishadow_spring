@@ -69,9 +69,8 @@ public class SentenceController {
      */
     @ApiOperation(value = "문장 즐겨찾기 삭제")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sentenceSaveType", value = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장"),
+            @ApiImplicitParam(name = "type", value = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장"),
             @ApiImplicitParam(name = "groupId", value = "groupId"),
-            @ApiImplicitParam(name = "videoId", value = "현재 VIDEO ID")
     })
     @PostMapping("/shadowing-player/bookmark")
     public BaseResponse<Void> deleteBookmarkWithSentence(
