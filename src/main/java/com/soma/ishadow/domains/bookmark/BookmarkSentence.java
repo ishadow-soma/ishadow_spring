@@ -97,6 +97,10 @@ public class BookmarkSentence implements Serializable {
         return status;
     }
 
+    public void updateStatus() {
+        this.status = Status.NO;
+    }
+
     static public class Builder {
         private BookmarkId bookmarkId;
         private User user;

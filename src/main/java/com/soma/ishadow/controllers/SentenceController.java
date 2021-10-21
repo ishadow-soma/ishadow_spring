@@ -63,4 +63,27 @@ public class SentenceController {
         }
     }
 
+    /**
+     * 문장 즐겨찾기 삭제
+     * @return
+     */
+    @ApiOperation(value = "문장 즐겨찾기 삭제")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sentenceSaveType", value = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장"),
+            @ApiImplicitParam(name = "groupId", value = "groupId"),
+            @ApiImplicitParam(name = "videoId", value = "현재 VIDEO ID")
+    })
+    @PostMapping("/shadowing-player/bookmark")
+    public BaseResponse<Void> deleteBookmarkWithSentence(
+            @RequestParam("groupId") Long groupId,
+            @RequestParam("type") String type
+    ) {
+        try {
+            sentenceService.deleteBookmark(groupId);
+            return BaseResponse.succeed();
+        } catch (BaseException exception ) {
+            return BaseResponse.failed(exception.getStatus());
+        }
+    }
+
 }

@@ -57,6 +57,7 @@ public class bookmarkSentenceRepositoryImpl extends QuerydslRepositorySupport im
                 .fetchOne();
     }
 
+
     @Override
     public List<GetBookmarkRes> findByVideoAndUserByFavorite(Long videoId, Long userId) {
         QBookmarkSentence bookmarkSentence = QBookmarkSentence.bookmarkSentence;

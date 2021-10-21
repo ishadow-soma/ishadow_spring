@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_BOOKMARK;
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_POST_BOOKMARK;
 import static com.soma.ishadow.configures.Constant.bookmarkCount;
 
@@ -86,6 +87,18 @@ public class SentenceService {
                 .createAt(Timestamp.valueOf(LocalDateTime.now()))
                 .status(Status.YES)
                 .build();
+    }
+
+    @Transactional
+    public void deleteBookmark(Long groupId) throws BaseException {
+
+        List<BookmarkSentence> bookmarkSentences = bookmarkSentenceRepository.findByGroupId(groupId);
+        if(bookmarkSentences.size() == 0) {
+            throw new BaseException(FAILED_TO_GET_BOOKMARK);
+        }
+        for(BookmarkSentence bookmarkSentence : bookmarkSentences) {
+            bookmarkSentence.updateStatus();
+        }
     }
 
     private Long getGroupId() {
