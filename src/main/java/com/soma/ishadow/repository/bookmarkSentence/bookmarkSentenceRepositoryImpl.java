@@ -1,11 +1,15 @@
 package com.soma.ishadow.repository.bookmarkSentence;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soma.ishadow.domains.bookmark.BookmarkId;
 import com.soma.ishadow.domains.bookmark.BookmarkSentence;
 import com.soma.ishadow.domains.bookmark.QBookmarkId;
 import com.soma.ishadow.domains.bookmark.QBookmarkSentence;
 import com.soma.ishadow.domains.enums.Status;
+import com.soma.ishadow.domains.sentence_en.QSentenceEn;
+import com.soma.ishadow.responses.GetBookmarkRes;
+import com.soma.ishadow.responses.YoutubeVideo;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -44,10 +48,13 @@ public class bookmarkSentenceRepositoryImpl extends QuerydslRepositorySupport im
     }
 
     @Override
-    public List<BookmarkSentence> findByVideoAndUserByFavorite(Long videoId, Long userId) {
+    public List<GetBookmarkRes> findByVideoAndUserByFavorite(Long videoId, Long userId) {
         QBookmarkSentence bookmarkSentence = QBookmarkSentence.bookmarkSentence;
+        QSentenceEn sentenceEn = QSentenceEn.sentenceEn;
         QBookmarkId bookmarkId = bookmarkSentence.bookmarkId;
-        return queryFactory.selectFrom(bookmarkSentence)
+        return queryFactory.select(Projections.constructor(GetBookmarkRes.class, bookmarkSentence.bookmarkId.groupId,bookmarkSentence.bookmarkId.sentenceId,sentenceEn.content,sentenceEn.startTime,sentenceEn.endTime))
+                .from(bookmarkSentence)
+                .innerJoin(sentenceEn).on(bookmarkId.sentenceId.eq(sentenceEn.sentenceId))
                 .where(bookmarkId.userId.eq(userId), bookmarkId.videoId.eq(videoId), bookmarkSentence.sentenceSaveType.eq("FAVORITE"), bookmarkSentence.status.eq(Status.YES))
                 .orderBy(bookmarkId.groupId.asc())
                 .fetch();

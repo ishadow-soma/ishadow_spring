@@ -19,17 +19,13 @@ public class GetSentenceEnRes {
     @JsonProperty("endTime")
     private final String endTime;
 
-    @JsonProperty("speaker")
-    private final String speaker;
-
 
     @Builder
     @JsonCreator
-    public GetSentenceEnRes(Long sentenceId, String content, String startTime, String endTime, String speaker) {
+    public GetSentenceEnRes(Long sentenceId, String content, String startTime, String endTime) {
         this.sentenceId = sentenceId;
         this.content = content;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.speaker = speaker;
     }
 }

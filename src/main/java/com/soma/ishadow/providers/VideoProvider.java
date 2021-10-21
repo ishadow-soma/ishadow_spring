@@ -88,7 +88,6 @@ public class VideoProvider {
                         .content(sentenceEn.getContent())
                         .startTime(sentenceEn.getStartTime())
                         .endTime(sentenceEn.getEndTime())
-                        .speaker(sentenceEn.getSpeaker())
                         .build())
                 .collect(Collectors.toList());
     }

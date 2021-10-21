@@ -2,35 +2,35 @@ package com.soma.ishadow.responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.StringPath;
 import lombok.Builder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GetBookmarkRes {
 
     @JsonProperty("groupId")
     private final Long groupId;
 
-    @JsonProperty("sentences")
-    private final List<Long> sentences;
+    @JsonProperty("sentenceId")
+    private final Long sentenceId;
 
-    @Builder
+    @JsonProperty("content")
+    private final String content;
+
+    @JsonProperty("startTime")
+    private final String startTime;
+
+    @JsonProperty("endTime")
+    private final String endTime;
+
     @JsonCreator
-    public GetBookmarkRes(Long groupId, List<Long> sentences) {
+    @Builder
+    public GetBookmarkRes(Long groupId, Long sentenceId, String content, String startTime, String endTime) {
         this.groupId = groupId;
-        this.sentences = sentences;
+        this.sentenceId = sentenceId;
+        this.content = content;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public List<Long> getSentences() {
-        return sentences;
-    }
-
-    public void addSentences(Long sentenceId) {
-        this.sentences.add(sentenceId);
-    }
 }
