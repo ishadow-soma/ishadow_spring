@@ -10,5 +10,7 @@ public interface BookmarkSentenceRepository extends JpaRepository<BookmarkSenten
 
     BookmarkSentence save(BookmarkSentence bookmarkSentence);
 
-    List<BookmarkSentence> findByVideoAndUser(Long videoId, Long userId);
+    List<BookmarkSentence> findByVideoAndUserByFavorite(Long videoId, Long userId);
+
+    List<BookmarkSentence> findByVideoAndUserByBookmark(Long videoId, Long userId);
 }

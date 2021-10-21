@@ -34,11 +34,21 @@ public class bookmarkSentenceRepositoryImpl extends QuerydslRepositorySupport im
     }
 
     @Override
-    public List<BookmarkSentence> findByVideoAndUser(Long videoId, Long userId) {
+    public List<BookmarkSentence> findByVideoAndUserByBookmark(Long videoId, Long userId) {
         QBookmarkSentence bookmarkSentence = QBookmarkSentence.bookmarkSentence;
         QBookmarkId bookmarkId = bookmarkSentence.bookmarkId;
         return queryFactory.selectFrom(bookmarkSentence)
-                .where(bookmarkId.userId.eq(userId), bookmarkId.videoId.eq(videoId), bookmarkSentence.status.eq(Status.YES))
+                .where(bookmarkId.userId.eq(userId), bookmarkId.videoId.eq(videoId),  bookmarkSentence.sentenceSaveType.eq("REPEAT") ,bookmarkSentence.status.eq(Status.YES))
+                .orderBy(bookmarkId.groupId.asc())
+                .fetch();
+    }
+
+    @Override
+    public List<BookmarkSentence> findByVideoAndUserByFavorite(Long videoId, Long userId) {
+        QBookmarkSentence bookmarkSentence = QBookmarkSentence.bookmarkSentence;
+        QBookmarkId bookmarkId = bookmarkSentence.bookmarkId;
+        return queryFactory.selectFrom(bookmarkSentence)
+                .where(bookmarkId.userId.eq(userId), bookmarkId.videoId.eq(videoId), bookmarkSentence.sentenceSaveType.eq("FAVORITE"), bookmarkSentence.status.eq(Status.YES))
                 .orderBy(bookmarkId.groupId.asc())
                 .fetch();
     }

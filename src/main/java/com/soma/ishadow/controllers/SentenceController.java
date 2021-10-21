@@ -50,15 +50,17 @@ public class SentenceController {
         }
     }
 
-    @ApiOperation(value = "구간 반복 조회")
+    @ApiOperation(value = "구간 반복 조회", notes = "REPEAT 구간 반복 문장, FAVORITE 즐겨찾기 문장")
     @GetMapping("/shadowing-player/bookmark")
-    public BaseResponse<List<GetBookmarkRes>> createBookmarkWithSentence(
-            @RequestParam("videoId") Long videoId
+    public BaseResponse<List<GetBookmarkRes>> getBookmarkWithSentence(
+            @RequestParam("videoId") Long videoId,
+            @RequestParam("type") String type
     ){
         try {
-            return BaseResponse.succeed(sentenceProvider.getBookmark(videoId));
+            return BaseResponse.succeed(sentenceProvider.getSentences(videoId, type));
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());
         }
     }
+
 }

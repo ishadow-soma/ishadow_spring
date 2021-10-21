@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.FAILED_TO_GET_BOOKMARK;
@@ -26,15 +27,21 @@ public class SentenceProvider {
         this.jwtService = jwtService;
     }
 
-    public List<GetBookmarkRes> getBookmark(Long videoId) throws BaseException {
+    public List<GetBookmarkRes> getSentences(Long videoId, String type) throws BaseException {
 
         Long userId = jwtService.getUserInfo();
-        List<BookmarkSentence> bookmarkSentences = getBookmarkSentences(videoId, userId);
-        if(bookmarkSentences.size() == 0) {
-            throw new BaseException(FAILED_TO_GET_BOOKMARK);
+        List<BookmarkSentence> bookmarkSentences = new ArrayList<>();
+        if(type.equals("REPEAT")) {
+            bookmarkSentences.addAll(getBookmarkSentences(videoId, userId));
+        }
+        if(type.equals("FAVORITE")) {
+            bookmarkSentences.addAll(getFavoriteSentences(videoId, userId));
         }
         List<GetBookmarkRes> bookmarks = new ArrayList<>();
-        for(BookmarkSentence bookmarkSentence : bookmarkSentences) { //데이터베이스에 있는 즐겨찾기 문장들
+        if(bookmarkSentences.size() == 0) {
+            return bookmarks;
+        }
+        for(BookmarkSentence bookmarkSentence : bookmarkSentences) { //데이터베이스에 있는 구간 반복 문장들
             BookmarkId bookmarkId = bookmarkSentence.getBookmarkId();
             Long groupId = bookmarkId.getGroupId();
             Long sentenceId = bookmarkId.getSentenceId();
@@ -73,12 +80,13 @@ public class SentenceProvider {
 
     }
 
+    private List<BookmarkSentence> getFavoriteSentences(Long videoId, Long userId) {
+        return bookmarkSentenceRepository.findByVideoAndUserByFavorite(videoId, userId);
+    }
+
 
     public List<BookmarkSentence> getBookmarkSentences(Long videoId, Long userId) throws BaseException {
-        List<BookmarkSentence> bookmarkSentences = bookmarkSentenceRepository.findByVideoAndUser(videoId, userId);
-        if( bookmarkSentences.size() == 0) {
-            throw new BaseException(FAILED_TO_GET_BOOKMARK);
-        }
-        return bookmarkSentences;
+        return bookmarkSentenceRepository.findByVideoAndUserByBookmark(videoId, userId);
     }
+
 }

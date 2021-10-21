@@ -117,7 +117,7 @@ public class VideoController {
     }
 
     //TODO 유사한 난이도 영상 조회 (카테고리 별, 난이도 별) -> 10개씩
-    @ApiOperation(value = "영상 추천 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
+    @ApiOperation(value = "영상 조회 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
     @GetMapping("/media")
     public BaseResponse<GetVideosRes> getVideos(
             @RequestParam(value = "categoryId",required = false, defaultValue = "20") Long categoryId,
