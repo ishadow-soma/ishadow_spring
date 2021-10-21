@@ -57,6 +57,15 @@ public class bookmarkSentenceRepositoryImpl extends QuerydslRepositorySupport im
                 .fetchOne();
     }
 
+    @Override
+    public List<BookmarkSentence> findByGroupId(Long groupId) {
+        QBookmarkSentence bookmarkSentence = QBookmarkSentence.bookmarkSentence;
+        return queryFactory.selectFrom(bookmarkSentence)
+                .from(bookmarkSentence)
+                .where(bookmarkSentence.bookmarkId.groupId.eq(groupId),bookmarkSentence.status.eq(Status.YES))
+                .fetch();
+    }
+
 
     @Override
     public List<GetBookmarkRes> findByVideoAndUserByFavorite(Long videoId, Long userId) {
