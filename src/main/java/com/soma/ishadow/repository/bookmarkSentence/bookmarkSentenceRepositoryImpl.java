@@ -53,6 +53,7 @@ public class bookmarkSentenceRepositoryImpl extends QuerydslRepositorySupport im
         return queryFactory.select(bookmarkSentence.bookmarkId.groupId)
                 .from(bookmarkSentence)
                 .orderBy(bookmarkSentence.bookmarkId.groupId.desc())
+                .limit(1L)
                 .fetchOne();
     }
 
