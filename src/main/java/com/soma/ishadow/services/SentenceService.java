@@ -46,7 +46,7 @@ public class SentenceService {
         this.bookmarkSentenceRepository = bookmarkSentenceRepository;
     }
 
-    public PostSentenceRes createBookmark(PostSentenceReq postSentenceReq) throws BaseException {
+    public synchronized PostSentenceRes createBookmark(PostSentenceReq postSentenceReq) throws BaseException {
 
         Long groupId = getGroupId();
         logger.info("groupId: " + groupId);
@@ -88,8 +88,7 @@ public class SentenceService {
                 .build();
     }
 
-    private synchronized Long getGroupId() {
-        bookmarkCount += 1;
-        return bookmarkCount;
+    private Long getGroupId() {
+        return bookmarkSentenceRepository.findGroupId() + 1;
     }
 }
