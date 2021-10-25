@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.*;
+import static com.soma.ishadow.configures.Constant.PAGE_SIZE;
 
 @Service
 @Transactional(readOnly = true)
@@ -97,12 +98,13 @@ public class VideoProvider {
         Sort.Order order = Sort.Order.desc("videoId");
         Sort sort = Sort.by(order);
 
-        Pageable pageable = PageRequest.of(page - 1, 12, sort);
+        int endPage = findVideoByCount() / PAGE_SIZE;
+        endPage = Math.min(endPage, page);
+        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, sort);
         logger.info(pageable.getPageNumber() + " " + pageable.getPageSize());
         Page<Video> videoByPage = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
         List<Video> videos = videoByPage.getContent();
         logger.info(String.valueOf(videos.size()));
-        logger.info(videos.size() + "test1");
         logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd + " " + videoByPage.getTotalPages());
 
         parameterCheck(videos, levelStart, levelEnd);
@@ -116,6 +118,10 @@ public class VideoProvider {
                 .videoList(getVideoRes)
                 .build();
         //throw new BaseException()
+    }
+
+    private int findVideoByCount() {
+        return videoRepository.findAll().size();
     }
 
     private List<GetVideoRes> convertGetVideoRes(List<Video> videos, Category category) {
