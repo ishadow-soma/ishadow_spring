@@ -8,6 +8,9 @@ import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user_video.QUserVideo;
 import com.soma.ishadow.domains.video.QVideo;
 import com.soma.ishadow.domains.video.Video;
+import com.soma.ishadow.providers.VideoProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +26,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
 
     private final JPAQueryFactory queryFactory;
     private final EntityManager em;
+    private final Logger logger = LoggerFactory.getLogger(VideoRepositoryImpl.class);
 
     public VideoRepositoryImpl(JPAQueryFactory queryFactory, EntityManager em) {
         super(Video.class);
@@ -88,7 +92,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
-
+        logger.info(result.getOffset() + " " +  result.getLimit());
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 }
