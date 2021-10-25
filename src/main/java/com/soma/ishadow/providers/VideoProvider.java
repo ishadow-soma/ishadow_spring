@@ -97,8 +97,8 @@ public class VideoProvider {
         Sort.Order order = Sort.Order.desc("videoId");
         Sort sort = Sort.by(order);
 
-        Pageable pageable = PageRequest.of(page - 1, 6, sort);
-
+        Pageable pageable = PageRequest.of(page - 1, 12, sort);
+        logger.info(pageable.getPageNumber() + " " + pageable.getPageSize());
         Page<Video> videos = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
 
         logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd);
