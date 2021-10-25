@@ -1,6 +1,7 @@
 package com.soma.ishadow.repository.video;
 
 import com.soma.ishadow.domains.video.Video;
+import com.soma.ishadow.responses.GetVideoRes;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,6 @@ public interface VideoRepository extends JpaRepository<Video, Long> , VideoRepos
     Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable);
 
     int findVideoByCount(Long categoryId, float levelStart, float levelEnd);
+
+    List<GetVideoRes> findByCategoryAndLevelByRecommend(Long categoryId, float lowLevel, float highLevel);
 }

@@ -1,6 +1,7 @@
 package com.soma.ishadow.repository.video;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soma.ishadow.domains.category_video.QCategoryVideo;
@@ -9,6 +10,8 @@ import com.soma.ishadow.domains.user_video.QUserVideo;
 import com.soma.ishadow.domains.video.QVideo;
 import com.soma.ishadow.domains.video.Video;
 import com.soma.ishadow.providers.VideoProvider;
+import com.soma.ishadow.responses.GetVideoRes;
+import com.soma.ishadow.responses.YoutubeVideo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -104,5 +107,26 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
                 .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoLevel.between(levelStart, levelEnd))
                 .fetchCount();
+    }
+
+    @Override
+    public List<GetVideoRes> findByCategoryAndLevelByRecommend(Long categoryId, float lowLevel, float highLevel) {
+        QVideo video = QVideo.video;
+        QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
+        return queryFactory.select(
+                Projections.constructor(GetVideoRes.class,
+                        video.videoId,
+                        video.videoName,
+                        video.videoURL,
+                        video.thumbNailURL,
+                        video.videoLevel,
+                        categoryVideo.category.categoryId,
+                        categoryVideo.category.categoryName))
+                .from(video)
+                .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
+                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoLevel.between(lowLevel, highLevel))
+                .orderBy(video.videoId.desc())
+                .fetch();
+
     }
 }

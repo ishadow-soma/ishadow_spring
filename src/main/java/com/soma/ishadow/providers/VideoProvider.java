@@ -82,6 +82,19 @@ public class VideoProvider {
                 .build();
     }
 
+    public List<GetVideoRes> getVideoByRecommend(Long categoryId, float level) {
+
+        float highLevel = (float) (level + 1.0);
+        highLevel = highLevel > 5 ? 5 : highLevel;
+        float lowLevel = (float) (level - 1.0);
+        lowLevel = lowLevel < 0 ? 0 : lowLevel;
+        return findVideoByCategoryAndLevel(categoryId, lowLevel, highLevel);
+    }
+
+    private List<GetVideoRes> findVideoByCategoryAndLevel(Long categoryId, float lowLevel, float highLevel) {
+        return videoRepository.findByCategoryAndLevelByRecommend(categoryId, lowLevel, highLevel);
+    }
+
     private List<GetSentenceEnRes> findSentenceEnByVideoId(Long videoId) throws BaseException {
         return sentenceEnProvider.findSentenceEnByVideoId(videoId).stream()
                 .map(sentenceEn -> GetSentenceEnRes.builder()
@@ -171,5 +184,4 @@ public class VideoProvider {
             throw new BaseException(FAILED_TO_GET_VIDEO);
         }
     }
-
 }

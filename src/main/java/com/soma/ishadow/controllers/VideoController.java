@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import static com.soma.ishadow.configures.BaseResponseStatus.EXCEED_CONVERSION_COUNT;
 
@@ -135,6 +136,16 @@ public class VideoController {
     }
 
 
+    @ApiOperation(value = "영상 추천 서비스 8개 제공", notes = "level은 +- 오차 1 만큼 제공")
+    @GetMapping("/media/recommend")
+    public BaseResponse<List<GetVideoRes>> getVideosByRecommendation(
+            @RequestParam(value = "categoryId",required = false, defaultValue = "20") Long categoryId,
+            @RequestParam(value = "level",required = false, defaultValue = "3.0") float level
+    ) {
+        return BaseResponse.succeed(videoProvider.getVideoByRecommend(categoryId, level));
+    }
+
+
     @ApiOperation(value = "쉐도잉 영상 정보 가져오기",notes = "videoEvaluation가 true라면 영상의 난이도가 평가된 것" +
             "-> true면 난이도 평가 X, false라면 90% 이상일 경우 난이도 평가하는 팝업 띄우기")
     @GetMapping("/shadowing-player")
@@ -148,6 +159,8 @@ public class VideoController {
             return BaseResponse.failed(exception.getStatus());
         }
     }
+
+
 
 
 }
