@@ -89,10 +89,10 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
         QueryResults<Video> result = queryFactory.selectFrom(video)
                 .innerJoin(categoryVideo).on(categoryVideo.category.categoryId.eq(categoryId))
                 .where(video.status.eq(Status.YES), video.videoLevel.between(levelStart, levelEnd))
+                .orderBy(video.videoId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
-        logger.info(result.getOffset() + " " +  result.getLimit());
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 }
