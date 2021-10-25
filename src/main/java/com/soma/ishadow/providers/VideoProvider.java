@@ -99,10 +99,10 @@ public class VideoProvider {
 
         Pageable pageable = PageRequest.of(page - 1, 12, sort);
         logger.info(pageable.getPageNumber() + " " + pageable.getPageSize());
-        Page<Video> videos = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
-        List<Video> videoList = videos.getContent();
-        logger.info(String.valueOf(videoList.size()));
-        logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd + " " + videos.getTotalPages());
+        Page<Video> videoByPage = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
+        List<Video> videos = videoByPage.getContent();
+        logger.info(String.valueOf(videos.size()));
+        logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd + " " + videoByPage.getTotalPages());
 
         parameterCheck(videos, levelStart, levelEnd);
 
@@ -110,14 +110,14 @@ public class VideoProvider {
         List<GetVideoRes> getVideoRes = convertGetVideoRes(videos, category);
         return GetVideosRes.builder()
                 .pageStartNumber(1)
-                .pageEndNumber(videos.getTotalPages())
+                .pageEndNumber(videoByPage.getTotalPages())
                 .currentPageNumber(page)
                 .videoList(getVideoRes)
                 .build();
         //throw new BaseException()
     }
 
-    private List<GetVideoRes> convertGetVideoRes(Page<Video> videos, Category category) {
+    private List<GetVideoRes> convertGetVideoRes(List<Video> videos, Category category) {
         return videos.stream().map(video -> GetVideoRes.builder()
                 .videoId(video.getVideoId())
                 .videoName(video.getVideoName())
@@ -154,7 +154,7 @@ public class VideoProvider {
         return userVideoRepository.findUploadVideoByUserId(userId);
     }
 
-    private void parameterCheck(Page<Video> videos, float levelStart, float levelEnd) throws BaseException {
+    private void parameterCheck(List<Video> videos, float levelStart, float levelEnd) throws BaseException {
 
         if(levelStart < 0 && levelStart > 5 && levelEnd < 0 && levelEnd > 5) {
             throw new BaseException(INVALID_LEVEL);
