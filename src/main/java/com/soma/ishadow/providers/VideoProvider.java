@@ -98,7 +98,7 @@ public class VideoProvider {
         Sort.Order order = Sort.Order.desc("videoId");
         Sort sort = Sort.by(order);
 
-        int endPage = findVideoByCount() / PAGE_SIZE + 1;
+        int endPage = findVideoByCount(categoryId, levelStart, levelEnd) / PAGE_SIZE + 1;
         page = Math.min(endPage, page);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, sort);
         logger.info(pageable.getPageNumber() + " " + pageable.getPageSize());
@@ -120,10 +120,8 @@ public class VideoProvider {
         //throw new BaseException()
     }
 
-    private int findVideoByCount() {
-        int count = videoRepository.findAll().size();
-        logger.info("videoCount : " + count);
-        return count;
+    private int findVideoByCount(Long categoryId, float levelStart, float levelEnd) {
+        return videoRepository.findVideoByCount(categoryId, levelStart, levelEnd);
     }
 
     private List<GetVideoRes> convertGetVideoRes(List<Video> videos, Category category) {

@@ -95,4 +95,14 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .fetchResults();
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
+
+    @Override
+    public int findVideoByCount(Long categoryId, float levelStart, float levelEnd) {
+        QVideo video = QVideo.video;
+        QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
+        return (int) queryFactory.selectFrom(video)
+                .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
+                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoLevel.between(levelStart, levelEnd))
+                .fetchCount();
+    }
 }
