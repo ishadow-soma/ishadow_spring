@@ -121,7 +121,9 @@ public class VideoProvider {
     }
 
     private int findVideoByCount() {
-        return videoRepository.findAll().size();
+        int count = videoRepository.findAll().size();
+        logger.info("videoCount : " + count);
+        return count;
     }
 
     private List<GetVideoRes> convertGetVideoRes(List<Video> videos, Category category) {
