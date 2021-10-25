@@ -69,8 +69,8 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
         QVideo video = QVideo.video;
         QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
         QueryResults<Video> result = queryFactory.selectFrom(video)
-                .innerJoin(categoryVideo).on(categoryVideo.category.categoryId.eq(categoryId))
-                .where(video.status.eq(Status.YES))
+                .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
+                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
