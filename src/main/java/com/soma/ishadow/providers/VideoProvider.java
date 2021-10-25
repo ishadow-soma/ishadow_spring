@@ -98,8 +98,8 @@ public class VideoProvider {
         Sort.Order order = Sort.Order.desc("videoId");
         Sort sort = Sort.by(order);
 
-        int endPage = findVideoByCount() / PAGE_SIZE;
-        endPage = Math.min(endPage, page);
+        int endPage = findVideoByCount() / PAGE_SIZE + 1;
+        page = Math.min(endPage, page);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, sort);
         logger.info(pageable.getPageNumber() + " " + pageable.getPageSize());
         Page<Video> videoByPage = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
