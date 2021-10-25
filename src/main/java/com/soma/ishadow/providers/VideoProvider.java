@@ -102,6 +102,7 @@ public class VideoProvider {
         Page<Video> videoByPage = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
         List<Video> videos = videoByPage.getContent();
         logger.info(String.valueOf(videos.size()));
+        logger.info(videos.size() + "test1");
         logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd + " " + videoByPage.getTotalPages());
 
         parameterCheck(videos, levelStart, levelEnd);
