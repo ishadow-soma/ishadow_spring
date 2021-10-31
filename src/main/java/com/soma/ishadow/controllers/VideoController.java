@@ -120,11 +120,11 @@ public class VideoController {
     //TODO 유사한 난이도 영상 조회 (카테고리 별, 난이도 별) -> 10개씩
     @ApiOperation(value = "영상 조회 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리",
             notes =
-                    "categoryId 1 ~ 20" +
-                    "videoType 0은 일반 사용자 변환 영상, 1은 기본 컨텐츠" +
-                    "levelStart 난이도 시작 0.0 ~ 5.0" +
-                    "levelEnd 난이도 끝 0.0 ~ 5.0" +
-                    "page default 1"
+                    "categoryId 1 ~ 20\n" +
+                    "videoType 0은 일반 사용자 변환 영상, 1은 기본 컨텐츠\n" +
+                    "levelStart 난이도 시작 0.0 ~ 5.0 default는 0\n" +
+                    "levelEnd 난이도 끝 0.0 ~ 5.0 default는 5\n" +
+                    "page default 1\n"
     )
     @GetMapping("/media")
     public BaseResponse<GetVideosRes> getVideos(
@@ -165,6 +165,27 @@ public class VideoController {
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());
         }
+    }
+
+    @ApiOperation(value = "기본 컨텐츠 영상 올리기", notes =
+            "title은 유튜브 영상 제목\n" +
+            "file은 스크립트 파일\n" +
+            "type은 YOUTUBE\n" +
+            "categoryId는 1,2,8,20 -> 이런식으로 복수개 가능\n" +
+            "youtube url은 YOUTUBE 영상 url\n"
+    )
+    @PostMapping(value = "/admin/video", consumes = {
+            MediaType.MULTIPART_FORM_DATA_VALUE,
+            MediaType.APPLICATION_JSON_VALUE
+    })
+    public BaseResponse<PostVideoRes> createVideo(
+            @ModelAttribute PostVideoReq postVideoReq,
+            @RequestParam(value = "title", required = true) String title,
+            @RequestPart(value = "file",required = false) MultipartFile file
+    ) throws BaseException, IOException {
+
+            return BaseResponse.succeed(videoService.createContent(postVideoReq, file,title));
+
     }
 
 

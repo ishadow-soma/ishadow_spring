@@ -167,4 +167,20 @@ public class SentenceEn implements Serializable {
             return new SentenceEn(sentenceId, video, content, startTime, endTime, speaker, confidence, createdAt, updateAt, status);
         }
     }
+
+    @Override
+    public String toString() {
+        return "SentenceEn{" +
+                "sentenceId=" + sentenceId +
+                ", video=" + video +
+                ", content='" + content + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", speaker='" + speaker + '\'' +
+                ", confidence='" + confidence + '\'' +
+                ", createdAt=" + createdAt +
+                ", updateAt=" + updateAt +
+                ", status=" + status +
+                '}';
+    }
 }

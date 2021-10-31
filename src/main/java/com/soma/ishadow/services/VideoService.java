@@ -31,6 +31,7 @@ import com.soma.ishadow.requests.PostVideoReq;
 import com.soma.ishadow.responses.PostVideoLevelRes;
 import com.soma.ishadow.responses.PostVideoRes;
 import com.soma.ishadow.utils.S3Util;
+import org.apache.commons.io.IOUtils;
 import org.jcodec.api.FrameGrab;
 import org.jcodec.api.JCodecException;
 import org.jcodec.common.model.Picture;
@@ -55,6 +56,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -107,6 +109,7 @@ public class VideoService {
         this.URLRepository = urlRepository;
         this.convertorRepository = convertorRepository;
     }
+
 
     /**
      * 영상 업로드
@@ -266,6 +269,64 @@ public class VideoService {
         convertorRepository.remove(userId);
         return new PostVideoRes(updatedVideo.getVideoId(), title, url);
 
+    }
+
+    public PostVideoRes createContent(PostVideoReq postVideoReq, MultipartFile file,String title) throws BaseException, IOException {
+
+        Long userId = jwtService.getUserInfo();
+        User user = userService.findById(userId);
+        if(!user.getEmail().equals("admin")) {
+            throw new BaseException(INVALID_ACCESS);
+        }
+        List<Long> categoryId = postVideoReq.getCategoryId();
+        if(!categoryId.contains(20L)) categoryId.add(20L);
+        logger.info(String.valueOf(categoryId));
+        String url = postVideoReq.getYoutubeURL();
+        String thumbNail = "";
+        ByteArrayInputStream stream = new   ByteArrayInputStream(file.getBytes());
+        String sentences = IOUtils.toString(stream, StandardCharsets.UTF_8);
+        sentences = sentences.replaceAll(",",".").replaceAll(" --> ","-->");
+        String[] tempSentences = sentences.split("\r\n\r\n");
+
+        Video newVideo = createVideo(postVideoReq, thumbNail);
+        newVideo.setVideoName(title);
+        //video DB에 저장
+        Video createdVideo = saveVideo(newVideo);
+        logger.info("영상 저장 성공: " + createdVideo.getVideoId());
+
+        //categoryId 저장하기
+        saveCategoryVideo(categoryId, createdVideo);
+        logger.info("카테고리 영상 조인 테이블 저장 성공");
+
+        for(int i = 0; i < tempSentences.length; i++) {
+
+
+            String[] tempSentence = tempSentences[i].split("\n");
+            String[] times = tempSentence[1].split("-->");
+            String startTime = times[0];
+            String endTime = times[1];
+            StringBuilder content = new StringBuilder();
+            for(int j = 2; j < tempSentence.length; j++) {
+                content.append(tempSentence[j]);
+            }
+
+            SentenceEn sentenceEn = createSentenceEn(createdVideo, content.toString(), startTime, endTime);
+            try {
+                sentenceEnRepository.save(sentenceEn);
+            } catch (Exception exception) {
+                throw new BaseException(FAILED_TO_POST_SENTENCE);
+            }
+        }
+
+
+        Video updatedVideo = saveVideo(createdVideo);
+        logger.info("영상 제목 저장 성공: " + updatedVideo.getVideoId());
+
+        //videoId를 이용해서 user_video에 저장하기
+        UserVideo userVideo = saveUserVideo(user, updatedVideo);
+        logger.info("영상 유저 조인 테이블 저장 성공: " + userVideo.getUserVideoId().toString());
+
+        return new PostVideoRes(updatedVideo.getVideoId(), title, url);
     }
 
 
@@ -542,6 +603,7 @@ public class VideoService {
                 .videoURL(url)
                 .videoLevel(0F)
                 .videoLevelCount(0)
+                .videoChannel(1)
                 .videoEvaluation(false)
                 .thumbNailURL(thumbnailURL)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
@@ -607,8 +669,5 @@ public class VideoService {
         Date time = convertorRepository.get(userId);
         return current.getTime() - time.getTime() <= 30000;
     }
-
-
-
 }
 
