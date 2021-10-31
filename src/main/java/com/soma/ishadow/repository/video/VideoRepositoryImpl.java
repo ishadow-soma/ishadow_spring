@@ -86,12 +86,15 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
     }
 
     @Override
-    public Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable) {
+    public Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, int videoType, Pageable pageable) {
         QVideo video = QVideo.video;
         QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
         QueryResults<Video> result = queryFactory.selectFrom(video)
                 .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
-                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoLevel.between(levelStart, levelEnd))
+                .where(categoryVideo.category.categoryId.eq(categoryId)
+                        ,video.videoChannel.eq(videoType)
+                        ,video.status.eq(Status.YES)
+                        ,video.videoLevel.between(levelStart, levelEnd))
                 .orderBy(video.videoId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -100,12 +103,15 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
     }
 
     @Override
-    public int findVideoByCount(Long categoryId, float levelStart, float levelEnd) {
+    public int findVideoByCount(Long categoryId, float levelStart, float levelEnd, int videoType) {
         QVideo video = QVideo.video;
         QCategoryVideo categoryVideo = QCategoryVideo.categoryVideo;
         return (int) queryFactory.selectFrom(video)
                 .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
-                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoLevel.between(levelStart, levelEnd))
+                .where(categoryVideo.category.categoryId.eq(categoryId)
+                        ,video.videoChannel.eq(videoType)
+                        ,video.status.eq(Status.YES)
+                        ,video.videoLevel.between(levelStart, levelEnd))
                 .fetchCount();
     }
 

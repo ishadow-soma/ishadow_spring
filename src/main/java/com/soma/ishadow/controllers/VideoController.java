@@ -118,25 +118,32 @@ public class VideoController {
     }
 
     //TODO 유사한 난이도 영상 조회 (카테고리 별, 난이도 별) -> 10개씩
-    @ApiOperation(value = "영상 조회 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리")
+    @ApiOperation(value = "영상 조회 서비스 (카테고리 별, 난이도 별) 12개씩 페이징 처리",
+            notes =
+                    "categoryId 1 ~ 20" +
+                    "videoType 0은 일반 사용자 변환 영상, 1은 기본 컨텐츠" +
+                    "levelStart 난이도 시작 0.0 ~ 5.0" +
+                    "levelEnd 난이도 끝 0.0 ~ 5.0" +
+                    "page default 1"
+    )
     @GetMapping("/media")
     public BaseResponse<GetVideosRes> getVideos(
             @RequestParam(value = "categoryId",required = false, defaultValue = "20") Long categoryId,
+            @RequestParam(value = "videoType",required = false, defaultValue = "0") int videoType,
             @RequestParam(value = "levelStart",required = false, defaultValue = "0.0") float levelStart,
             @RequestParam(value = "levelEnd",required = false, defaultValue = "5.0") float levelEnd,
             @RequestParam(value = "page",required = false, defaultValue = "1") int page
     ) {
 
         try {
-            return BaseResponse.succeed(videoProvider.getVideos(categoryId, levelStart, levelEnd, page));
+            return BaseResponse.succeed(videoProvider.getVideos(categoryId, levelStart, levelEnd, page, videoType));
         } catch (BaseException exception ) {
             return BaseResponse.failed(exception.getStatus());
         }
-
     }
 
 
-    @ApiOperation(value = "영상 추천 서비스 8개 제공", notes = "level은 +- 오차 1 만큼 제공")
+    @ApiOperation(value = "영상 추천 서비스 8개 제공", notes = "level은 +-\n 오차 1 만큼 제공")
     @GetMapping("/media/recommend")
     public BaseResponse<List<GetVideoRes>> getVideosByRecommendation(
             @RequestParam(value = "categoryId",required = false, defaultValue = "20") Long categoryId,

@@ -22,9 +22,9 @@ public interface VideoRepositoryQuerydsl {
 
     Page<Video> findByCategory(Long categoryId, Pageable pageable);
 
-    Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable);
+    Page<Video> findByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, int videoType, Pageable pageable);
 
-    int findVideoByCount(Long categoryId, float levelStart, float levelEnd);
+    int findVideoByCount(Long categoryId, float levelStart, float levelEnd, int videoType);
 
     List<GetVideoRes> findByCategoryAndLevelByRecommend(Long categoryId, float lowLevel, float highLevel);
 }

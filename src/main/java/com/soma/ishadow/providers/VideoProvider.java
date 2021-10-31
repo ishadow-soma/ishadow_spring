@@ -106,16 +106,16 @@ public class VideoProvider {
                 .collect(Collectors.toList());
     }
 
-    public GetVideosRes getVideos(Long categoryId, float levelStart, float levelEnd, int page) throws BaseException {
+    public GetVideosRes getVideos(Long categoryId, float levelStart, float levelEnd, int page, int videoType) throws BaseException {
 
         Sort.Order order = Sort.Order.desc("videoId");
         Sort sort = Sort.by(order);
 
-        int endPage = findVideoByCount(categoryId, levelStart, levelEnd) / PAGE_SIZE + 1;
+        int endPage = findVideoByCount(categoryId, levelStart, levelEnd, videoType) / PAGE_SIZE + 1;
         page = Math.min(endPage, page);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, sort);
         logger.info(pageable.getPageNumber() + " " + pageable.getPageSize());
-        Page<Video> videoByPage = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
+        Page<Video> videoByPage = findVideoByCategoryAndLevel(categoryId, levelStart, levelEnd, videoType, pageable);
         List<Video> videos = videoByPage.getContent();
         logger.info(String.valueOf(videos.size()));
         logger.info("getVideos paramegers :" + categoryId + " " + levelStart + " " + levelEnd + " " + videoByPage.getTotalPages());
@@ -133,8 +133,8 @@ public class VideoProvider {
         //throw new BaseException()
     }
 
-    private int findVideoByCount(Long categoryId, float levelStart, float levelEnd) {
-        return videoRepository.findVideoByCount(categoryId, levelStart, levelEnd);
+    private int findVideoByCount(Long categoryId, float levelStart, float levelEnd, int videoType) {
+        return videoRepository.findVideoByCount(categoryId, levelStart, levelEnd, videoType);
     }
 
     private List<GetVideoRes> convertGetVideoRes(List<Video> videos, Category category) {
@@ -150,8 +150,8 @@ public class VideoProvider {
                 .collect(Collectors.toList());
     }
 
-    private Page<Video> findVideoByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, Pageable pageable) {
-        return videoRepository.findByCategoryAndLevel(categoryId, levelStart, levelEnd, pageable);
+    private Page<Video> findVideoByCategoryAndLevel(Long categoryId, float levelStart, float levelEnd, int videoType, Pageable pageable) {
+        return videoRepository.findByCategoryAndLevel(categoryId, levelStart, levelEnd, videoType, pageable);
     }
 
     private Page<Video> findVideoByCategory(Long categoryId, Pageable pageable) {
