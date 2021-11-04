@@ -49,6 +49,7 @@ public class VideoProvider {
     public GetShadowingRes getShadowing(Long videoId) throws BaseException {
 
         Video video = findVideoById(videoId);
+        logger.info("getShadowing:  " + "videoId: " + videoId + "videotype" + video.getVideoChannel());
         if(video.getVideoChannel() == 0) {
             Long userId = jwtService.getUserInfo();
 
