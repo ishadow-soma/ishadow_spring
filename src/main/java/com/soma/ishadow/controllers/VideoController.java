@@ -188,7 +188,16 @@ public class VideoController {
 
     }
 
+    @ApiOperation(value = "기본 컨텐츠 영상 삭제")
+    @PatchMapping(value = "/admin/video")
+    public BaseResponse<Void> deleteVideo(
+            @RequestParam(value = "videoId") Long videoId
+    ) throws BaseException{
 
+        videoService.deleteVideo(videoId);
+        return BaseResponse.succeed();
+
+    }
 
 
 }

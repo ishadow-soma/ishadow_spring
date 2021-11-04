@@ -301,6 +301,7 @@ public class VideoService {
         for(int i = 0; i < tempSentences.length; i++) {
 
 
+            logger.info(tempSentences[i]);
             String[] tempSentence = tempSentences[i].split("\n");
             String[] times = tempSentence[1].split("-->");
             String startTime = times[0];
@@ -668,6 +669,18 @@ public class VideoService {
         Date current = new Date();
         Date time = convertorRepository.get(userId);
         return current.getTime() - time.getTime() <= 30000;
+    }
+
+    /**
+     * 비디오 삭제
+     * @param videoId
+     * @return
+     */
+    @Transactional
+    public void deleteVideo(Long videoId) throws BaseException {
+
+        Video video = videoProvider.findVideoById(videoId);
+        video.setStatus(Status.NO);
     }
 }
 

@@ -135,4 +135,5 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .fetch();
 
     }
+
 }

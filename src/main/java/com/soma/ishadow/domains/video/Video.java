@@ -112,6 +112,10 @@ public class Video implements Serializable {
         this.status = status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public void setVideoName(String videoName) {
         this.videoName = videoName;
     }

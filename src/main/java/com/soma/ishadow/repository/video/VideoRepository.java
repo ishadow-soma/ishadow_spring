@@ -26,4 +26,5 @@ public interface VideoRepository extends JpaRepository<Video, Long> , VideoRepos
     int findVideoByCount(Long categoryId, float levelStart, float levelEnd, int videoType);
 
     List<GetVideoRes> findByCategoryAndLevelByRecommend(Long categoryId, float lowLevel, float highLevel);
+
 }
