@@ -47,16 +47,20 @@ public class VideoProvider {
 
 
     public GetShadowingRes getShadowing(Long videoId) throws BaseException {
-        Long userId = jwtService.getUserInfo();
 
-        logger.info("getShadowing:  " + "userId: " + userId + "videoId: " + videoId);
-        //해당 유저가 생성한 영상이 없다면 에러 처리
-       if(!userVideoProvider.findByUserVideo(userId, videoId)) {
-            throw new BaseException(FAILED_TO_GET_USERVIDEO);
+        Video video = findVideoById(videoId);
+        if(video.getVideoChannel() == 0) {
+            Long userId = jwtService.getUserInfo();
+
+            logger.info("getShadowing:  " + "userId: " + userId + "videoId: " + videoId);
+            //해당 유저가 생성한 영상이 없다면 에러 처리
+            if (!userVideoProvider.findByUserVideo(userId, videoId)) {
+                throw new BaseException(FAILED_TO_GET_USERVIDEO);
+            }
         }
 
        //videoId를 이용해서 audioInformation 불러오기
-        Video video = findVideoById(videoId);
+
         List<GetSentenceEnRes> sentenceEns = findSentenceEnByVideoId(video.getVideoId());
 
         GetShadowingRes getShadowingRes = createShadowing(video);
