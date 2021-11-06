@@ -121,8 +121,10 @@ public class UserProvider {
         logger.info("getMyRoom: YoutubeSuccess - " + "userId: " + userId);
         getMyroomRes.addUploadVideos(videoProvider.findUploadVideoByUserId(userId));
         logger.info("getMyRoom: UploadSuccess - " + "userId: " + userId);
-        //getMyroomRes.addUploadAudios();
+        getMyroomRes.addUploadAudios(videoProvider.findUploadAudioByUserId(userId));
+        logger.info("getMyRoom: AudioSuccess - " + "userId: " + userId);
         return getMyroomRes;
+
     }
 
 }

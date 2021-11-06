@@ -142,6 +142,7 @@ public class VideoService {
         logger.info(String.valueOf(categoryId));
         String url = postVideoReq.getYoutubeURL();
         String thumbNail = "";
+        String fileFormat = "NONE";
         File videoFile = null;
 
         if (type == null || !(type.equals("UPLOAD") || type.equals("YOUTUBE"))) {
@@ -157,7 +158,7 @@ public class VideoService {
             }
 
             logger.info(userId + ": " + video.getOriginalFilename());
-            String fileFormat = Objects.requireNonNull(video.getOriginalFilename()).toLowerCase();
+            fileFormat = Objects.requireNonNull(video.getOriginalFilename()).toLowerCase();
             if(fileFormat.endsWith(".mp4")) {
                 fileFormat = "mp4";
             }
@@ -236,8 +237,7 @@ public class VideoService {
             }
         }
 
-
-        Video newVideo = createVideo(postVideoReq, thumbNail);
+        Video newVideo = createVideo(postVideoReq, thumbNail, fileFormat);
         //video DB에 저장
         Video createdVideo = saveVideo(newVideo);
         logger.info("영상 저장 성공: " + createdVideo.getVideoId());
@@ -288,7 +288,7 @@ public class VideoService {
         sentences = sentences.replaceAll(",",".").replaceAll(" --> ","-->");
         String[] tempSentences = sentences.split("\r\n\r\n");
 
-        Video newVideo = createVideo(postVideoReq, thumbNail);
+        Video newVideo = createVideo(postVideoReq, thumbNail, "NONE");
         newVideo.setVideoName(title);
         //video DB에 저장
         Video createdVideo = saveVideo(newVideo);
@@ -594,9 +594,10 @@ public class VideoService {
         return newFile;
     }
 
-    private Video createVideo(PostVideoReq postVideoReq, String thumbNail) {
+    private Video createVideo(PostVideoReq postVideoReq, String thumbNail, String fileFormat) {
         String url = postVideoReq.getYoutubeURL();
         String thumbnailURL = postVideoReq.getType().equals("YOUTUBE") ? getThumbNailURL(url) : thumbNail;
+        int videoFormat = fileFormat.equals("NONE") ? 0 : 1;
         String type = postVideoReq.getType().toLowerCase();
         logger.info(type);
         return new Video.Builder()
@@ -604,6 +605,7 @@ public class VideoService {
                 .videoURL(url)
                 .videoLevel(0F)
                 .videoLevelCount(0)
+                .videoSampling(videoFormat)
                 .videoChannel(1)
                 .videoEvaluation(false)
                 .thumbNailURL(thumbnailURL)

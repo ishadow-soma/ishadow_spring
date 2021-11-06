@@ -6,6 +6,7 @@ import com.soma.ishadow.domains.enums.Status;
 import com.soma.ishadow.domains.user_video.QUserVideo;
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.video.QVideo;
+import com.soma.ishadow.responses.UploadAudio;
 import com.soma.ishadow.responses.UploadVideo;
 import com.soma.ishadow.responses.YoutubeVideo;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -65,7 +66,21 @@ public class UserVideoRepositoryImpl extends QuerydslRepositorySupport implement
                 .join(video)
                 .on(userVideo.video.videoId.eq(video.videoId))
                 .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType)
-                .having(userVideo.user.userId.eq(userId), video.videoType.eq("UPLOAD"))
+                .having(userVideo.user.userId.eq(userId), video.videoType.eq("UPLOAD"), video.videoSampling.eq(0))
+                .orderBy(userVideo.video.createdAt.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<UploadAudio> findUploadAudioByUserId(Long userId) {
+        QUserVideo userVideo = QUserVideo.userVideo;
+        QVideo video = QVideo.video;
+        return queryFactory.select(Projections.constructor(UploadAudio.class, video.videoId, video.videoName))
+                .from(userVideo)
+                .join(video)
+                .on(userVideo.video.videoId.eq(video.videoId))
+                .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType)
+                .having(userVideo.user.userId.eq(userId), video.videoType.eq("UPLOAD"), video.videoSampling.eq(1))
                 .orderBy(userVideo.video.createdAt.desc())
                 .fetch();
     }

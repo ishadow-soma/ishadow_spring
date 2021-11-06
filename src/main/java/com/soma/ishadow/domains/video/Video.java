@@ -198,6 +198,11 @@ public class Video implements Serializable {
             return this;
         }
 
+        public Builder videoSampling(int videoSampling) {
+            this.videoSampling = videoSampling;
+            return this;
+        }
+
         public Builder videoCapacity(Long videoCapacity) {
             this.videoCapacity = videoCapacity;
             return this;

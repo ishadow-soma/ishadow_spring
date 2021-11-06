@@ -2,6 +2,7 @@ package com.soma.ishadow.repository.user_video;
 
 import com.soma.ishadow.domains.user_video.UserVideo;
 import com.soma.ishadow.domains.video.Video;
+import com.soma.ishadow.responses.UploadAudio;
 import com.soma.ishadow.responses.UploadVideo;
 import com.soma.ishadow.responses.YoutubeVideo;
 
@@ -17,4 +18,6 @@ public interface UserVideoRepositoryQuerydsl {
     List<YoutubeVideo> findYoutubeVideoByUserId(Long userId);
 
     List<UploadVideo> findUploadVideoByUserId(Long userId);
+
+    List<UploadAudio> findUploadAudioByUserId(Long userId);
 }

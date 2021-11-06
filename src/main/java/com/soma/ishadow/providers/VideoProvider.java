@@ -189,4 +189,8 @@ public class VideoProvider {
             throw new BaseException(FAILED_TO_GET_VIDEO);
         }
     }
+
+    public List<UploadAudio> findUploadAudioByUserId(Long userId) {
+        return userVideoRepository.findUploadAudioByUserId(userId);
+    }
 }
