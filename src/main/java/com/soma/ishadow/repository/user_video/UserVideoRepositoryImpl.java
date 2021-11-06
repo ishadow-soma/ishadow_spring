@@ -65,7 +65,7 @@ public class UserVideoRepositoryImpl extends QuerydslRepositorySupport implement
                 .from(userVideo)
                 .join(video)
                 .on(userVideo.video.videoId.eq(video.videoId))
-                .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType)
+                .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType, video.videoSampling)
                 .having(userVideo.user.userId.eq(userId), video.videoType.eq("UPLOAD"), video.videoSampling.eq(0))
                 .orderBy(userVideo.video.createdAt.desc())
                 .fetch();
@@ -79,7 +79,7 @@ public class UserVideoRepositoryImpl extends QuerydslRepositorySupport implement
                 .from(userVideo)
                 .join(video)
                 .on(userVideo.video.videoId.eq(video.videoId))
-                .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType)
+                .groupBy(userVideo.video.videoId, userVideo.user.userId, video.videoType, video.videoSampling)
                 .having(userVideo.user.userId.eq(userId), video.videoType.eq("UPLOAD"), video.videoSampling.eq(1))
                 .orderBy(userVideo.video.createdAt.desc())
                 .fetch();
