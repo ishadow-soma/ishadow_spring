@@ -57,7 +57,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
         QUserVideo userVideo = QUserVideo.userVideo;
         return queryFactory.selectFrom(video)
                 .innerJoin(userVideo).on(userVideo.video.videoId.eq(video.videoId))
-                .having(userVideo.user.userId.eq(userId),video.videoType.eq("YOUTUBE"), video.status.eq(Status.YES))
+                .having(userVideo.user.userId.eq(userId),video.videoType.eq("YOUTUBE"), video.videoSampling.eq(0), video.status.eq(Status.YES))
                 .fetch();
     }
 
@@ -67,7 +67,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
         QUserVideo userVideo = QUserVideo.userVideo;
         return queryFactory.selectFrom(video)
                 .innerJoin(userVideo).on(userVideo.video.videoId.eq(video.videoId))
-                .having(userVideo.user.userId.eq(userId),video.videoType.eq("UPLOAD"), video.status.eq(Status.YES))
+                .having(userVideo.user.userId.eq(userId),video.videoType.eq("UPLOAD"), video.videoSampling.eq(0),video.status.eq(Status.YES))
                 .fetch();
     }
 
@@ -94,6 +94,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .where(categoryVideo.category.categoryId.eq(categoryId)
                         ,video.videoChannel.eq(videoType)
                         ,video.status.eq(Status.YES)
+                        ,video.videoSampling.eq(0)
                         ,video.videoLevel.between(levelStart, levelEnd))
                 .orderBy(video.videoId.desc())
                 .offset(pageable.getOffset())
@@ -111,6 +112,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                 .where(categoryVideo.category.categoryId.eq(categoryId)
                         ,video.videoChannel.eq(videoType)
                         ,video.status.eq(Status.YES)
+                        ,video.videoSampling.eq(0)
                         ,video.videoLevel.between(levelStart, levelEnd))
                 .fetchCount();
     }
@@ -130,7 +132,7 @@ public class VideoRepositoryImpl extends QuerydslRepositorySupport implements Vi
                         categoryVideo.category.categoryName))
                 .from(video)
                 .innerJoin(categoryVideo).on(video.videoId.eq(categoryVideo.categoryVideoId.videoId))
-                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoLevel.between(lowLevel, highLevel))
+                .where(categoryVideo.category.categoryId.eq(categoryId),video.status.eq(Status.YES), video.videoSampling.eq(0),video.videoLevel.between(lowLevel, highLevel))
                 .orderBy(video.videoId.desc())
                 .fetch();
 
