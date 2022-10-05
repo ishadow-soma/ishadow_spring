@@ -1,16 +1,17 @@
 # Getting Started
 
-Local   
+## Local   
     Local Execution   
-    - gradlew build   
-    - cd ./build/libs   
-    - java - jar ishadow-0.0.1-SNAPSHOT.jar --spring.profiles.active=local   
+        gradlew build   
+        cd ./build/libs   
+        java - jar ishadow-0.0.1-SNAPSHOT.jar --spring.profiles.active=local   
+        
     Local Swagger        
-    - http://localhost:9000/swagger-ui.html#/
+        http://localhost:9000/swagger-ui.html#/
 
 Prod    
-    - https://ishadow.kr    
-    - https://subdomain.ishadow.kr/swagger-ui.html#/
+    https://ishadow.kr    
+    https://subdomain.ishadow.kr/swagger-ui.html#/
 
 ### Reference Documentation
 
