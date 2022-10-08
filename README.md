@@ -1,6 +1,8 @@
-# Getting Started
+# Ishadow : 사용자 맞춤 섀도잉 영상 제작 및 학습 서비스
 
 ![ishadow](https://user-images.githubusercontent.com/47744119/194694308-6430de01-f76a-4f23-8e85-de08090b030a.gif)
+
+# Getting Started
 
 ## Local   
     Local Execution   
